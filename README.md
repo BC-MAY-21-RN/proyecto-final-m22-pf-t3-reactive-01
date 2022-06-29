@@ -67,9 +67,9 @@
 - [Ver el plan de ejecución](https://docs.google.com/spreadsheets/d/1V2kyB29hNsPqpHWT8fI7E6ks3DD5nXkNs51KUA_tlvY/edit?usp=sharing)
 
 ## Diseño de UI
-> Instrucciones: *inserta el enlace a el diseño de UI de tu proyecto. Asegúrate de que todos tengan permisos para el acceso.*
+> El diseño UI de esta aplicación fue desarrollado en uizard.io 
 
-- [Ver diseño de UI]
+- [Ver diseño de UI](https://app.uizard.io/p/42006174)
 
 ## Recursos
 
