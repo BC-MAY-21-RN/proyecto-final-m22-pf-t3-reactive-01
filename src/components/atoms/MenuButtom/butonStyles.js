@@ -6,6 +6,9 @@ const butonStyles = StyleSheet.create({
     flexDirection: 'row',
     padding: 10,
     marginTop: 10,
+    marginBottom: 15,
+    backgroundColor: '#0016FF',
+    borderRadius: 15,
   },
   title: {
     fontSize: 20,
@@ -13,9 +16,6 @@ const butonStyles = StyleSheet.create({
     color: 'white',
     left: 15,
     bottom: 5,
-  },
-  header: {
-    alignItems: 'center',
   },
 });
 

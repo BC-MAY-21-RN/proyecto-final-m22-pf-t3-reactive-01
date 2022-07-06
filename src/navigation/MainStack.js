@@ -10,8 +10,7 @@ import Compras from '../screens/Compras';
 import Favoritos from '../screens/Favoritos';
 import Cuenta from '../screens/Cuenta';
 import Carrito from '../screens/Carrito';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {Text, View} from 'react-native';
+import {Text, View, Image} from 'react-native';
 import MenuStyles from './MenuStyles';
 import MenuButtom from '../components/atoms/MenuButtom';
 
@@ -25,6 +24,7 @@ const MainStack = () => {
         screenOptions={{
           swipeEnabled: false,
           headerTitleStyle: {color: 'white', fontSize: 25, fontWeight: 'bold'},
+          headerTintColor: '#FFF443',
           headerStyle: {backgroundColor: '#0016FF'},
         }}
         drawerContent={props => <MenuItems {...props} />}>
@@ -54,8 +54,16 @@ const MenuItems = ({navigation}) => {
   return (
     <DrawerContentScrollView style={MenuStyles.container}>
       <View style={MenuStyles.header}>
-        <Text style={MenuStyles.title}>Mi menu</Text>
-        <Icon name="user-circle-o" size={50} color="white" />
+        <Image
+          source={{
+            uri: 'https://www.freeiconspng.com/thumbs/retail-store-icon/retail-store-icon-6.png',
+          }}
+          style={{height: 80, width: 80}}
+        />
+        <View style={MenuStyles.columna}>
+          <Text style={MenuStyles.title}> Bright Shop </Text>
+          <Text style={MenuStyles.subtitle}> Username </Text>
+        </View>
       </View>
       <View style={MenuStyles.content}>
         <MenuButtom
