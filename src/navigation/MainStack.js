@@ -1,5 +1,8 @@
 import * as React from 'react';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
 import Register from '../screens/Register';
 import Home from '../screens/Home';
@@ -7,7 +10,10 @@ import Compras from '../screens/Compras';
 import Favoritos from '../screens/Favoritos';
 import Cuenta from '../screens/Cuenta';
 import Carrito from '../screens/Carrito';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {Text, View} from 'react-native';
+import MenuStyles from './MenuStyles';
+import MenuButtom from '../components/atoms/MenuButtom';
 
 const Drawer = createDrawerNavigator();
 
@@ -16,13 +22,12 @@ const MainStack = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator
-        drawerPosition="left"
-        drawerType="front"
         screenOptions={{
           swipeEnabled: false,
           headerTitleStyle: {color: 'white', fontSize: 25, fontWeight: 'bold'},
           headerStyle: {backgroundColor: '#0016FF'},
-        }}>
+        }}
+        drawerContent={props => <MenuItems {...props} />}>
         {isSigned ? (
           <>
             <Drawer.Screen
@@ -33,19 +38,7 @@ const MainStack = () => {
           </>
         ) : (
           <>
-            <Drawer.Screen
-              name="Home"
-              component={Home}
-              options={{
-                drawerIcon: ({focused}) => (
-                  <FontAwesome5
-                    name="btc"
-                    size={focused ? 25 : 20}
-                    color="#900"
-                  />
-                ),
-              }}
-            />
+            <Drawer.Screen name="Home" component={Home} />
             <Drawer.Screen name="Compras" component={Compras} />
             <Drawer.Screen name="Favoritos" component={Favoritos} />
             <Drawer.Screen name="Cuenta" component={Cuenta} />
@@ -54,6 +47,44 @@ const MainStack = () => {
         )}
       </Drawer.Navigator>
     </NavigationContainer>
+  );
+};
+
+const MenuItems = ({navigation}) => {
+  return (
+    <DrawerContentScrollView style={MenuStyles.container}>
+      <View style={MenuStyles.header}>
+        <Text style={MenuStyles.title}>Mi menu</Text>
+        <Icon name="user-circle-o" size={50} color="white" />
+      </View>
+      <View style={MenuStyles.content}>
+        <MenuButtom
+          text="Home"
+          name="home"
+          onPress={() => navigation.navigate('Home')}
+        />
+        <MenuButtom
+          text="Compras"
+          name="shopping-bag"
+          onPress={() => navigation.navigate('Compras')}
+        />
+        <MenuButtom
+          text="Favoritos"
+          name="heart"
+          onPress={() => navigation.navigate('Favoritos')}
+        />
+        <MenuButtom
+          text="Cuenta"
+          name="user"
+          onPress={() => navigation.navigate('Cuenta')}
+        />
+        <MenuButtom
+          text="Carrito"
+          name="shopping-cart"
+          onPress={() => navigation.navigate('Carrito')}
+        />
+      </View>
+    </DrawerContentScrollView>
   );
 };
 
