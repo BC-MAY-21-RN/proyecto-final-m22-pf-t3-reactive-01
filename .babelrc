@@ -1,0 +1,10 @@
+{
+    "plugins": [
+      ["module:react-native-dotenv", {
+        "envName": "API_URL",
+        "moduleName": "@env",
+        "path": ".env",
+        "safe": true
+        }]
+    ]
+}

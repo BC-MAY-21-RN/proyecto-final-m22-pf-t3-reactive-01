@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "353297871625",
+    "project_id": "proyectofinalbrightshop",
+    "storage_bucket": "proyectofinalbrightshop.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:353297871625:android:e92b61a0d76eb0e3e819d8",
+        "android_client_info": {
+          "package_name": "com.proyectofinal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "353297871625-6h5jn9fpv96qljjl05mabs6ep9ivgahe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.proyectofinal",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "353297871625-2i9vuj0ug7ffprako7t5d97g51djpbul.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_ygOY4SY_JozS-5nzyAroTLvU0DcdFBE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "353297871625-2i9vuj0ug7ffprako7t5d97g51djpbul.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
