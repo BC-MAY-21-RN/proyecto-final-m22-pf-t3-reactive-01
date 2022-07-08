@@ -2,9 +2,15 @@
 
 # Bright Shop
 
+## Sprint Leader
+
+| Sprint 1 | Sprint 2 | Sprint 3 | Sprint 4 | Sprint 5 | Sprint 6 | Sprint 7 | Sprint 8 |
+|---|---|---|---|---|---|---|---|
+| Luis |
+
 ## Descripción
 
-> Bright Shop  es una aplicación para dispositivos android y ios que tiene como objetivo realizar comercio electrónico (también conocido como e-commerce, comercio por Internet o comercio en línea) consiste en la compra y venta de productos o de servicios a través de internet desde la comodidad de tu dispositivo móvil.
+Bright Shop  es una aplicación para dispositivos android y ios que tiene como objetivo realizar comercio electrónico (también conocido como e-commerce, comercio por Internet o comercio en línea) consiste en la compra y venta de productos o de servicios a través de internet desde la comodidad de tu dispositivo móvil.
 
 ## Requerimientos funcionales
 
