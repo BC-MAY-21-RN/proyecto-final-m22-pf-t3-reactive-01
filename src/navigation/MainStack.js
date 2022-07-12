@@ -20,11 +20,10 @@ import {getUserInfo} from '../auth/authFirestore';
 const Drawer = createDrawerNavigator();
 
 const MainStack = () => {
-  const current = auth().currentUser;
   return (
     <NavigationContainer>
       <Drawer.Navigator
-        initialRouteName={current ? 'Home' : 'Register'}
+        initialRouteName={auth().currentUser ? 'Home' : 'Register'}
         screenOptions={{
           swipeEnabled: false,
           headerTitleStyle: {color: 'white', fontSize: 25, fontWeight: 'bold'},

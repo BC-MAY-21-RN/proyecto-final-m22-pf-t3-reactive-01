@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, ScrollView, Pressable} from 'react-native';
 import {useFormik} from 'formik';
-import RegisterStyle from './RegisterStyle';
+import {RegisterStyle} from './styles';
 import * as Yup from 'yup';
 import useBusyIndicator from '../components/atoms/register/BusyIndicator';
 import Input from '../components/atoms/register/Input';

@@ -57,8 +57,10 @@ export const getUserInfo = async (currentUser, setUserInfo) => {
     .where('uid', '==', currentUser.uid)
     .get()
     .then(querySnapshot => {
-      querySnapshot.forEach(documentSnapshot => {
-        setUserInfo(documentSnapshot.data());
-      });
+      querySnapshot
+        .forEach(documentSnapshot => {
+          setUserInfo(documentSnapshot.data());
+        })
+        .catch(console.log('No se encontro el usuario'));
     });
 };
