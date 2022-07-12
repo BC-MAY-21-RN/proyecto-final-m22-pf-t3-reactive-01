@@ -10,17 +10,21 @@ import Compras from '../screens/Compras';
 import Favoritos from '../screens/Favoritos';
 import Cuenta from '../screens/Cuenta';
 import Carrito from '../screens/Carrito';
+import Products from '../screens/Products';
 import {Text, View, Image} from 'react-native';
 import MenuStyles from './MenuStyles';
 import MenuButtom from '../components/atoms/MenuButtom';
+import auth from '@react-native-firebase/auth';
+import {getUserInfo} from '../auth/authFirestore';
 
 const Drawer = createDrawerNavigator();
 
 const MainStack = () => {
-  const isSigned = false;
+  const current = auth().currentUser;
   return (
     <NavigationContainer>
       <Drawer.Navigator
+        initialRouteName={current ? 'Home' : 'Register'}
         screenOptions={{
           swipeEnabled: false,
           headerTitleStyle: {color: 'white', fontSize: 25, fontWeight: 'bold'},
@@ -28,29 +32,35 @@ const MainStack = () => {
           headerStyle: {backgroundColor: '#0016FF'},
         }}
         drawerContent={props => <MenuItems {...props} />}>
-        {isSigned ? (
-          <>
-            <Drawer.Screen
-              name="Register"
-              component={Register}
-              options={{headerShown: false}}
-            />
-          </>
-        ) : (
-          <>
-            <Drawer.Screen name="Home" component={Home} />
-            <Drawer.Screen name="Compras" component={Compras} />
-            <Drawer.Screen name="Favoritos" component={Favoritos} />
-            <Drawer.Screen name="Cuenta" component={Cuenta} />
-            <Drawer.Screen name="Carrito" component={Carrito} />
-          </>
-        )}
+        <Drawer.Screen
+          name="Register"
+          component={Register}
+          options={{headerShown: false}}
+        />
+        <Drawer.Screen name="Home" component={Home} />
+        <Drawer.Screen name="Shopping" component={Compras} />
+        <Drawer.Screen name="Favourites" component={Favoritos} />
+        <Drawer.Screen name="Account" component={Cuenta} />
+        <Drawer.Screen name="Cart" component={Carrito} />
+        <Drawer.Screen name="Products" component={Products} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
 };
 
 const MenuItems = ({navigation}) => {
+  const handleLogout = async () => {
+    await auth().signOut();
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'Register'}],
+    });
+  };
+  const current = auth().currentUser;
+  const [userInfo, setUserInfo] = React.useState('');
+  React.useEffect(() => {
+    getUserInfo(current, setUserInfo);
+  }, [current]);
   return (
     <DrawerContentScrollView style={MenuStyles.container}>
       <View style={MenuStyles.header}>
@@ -62,7 +72,10 @@ const MenuItems = ({navigation}) => {
         />
         <View style={MenuStyles.columna}>
           <Text style={MenuStyles.title}> Bright Shop </Text>
-          <Text style={MenuStyles.subtitle}> Username </Text>
+          <Text style={MenuStyles.subtitle}>
+            {' '}
+            {userInfo ? userInfo.firstname : 'username'}{' '}
+          </Text>
         </View>
       </View>
       <View style={MenuStyles.content}>
@@ -71,26 +84,34 @@ const MenuItems = ({navigation}) => {
           name="home"
           onPress={() => navigation.navigate('Home')}
         />
+        {userInfo.usertype === 'seller' ? (
+          <MenuButtom
+            text="New product"
+            name="plus"
+            onPress={() => navigation.navigate('Products')}
+          />
+        ) : null}
         <MenuButtom
-          text="Compras"
+          text="Shopping"
           name="shopping-bag"
-          onPress={() => navigation.navigate('Compras')}
+          onPress={() => navigation.navigate('Shopping')}
         />
         <MenuButtom
-          text="Favoritos"
+          text="Favourites"
           name="heart"
-          onPress={() => navigation.navigate('Favoritos')}
+          onPress={() => navigation.navigate('Favourites')}
         />
         <MenuButtom
-          text="Cuenta"
+          text="Account"
           name="user"
-          onPress={() => navigation.navigate('Cuenta')}
+          onPress={() => navigation.navigate('Account')}
         />
         <MenuButtom
-          text="Carrito"
+          text="Cart"
           name="shopping-cart"
-          onPress={() => navigation.navigate('Carrito')}
+          onPress={() => navigation.navigate('Cart')}
         />
+        <MenuButtom text="Log Out" name="sign-out-alt" onPress={handleLogout} />
       </View>
     </DrawerContentScrollView>
   );

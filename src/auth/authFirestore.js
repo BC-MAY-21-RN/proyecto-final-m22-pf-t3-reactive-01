@@ -50,3 +50,15 @@ export const addUserInfo = async (
     })
     .catch(error => console.log(error));
 };
+
+export const getUserInfo = async (currentUser, setUserInfo) => {
+  await firestore()
+    .collection('Users')
+    .where('uid', '==', currentUser.uid)
+    .get()
+    .then(querySnapshot => {
+      querySnapshot.forEach(documentSnapshot => {
+        setUserInfo(documentSnapshot.data());
+      });
+    });
+};
