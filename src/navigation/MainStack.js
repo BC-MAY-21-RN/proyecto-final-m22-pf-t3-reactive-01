@@ -58,7 +58,9 @@ const MenuItems = ({navigation}) => {
   const current = auth().currentUser;
   const [userInfo, setUserInfo] = React.useState('');
   React.useEffect(() => {
-    getUserInfo(current, setUserInfo);
+    if (current !== undefined) {
+      getUserInfo(current, setUserInfo);
+    }
   }, [current]);
   return (
     <DrawerContentScrollView style={MenuStyles.container}>

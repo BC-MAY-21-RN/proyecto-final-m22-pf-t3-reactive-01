@@ -10,7 +10,7 @@ const InputContainer = props => {
     value,
     keyboardType,
     maxLength,
-    multiLine,
+    multiline,
     numberOfLines,
     disabled,
   } = props;
@@ -25,7 +25,7 @@ const InputContainer = props => {
         keyboardType={keyboardType}
         value={value}
         maxLength={maxLength}
-        multiLine={multiLine}
+        multiline={multiline}
         numberOfLines={numberOfLines}
         editable={!disabled}
         selectTextOnFocus={!disabled}

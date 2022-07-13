@@ -3,6 +3,7 @@ import {View, Text, Button} from 'react-native';
 import InputContainer from '../components/atoms/TextInput';
 import CustomButton from '../components/atoms/register/CustomButton';
 import {ProductsStyles} from './styles';
+import {addProduct} from '../auth/authFirestore';
 
 const Products = ({navigation}) => {
   const [name, setName] = useState('');
@@ -30,12 +31,16 @@ const Products = ({navigation}) => {
         keyboardType="numeric"
         onChangeText={a => setPrice(a)}
       />
-      <InputContainer styles={ProductsStyles.input} placeholder="Condition" />
+      <InputContainer
+        styles={ProductsStyles.input}
+        placeholder="Condition"
+        onChangeText={a => setCondition(a)}
+      />
       <InputContainer
         styles={ProductsStyles.textarea}
         placeholder="Description"
         maxLength={200}
-        multiLine={true}
+        multiline={true}
         onChangeText={a => setDescription(a)}
       />
       <InputContainer
@@ -44,7 +49,12 @@ const Products = ({navigation}) => {
         keyboardType="numeric"
         onChangeText={a => setStock(a)}
       />
-      <CustomButton title="Add Product" onPress={() => console.log('hola')} />
+      <CustomButton
+        title="Add Product"
+        onPress={() => {
+          addProduct(name, category, price, condition, description, stock);
+        }}
+      />
     </View>
   );
 };
