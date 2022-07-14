@@ -11,6 +11,7 @@ import Favoritos from '../screens/Favoritos';
 import Cuenta from '../screens/Cuenta';
 import Carrito from '../screens/Carrito';
 import Products from '../screens/Products';
+import MyProducts from '../screens/MyProducts';
 import {Text, View, Image} from 'react-native';
 import MenuStyles from './MenuStyles';
 import MenuButtom from '../components/atoms/MenuButtom';
@@ -42,6 +43,7 @@ const MainStack = () => {
         <Drawer.Screen name="Account" component={Cuenta} />
         <Drawer.Screen name="Cart" component={Carrito} />
         <Drawer.Screen name="Products" component={Products} />
+        <Drawer.Screen name="Manage" component={MyProducts} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
@@ -86,33 +88,45 @@ const MenuItems = ({navigation}) => {
           onPress={() => navigation.navigate('Home')}
         />
         {userInfo.usertype === 'seller' ? (
-          <MenuButtom
-            text="New product"
-            name="plus"
-            onPress={() => navigation.navigate('Products')}
-          />
-        ) : null}
-        <MenuButtom
-          text="Shopping"
-          name="shopping-bag"
-          onPress={() => navigation.navigate('Shopping')}
-        />
-        <MenuButtom
-          text="Favourites"
-          name="heart"
-          onPress={() => navigation.navigate('Favourites')}
-        />
+          <View>
+            <Text style={MenuStyles.title}> ==== Seller Options ==== </Text>
+            <MenuButtom
+              text="New product"
+              name="plus"
+              onPress={() => navigation.navigate('Products')}
+            />
+            <MenuButtom
+              text="Manage my products"
+              name="gears"
+              onPress={() => navigation.navigate('Manage')}
+            />
+          </View>
+        ) : (
+          <View>
+            <Text style={MenuStyles.title}> ==== Seller Options ==== </Text>
+            <MenuButtom
+              text="Shopping"
+              name="shopping-bag"
+              onPress={() => navigation.navigate('Shopping')}
+            />
+            <MenuButtom
+              text="Favourites"
+              name="heart"
+              onPress={() => navigation.navigate('Favourites')}
+            />
+            <MenuButtom
+              text="Cart"
+              name="shopping-cart"
+              onPress={() => navigation.navigate('Cart')}
+            />
+          </View>
+        )}
         <MenuButtom
           text="Account"
           name="user"
           onPress={() => navigation.navigate('Account')}
         />
-        <MenuButtom
-          text="Cart"
-          name="shopping-cart"
-          onPress={() => navigation.navigate('Cart')}
-        />
-        <MenuButtom text="Log Out" name="sign-out-alt" onPress={handleLogout} />
+        <MenuButtom text="Log Out" name="sign-out" onPress={handleLogout} />
       </View>
     </DrawerContentScrollView>
   );

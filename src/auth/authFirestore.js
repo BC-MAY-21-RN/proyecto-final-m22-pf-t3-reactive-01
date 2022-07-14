@@ -66,8 +66,8 @@ export const getUserInfo = async (currentUser, setUserInfo) => {
 
 export const addProduct = async (
   name,
-  price,
   category,
+  price,
   condition,
   description,
   stock,
