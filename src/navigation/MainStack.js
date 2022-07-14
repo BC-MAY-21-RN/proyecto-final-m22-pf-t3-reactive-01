@@ -27,9 +27,7 @@ const MainStack = () => {
         initialRouteName={auth().currentUser ? 'Home' : 'Register'}
         screenOptions={{
           swipeEnabled: false,
-          headerTitleStyle: {color: 'white', fontSize: 25, fontWeight: 'bold'},
-          headerTintColor: '#FFF443',
-          headerStyle: {backgroundColor: '#0016FF'},
+          headerShown: false,
         }}
         drawerContent={props => <MenuItems {...props} />}>
         <Drawer.Screen
@@ -71,7 +69,7 @@ const MenuItems = ({navigation}) => {
           source={{
             uri: 'https://www.freeiconspng.com/thumbs/retail-store-icon/retail-store-icon-6.png',
           }}
-          style={{height: 80, width: 80}}
+          style={{height: 100, width: 100}}
         />
         <View style={MenuStyles.columna}>
           <Text style={MenuStyles.title}> Bright Shop </Text>
@@ -89,7 +87,9 @@ const MenuItems = ({navigation}) => {
         />
         {userInfo.usertype === 'seller' ? (
           <View>
-            <Text style={MenuStyles.title}> ==== Seller Options ==== </Text>
+            <View style={MenuStyles.otheroptions}>
+              <Text style={MenuStyles.division}>Seller Options</Text>
+            </View>
             <MenuButtom
               text="New product"
               name="plus"
@@ -103,7 +103,9 @@ const MenuItems = ({navigation}) => {
           </View>
         ) : (
           <View>
-            <Text style={MenuStyles.title}> ==== Seller Options ==== </Text>
+            <View style={MenuStyles.otheroptions}>
+              <Text style={MenuStyles.division}>User Options</Text>
+            </View>
             <MenuButtom
               text="Shopping"
               name="shopping-bag"
@@ -121,6 +123,9 @@ const MenuItems = ({navigation}) => {
             />
           </View>
         )}
+        <View style={MenuStyles.otheroptions}>
+          <Text style={MenuStyles.division}>Account Options</Text>
+        </View>
         <MenuButtom
           text="Account"
           name="user"

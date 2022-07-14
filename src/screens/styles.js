@@ -32,7 +32,6 @@ export const RegisterStyle = StyleSheet.create({
 export const ProductsStyles = StyleSheet.create({
   container: {
     padding: 15,
-    flex: 1,
     alignItems: 'center',
   },
   input: {

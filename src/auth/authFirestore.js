@@ -61,7 +61,7 @@ export const getUserInfo = async (currentUser, setUserInfo) => {
         setUserInfo(documentSnapshot.data());
       });
     })
-    .catch(error => console.log(error));
+    .catch(ersror => console.log(error));
 };
 
 export const addProduct = async (
@@ -87,5 +87,5 @@ export const addProduct = async (
     .then(() => {
       alert('The product has been added successfully!');
     })
-    .catch(error => console.log(error));
+    .catch();
 };

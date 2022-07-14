@@ -3,6 +3,7 @@ import {View, Text, Button} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import VerticalList from '../components/atoms/VerticalList';
+import Header from '../components/atoms/Header';
 
 const MyProducts = ({navigation}) => {
   const [products, setProducts] = useState([]);
@@ -23,6 +24,7 @@ const MyProducts = ({navigation}) => {
   }, [navigation]);
   return (
     <View>
+      <Header name="My products" navigation={navigation} />
       <VerticalList data={products} />
     </View>
   );
