@@ -27,9 +27,7 @@ const MainStack = () => {
         initialRouteName={auth().currentUser ? 'Home' : 'Register'}
         screenOptions={{
           swipeEnabled: false,
-          headerTitleStyle: {color: 'white', fontSize: 25, fontWeight: 'bold'},
-          headerTintColor: '#FFF443',
-          headerStyle: {backgroundColor: '#0016FF'},
+          headerShown: false,
         }}
         drawerContent={props => <MenuItems {...props} />}>
         <Drawer.Screen
