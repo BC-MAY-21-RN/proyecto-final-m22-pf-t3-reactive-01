@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import colors from '../constants/colors';
-const RegisterStyle = StyleSheet.create({
+export const RegisterStyle = StyleSheet.create({
   container: {
     backgroundColor: colors.background,
   },
@@ -28,5 +28,3 @@ const RegisterStyle = StyleSheet.create({
     paddingHorizontal: 50,
   },
 });
-
-export default RegisterStyle;
