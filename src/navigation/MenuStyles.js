@@ -3,32 +3,47 @@ import {StyleSheet} from 'react-native';
 
 const MenuStyles = StyleSheet.create({
   container: {
-    backgroundColor: '#4C5BF7',
+    backgroundColor: '#F8F0F0',
   },
   title: {
     fontSize: 20,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: 'black',
+    color: 'white',
     marginBottom: 10,
+  },
+  subtitle: {
+    color: 'white',
+    fontSize: 15,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#4C5BF7',
     marginBottom: 10,
     paddingTop: 25,
-    height: 120,
+    height: 150,
     bottom: 5,
-  },
-  content: {
-    padding: 15,
   },
   columna: {
     flexDirection: 'column',
     justifyContent: 'center',
     paddingLeft: 15,
     bottom: 15,
+  },
+  otheroptions: {
+    borderTopColor: '#B4B4AC',
+    borderTopWidth: 1,
+    borderBottomColor: '#B4B4AC',
+    borderBottomWidth: 1,
+    padding: 10,
+  },
+  division: {
+    fontSize: 15,
+    textAlign: 'center',
+    fontStyle: 'italic',
+    fontWeight: 'bold',
+    color: '#B4B4AC',
   },
 });
 

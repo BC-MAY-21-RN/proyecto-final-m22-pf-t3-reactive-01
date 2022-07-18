@@ -4,16 +4,12 @@ import {StyleSheet} from 'react-native';
 const butonStyles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    padding: 10,
-    marginTop: 10,
-    marginBottom: 15,
-    backgroundColor: '#0016FF',
-    borderRadius: 15,
+    padding: 20,
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#4C5458',
     left: 15,
     bottom: 5,
   },

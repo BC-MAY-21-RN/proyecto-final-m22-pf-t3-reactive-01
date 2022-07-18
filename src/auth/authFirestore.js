@@ -50,3 +50,42 @@ export const addUserInfo = async (
     })
     .catch(error => console.log(error));
 };
+
+export const getUserInfo = async (currentUser, setUserInfo) => {
+  await firestore()
+    .collection('Users')
+    .where('uid', '==', currentUser.uid)
+    .get()
+    .then(querySnapshot => {
+      querySnapshot.forEach(documentSnapshot => {
+        setUserInfo(documentSnapshot.data());
+      });
+    })
+    .catch(error => console.log(error));
+};
+
+export const addProduct = async (
+  name,
+  category,
+  price,
+  condition,
+  description,
+  stock,
+) => {
+  const current = await auth().currentUser.uid;
+  await firestore()
+    .collection('Products')
+    .add({
+      name: name,
+      category: category,
+      price: parseFloat(price),
+      condition: condition,
+      description: description,
+      stock: parseInt(stock),
+      uid: current,
+    })
+    .then(() => {
+      alert('The product has been added successfully!');
+    })
+    .catch();
+};

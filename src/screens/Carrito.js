@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, FlatList, SafeAreaView, Image} from 'react-native';
 import {useCart, cartTotal, cartQuantity} from '../utils/cart';
 import CounterInput from '../components/atoms/CounterInput';
-import {CarritoStyle} from './Style';
+import {CarritoStyle} from './Styles';
 import shallow from 'zustand/shallow';
 import BtnIcon from '../components/atoms/btnIcon';
 import CustomButton from '../components/atoms/register/CustomButton';

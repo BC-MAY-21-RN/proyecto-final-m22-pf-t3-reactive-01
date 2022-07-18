@@ -157,3 +157,33 @@ export const CarritoStyle = StyleSheet.create({
     color: colors.TXT_PRIMARY_COLOR,
   },
 });
+
+export const ProductsStyles = StyleSheet.create({
+  container: {
+    padding: 15,
+    alignItems: 'center',
+  },
+  input: {
+    height: 50,
+    width: 300,
+    marginTop: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    borderColor: 'blue',
+    borderWidth: 1,
+    padding: 10,
+    fontSize: 20,
+  },
+  textarea: {
+    height: 150,
+    width: 300,
+    textAlignVertical: 'top',
+    marginTop: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    borderColor: 'blue',
+    borderWidth: 1,
+    padding: 10,
+    fontSize: 20,
+  },
+});
