@@ -4,34 +4,35 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const cartQuantity = cart => {
   let quantity = 0;
-  for (let i = 0; i < cart.length; i++) {
-    quantity += cart[i].quantity;
-  }
+  cart.forEach(item => {
+    quantity += item.quantity;
+  });
   return quantity;
 };
 
 export const cartTotal = cart => {
   let Suma = 0;
-  for (let i = 0; i < cart.length; i++) {
-    Suma += cart[i].price * cart[i].quantity;
-  }
+  cart.forEach(item => {
+    Suma += item.price * item.quantity;
+  });
   return Suma;
 };
 
-export const useCart1 = create(
+export const useCart = create(
   persist(
     set => ({
-      cart: {},
-      addItem: ({id, name, price, imageRef}) => {
+      cart: [],
+      addItem: item => {
         set(state => {
-          const cart = {...state.cart};
+          const cart = [...state.cart];
+          const {id, name, price, imageRef} = item;
           let include = false;
-          for (let i = 0; i < cart.length; i++) {
-            if (cart[i].id === id) {
-              cart[i].quantity += 1;
+          cart.forEach(item => {
+            if (item.id === id) {
+              item.quantity += 1;
               include = true;
             }
-          }
+          });
           if (!include) {
             cart.push({
               id,
@@ -46,28 +47,27 @@ export const useCart1 = create(
       },
       removeItem: id => {
         set(state => {
-          const cart = {...state.cart};
-          for (let i = 0; i < cart.length; i++) {
-            if (cart[i].id === id) {
-              delete cart[i];
+          const cart = state.cart.filter(item => {
+            if (item.id !== id) {
+              return item;
             }
-          }
+          });
           return {cart};
         });
       },
       removeQuantity: id => {
         set(state => {
-          const cart = {...state.cart};
-          for (let i = 0; i < cart.length; i++) {
-            if (cart[i].id === id) {
-              const newQuantity = cart[id].quantity - 1;
+          const cart = [...state.cart];
+          cart.forEach(item => {
+            if (item.id === id) {
+              const newQuantity = item.quantity - 1;
               if (newQuantity <= 0) {
                 return {cart};
               } else {
-                cart[id].quantity = newQuantity;
+                item.quantity = newQuantity;
               }
             }
-          }
+          });
           return {cart};
         });
       },

@@ -1,35 +1,32 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-
+import colors from '../../../constants/colors';
 const CounterInputStyles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    padding: 10,
-    paddingVertical: 6,
-    marginTop: 5,
-    width: 110,
-    height: 45,
-    backgroundColor: '#E3E3E7',
-    borderRadius: 15,
-    justifyContent: 'space-around',
+    width: 85,
+    height: 30,
+    borderColor: colors.BTN_PRIMARY_COLOR,
+    borderWidth: 1,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   pressable: {
     width: 30,
-    backgroundColor: '#CBCCCC',
-    borderRadius: 10,
+    height: 34,
+    borderRadius: 6,
     alignItems: 'center',
   },
   pressableTitle: {
-    color: '#0464AC',
-    fontWeight: 'bold',
-    fontSize: 25,
+    color: colors.BTN_DARK_PRIMARY_COLOR,
+    fontSize: 30,
+    top: -5,
+    position: 'absolute',
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'black',
-    marginTop: 2,
-    marginHorizontal: 20,
+    fontSize: 14,
+    color: colors.TXT_PRIMARY_COLOR,
   },
 });
 

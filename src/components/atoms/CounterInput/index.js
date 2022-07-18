@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import CounterInputStyles from './CounterInputStyles';
 import RNBounceable from '@freakycoder/react-native-bounceable';
 
@@ -12,9 +11,7 @@ const Pressable = props => {
       onPress={onPress}
       bounceFriction={2}
       bounceEffect={1.2}>
-      <Text size={20} style={CounterInputStyles.pressableTitle}>
-        {text}
-      </Text>
+      <Text style={CounterInputStyles.pressableTitle}>{text}</Text>
     </RNBounceable>
   );
 };

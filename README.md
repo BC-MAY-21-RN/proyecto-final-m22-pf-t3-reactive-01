@@ -6,7 +6,7 @@
 
 | Sprint 1 | Sprint 2 | Sprint 3 | Sprint 4 | Sprint 5 | Sprint 6 | Sprint 7 | Sprint 8 |
 |---|---|---|---|---|---|---|---|
-| Luis |
+| Luis | Gerardo | Valentin |
 
 ## Descripción
 
@@ -33,8 +33,8 @@ Bright Shop  es una aplicación para dispositivos android y ios que tiene como o
   - [ ] Hacer comentarios en algún producto.
   - [ ] Hacer reseñas (valoración) de los productos que hayan comprado.
   - [ ] Poder Agregar el producto al carrito de compra
-  - [ ] Eliminar productos del carrito
-  - [ ] Cambiar el monto del producto en el carrito 
+  - [x] Eliminar productos del carrito
+  - [x] Cambiar el monto del producto en el carrito 
   - [ ] Comprar un/os producto/s 
   - [ ] Dar like o dislike a las reseñas.
   - [ ] Denunciar productos o vendedores por una publicación o comportamiento inapropiado en contra de las políticas de la aplicación.

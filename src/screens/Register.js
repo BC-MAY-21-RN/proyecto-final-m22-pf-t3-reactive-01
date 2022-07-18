@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, ScrollView, Pressable} from 'react-native';
 import {useFormik} from 'formik';
-import RegisterStyle from './RegisterStyle';
+import RegisterStyle from './Style';
 import * as Yup from 'yup';
 import useBusyIndicator from '../components/atoms/register/BusyIndicator';
 import Input from '../components/atoms/register/Input';
@@ -9,6 +9,7 @@ import Checkbox from '../components/atoms/register/checkbox';
 import {SignIn, logIn} from '../auth/authFirestore';
 import {signInGoogle} from '../auth/authGoogle';
 import CustomButton from '../components/atoms/register/CustomButton';
+
 const LogInSchema = Yup.object().shape({
   name: Yup.string()
     .min(6, 'Too Short!')

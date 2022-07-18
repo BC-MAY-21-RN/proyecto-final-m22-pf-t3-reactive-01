@@ -1,155 +1,144 @@
-import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  Pressable,
-  FlatList,
-  SafeAreaView,
-  Image,
-} from 'react-native';
-import {useCart, cartTotal} from '../utils/cart';
+import React from 'react';
+import {View, Text, FlatList, SafeAreaView, Image} from 'react-native';
+import {useCart, cartTotal, cartQuantity} from '../utils/cart';
 import CounterInput from '../components/atoms/CounterInput';
 import {CarritoStyle} from './Style';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-
-const data = [
-  {
-    id: 0,
-    name: 'HyperX Cloud Stinger',
-    price: 400,
-    quantity: 3,
-    imageRef: 'https://m.media-amazon.com/images/I/51kxIEmO+ZL._AC_SX355_.jpg',
-  },
-  {
-    id: 1,
-    name: 'ODDLOOPS Headphones Gaming Headset',
-    price: 500,
-    quantity: 4,
-    imageRef:
-      'https://images-na.ssl-images-amazon.com/images/I/81ChsKL6BYL.__AC_SX300_SY300_QL70_ML2_.jpg',
-  },
-  {
-    id: 2,
-    name: 'ODDLOOPS Wired Mouse Gamer, 6400 dpi Gaming Mouse con RGB LED',
-    price: 700,
-    quantity: 1,
-    imageRef: 'https://m.media-amazon.com/images/I/41rAaQToa9S._AC_SY580_.jpg',
-  },
-];
-
-/*const useStore = create(set => ({
-  shopingcart: data,
-  increasePopulation: () => set(state => ({shopingcart: state.shopingcart = state})),
-  removeAllBears: () => set({bears: 0}),
-}));*/
-
-const cart = data;
+import shallow from 'zustand/shallow';
+import BtnIcon from '../components/atoms/btnIcon';
+import CustomButton from '../components/atoms/register/CustomButton';
+import {money, moneyUnid} from '../utils/format';
 
 const Carrito = ({navigation}) => {
-  const [carNew, setCartNew] = useState(cart);
-  const SumaTotal = items => {
-    if (items.length > 0) {
-      let Suma = 0;
-      for (let i = 0; i < items.length; i++) {
-        Suma += items[i].price * items[i].quantity;
-      }
-      return Suma;
-    } else {
-      return 0;
-    }
-  };
+  const {cart, clearCart, addItem, removeItem, removeQuantity} = useCart(
+    state => ({
+      cart: state.cart,
+      clearCart: state.clearCart,
+      addItem: state.addItem,
+      removeItem: state.removeItem,
+      removeQuantity: state.removeQuantity,
+    }),
+    shallow,
+  );
+  const isEmpty = cart.length === 0;
 
-  const [sumatotal, setSumatotal] = useState(SumaTotal(cart));
-  const Item = ({id, name, price, imageRef, quantity}) => {
-    const [cantidad, setCantidad] = useState(quantity);
-    const onDecrease = () => {
-      cart[id].quantity = cantidad - 1;
-      setCantidad(cantidad - 1);
-      setSumatotal(SumaTotal(cart));
-      setCartNew(cart);
-    };
-    const onIncrease = () => {
-      cart[id].quantity = cantidad + 1;
-      setCantidad(cantidad + 1);
-      setSumatotal(SumaTotal(cart));
-      setCartNew(cart);
-    };
-
-    const deleteProduct = () => {
-      if (cart.length > 0) {
-        cart.splice(id, 1);
-        setSumatotal(SumaTotal(cart));
-        setCartNew(cart);
-      } else {
-        cart.splice(id, 1);
-        setSumatotal(SumaTotal([]));
-        setCartNew([]);
-      }
-    };
-
-    const totalItem = price * cantidad;
-
+  const renderItem = props => {
+    const {id, name, price, imageRef, quantity} = props.item;
     return (
-      <View style={CarritoStyle.item}>
-        <Image
-          style={CarritoStyle.imageRef}
-          source={{
-            uri: imageRef,
-          }}
-        />
-        <View style={CarritoStyle.containerColumn}>
-          <Text style={CarritoStyle.name}>{name}</Text>
-          <View style={CarritoStyle.containerRow}>
+      <View style={CarritoStyle.Item}>
+        <Image style={CarritoStyle.ItemImage} source={{uri: imageRef}} />
+        <View style={CarritoStyle.ItemContainerColumn}>
+          <Text style={CarritoStyle.ItemName}>{name}</Text>
+          <View style={CarritoStyle.ItemContainerRow}>
             <CounterInput
-              onDecrease={onDecrease}
-              onIncrease={onIncrease}
-              quantity={cantidad}
+              onDecrease={() => removeQuantity(id)}
+              onIncrease={() => addItem(props.item)}
+              quantity={quantity}
             />
-            <Text style={CarritoStyle.price}>${totalItem}</Text>
+            <View style={CarritoStyle.ItemContainerPrice}>
+              <Text style={CarritoStyle.ItemPriceTotal}>
+                {money(price * quantity)}
+              </Text>
+              <Text style={CarritoStyle.ItemPriceUnid}>{moneyUnid(price)}</Text>
+            </View>
+            <BtnIcon
+              name={'trash-o'}
+              size={20}
+              color={'gray'}
+              onPress={() => removeItem(id)}
+            />
           </View>
         </View>
-        <Icon
-          name={'times'}
-          size={20}
-          color={'black'}
-          onPress={() => {
-            deleteProduct();
-          }}
-        />
       </View>
     );
   };
 
-  const renderItem = ({item}) => (
-    <Item
-      id={item.id}
-      name={item.name}
-      price={item.price}
-      imageRef={item.imageRef}
-      quantity={item.quantity}
-    />
-  );
-
   const Separator = () => <View style={CarritoStyle.Separator} />;
 
-  const Footer = ({items}) => (
+  const FooterTotal = ({items}) => (
     <View>
-      <Text>{sumatotal}</Text>
+      <Separator />
+      <View style={CarritoStyle.FootercontainerColumn}>
+        <Text style={[CarritoStyle.FooterText, CarritoStyle.FooterTextBold]}>
+          {cartQuantity(cart)} articulo(s)
+        </Text>
+        <FooterSubText
+          style={CarritoStyle.FooterText}
+          text={'Subtotal'}
+          text2={money(cartTotal(items))}
+        />
+        <FooterSubText
+          style={CarritoStyle.FooterText}
+          text={'Costo de Envio'}
+          text2={money(0) + '.00'}
+        />
+        <FooterSubText
+          style={CarritoStyle.FooterText}
+          text={'Descuento'}
+          text2={money(0) + '.00'}
+        />
+        <FooterSubText
+          style={[CarritoStyle.FooterTitle, CarritoStyle.FooterTextBold]}
+          text={'Total a pagar'}
+          text2={money(cartTotal(items))}
+        />
+      </View>
+    </View>
+  );
+  const FooterSticky = ({items}) => (
+    <View style={CarritoStyle.FooterStickycontainerRow}>
+      <View style={CarritoStyle.FooterStickycontainerColumn}>
+        <Text style={CarritoStyle.FooterStickySubText}>Total:</Text>
+        <Text style={CarritoStyle.FooterStickyTitle}>
+          {money(cartTotal(items))}
+        </Text>
+      </View>
+      <CustomButton
+        style={CarritoStyle.FooterStickyBtn}
+        styleText={CarritoStyle.FooterStickyBtnText}
+        onPress={() => {}}
+        title={'Proceed with the purchase'}
+      />
+    </View>
+  );
+  const FooterSubText = ({text, text2, style}) => (
+    <View style={CarritoStyle.FootercontainerRow}>
+      <Text style={style}>{text}</Text>
+      <Text style={style}> {text2}</Text>
     </View>
   );
 
-  return (
-    <View style={CarritoStyle.container}>
-      <SafeAreaView>
-        <FlatList
-          data={carNew}
-          ItemSeparatorComponent={() => <Separator />}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-          ListFooterComponent={() => <Footer items={carNew} />}
+  if (isEmpty) {
+    return (
+      <View style={CarritoStyle.EmptyContainer}>
+        <Image
+          style={CarritoStyle.EmptyImage}
+          source={require('../assets/img/shopping-cart.png')}
         />
-      </SafeAreaView>
-    </View>
+        <Text style={CarritoStyle.EmptyTitle}>Your Cart is Empty</Text>
+        <Text style={CarritoStyle.EmptySubTitle}>
+          Looks like you haven't add any item to your cart yet
+        </Text>
+        <CustomButton
+          style={CarritoStyle.EmptyBtn}
+          styleText={CarritoStyle.EmptyBtnText}
+          onPress={() => navigation.navigate('Home')}
+          title={'SHOP NOW'}
+        />
+      </View>
+    );
+  }
+
+  return (
+    <SafeAreaView style={CarritoStyle.Maincontainer}>
+      <FlatList
+        data={cart}
+        ItemSeparatorComponent={() => <Separator />}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        ListFooterComponent={() => <FooterTotal items={cart} />}
+      />
+      <FooterSticky items={cart} />
+    </SafeAreaView>
   );
 };
 
