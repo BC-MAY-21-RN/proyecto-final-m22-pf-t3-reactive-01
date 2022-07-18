@@ -61,7 +61,7 @@ export const getUserInfo = async (currentUser, setUserInfo) => {
         setUserInfo(documentSnapshot.data());
       });
     })
-    .catch(ersror => console.log(error));
+    .catch(error => console.log(error));
 };
 
 export const addProduct = async (
@@ -72,7 +72,7 @@ export const addProduct = async (
   description,
   stock,
 ) => {
-  const current = auth().currentUser.uid;
+  const current = await auth().currentUser.uid;
   await firestore()
     .collection('Products')
     .add({
