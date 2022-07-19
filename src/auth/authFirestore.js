@@ -48,7 +48,7 @@ export const addUserInfo = async (
     .then(() => {
       navigation.navigate('Home');
     })
-    .catch(error => console.log(error));
+    .catch();
 };
 
 export const getUserInfo = async (currentUser, setUserInfo) => {
@@ -61,7 +61,7 @@ export const getUserInfo = async (currentUser, setUserInfo) => {
         setUserInfo(documentSnapshot.data());
       });
     })
-    .catch(ersror => console.log(error));
+    .catch();
 };
 
 export const addProduct = async (
@@ -88,4 +88,14 @@ export const addProduct = async (
       alert('The product has been added successfully!');
     })
     .catch();
+};
+
+export const deleteProduct = async (collection, document) => {
+  await firestore()
+    .collection(collection)
+    .doc(document)
+    .delete()
+    .then(() => {
+      alert('Successful removal!');
+    });
 };

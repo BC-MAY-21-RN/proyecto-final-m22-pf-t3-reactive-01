@@ -5,7 +5,7 @@ import SellerItem from '../SellerItem';
 import VerticalStyles from './VerticalStyles';
 
 const VerticalList = props => {
-  const {data, seller} = props;
+  const {data, seller, isModalVisible} = props;
   const renderItem = ({item, index}) => (
     <ListItem
       name={item.name}
@@ -16,6 +16,7 @@ const VerticalList = props => {
   );
   const renderItem2 = ({item, index}) => (
     <SellerItem
+      id={item.documentId}
       name={item.name}
       price={item.price}
       condition={item.condition}

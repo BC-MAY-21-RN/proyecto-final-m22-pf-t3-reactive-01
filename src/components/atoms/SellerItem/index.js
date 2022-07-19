@@ -2,9 +2,11 @@ import React, {useState} from 'react';
 import {View, Text, Pressable, Image, Modal} from 'react-native';
 import IconButton from '../IconButtom';
 import SellerItemStyles from './SellerItemStyles';
+import {deleteProduct} from '../../../auth/authFirestore';
 
 const SellerItem = props => {
-  const {name, price, condition, description} = props;
+  const {name, price, condition, description, id} = props;
+  const [isModalVisible, setModalVisible] = useState(false);
   return (
     <Pressable
       style={SellerItemStyles.container}
@@ -24,24 +26,52 @@ const SellerItem = props => {
         <Text style={SellerItemStyles.price}>${price}</Text>
         <Text style={SellerItemStyles.condition}>{condition}</Text>
       </View>
-      <View>
+      <View style={{marginTop: 10}}>
         <IconButton
           name="edit"
           onPress={() => {
             alert('hola');
           }}
           color="#50B838"
-          size={35}
+          size={30}
         />
         <IconButton
           name="trash"
           onPress={() => {
-            alert('hola');
+            setModalVisible(!isModalVisible);
           }}
           color="#C15050"
-          size={35}
+          size={30}
         />
       </View>
+      <Modal animationType="slide" visible={isModalVisible} transparent>
+        <View style={SellerItemStyles.modalStyle}>
+          <View style={SellerItemStyles.headerModal}>
+            <Text style={SellerItemStyles.text}>
+              Are you sure you want to remove {name} ?
+            </Text>
+          </View>
+          <View style={SellerItemStyles.contentModal}>
+            <IconButton
+              name="check"
+              onPress={() => {
+                deleteProduct('Products', id);
+                setModalVisible(!isModalVisible);
+              }}
+              color="#50B838"
+              size={40}
+            />
+            <IconButton
+              name="close"
+              onPress={() => {
+                setModalVisible(!isModalVisible);
+              }}
+              color="#C15050"
+              size={40}
+            />
+          </View>
+        </View>
+      </Modal>
     </Pressable>
   );
 };

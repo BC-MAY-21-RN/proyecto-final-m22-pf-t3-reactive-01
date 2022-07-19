@@ -18,6 +18,7 @@ const MyProducts = ({navigation}) => {
       .then(querySnapshot => {
         const productsAux = [];
         querySnapshot.forEach(documentSnapshot => {
+          documentSnapshot.data().documentId = documentSnapshot.id;
           productsAux.push(documentSnapshot.data());
         });
         isFocused && setProducts(productsAux);
