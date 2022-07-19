@@ -4,9 +4,11 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import VerticalList from '../components/atoms/VerticalList';
 import Header from '../components/atoms/Header';
+import {useIsFocused} from '@react-navigation/native';
 
 const MyProducts = ({navigation}) => {
   const [products, setProducts] = useState([]);
+  const isFocused = useIsFocused();
   useEffect(() => {
     const current = auth().currentUser.uid;
     firestore()
@@ -18,14 +20,14 @@ const MyProducts = ({navigation}) => {
         querySnapshot.forEach(documentSnapshot => {
           productsAux.push(documentSnapshot.data());
         });
-        setProducts(productsAux);
+        isFocused && setProducts(productsAux);
       })
       .catch(error => console.log(error));
-  }, [navigation]);
+  }, [isFocused]);
   return (
     <View>
       <Header name="My products" navigation={navigation} />
-      <VerticalList data={products} />
+      <VerticalList data={products} seller />
     </View>
   );
 };
