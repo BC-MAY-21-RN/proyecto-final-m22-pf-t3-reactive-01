@@ -1,7 +1,7 @@
 ![BrightCoders Logo](img/logo-bc.png)
 
 # Bright Shop
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/BC-MAY-21-RN/proyecto-final-m22-pf-t3-reactive-01.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/BC-MAY-21-RN/proyecto-final-m22-pf-t3-reactive-01/alerts/)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/BC-MAY-21-RN/proyecto-final-m22-pf-t3-reactive-01.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/BC-MAY-21-RN/proyecto-final-m22-pf-t3-reactive-01/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/BC-MAY-21-RN/proyecto-final-m22-pf-t3-reactive-01.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/BC-MAY-21-RN/proyecto-final-m22-pf-t3-reactive-01/context:javascript)
 
 ## Sprint Leader
 
