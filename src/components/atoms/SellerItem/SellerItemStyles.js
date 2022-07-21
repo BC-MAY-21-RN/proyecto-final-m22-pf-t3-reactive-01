@@ -43,13 +43,13 @@ const SellerItemStyles = StyleSheet.create({
     margin: 20,
     height: 150,
     alignSelf: 'center',
-    backgroundColor: '#4C5BF7',
+    backgroundColor: '#DEE1E4',
     borderRadius: 20,
     padding: 20,
-    shadowColor: '#000',
-    shadowOpacity: 0.25,
+    shadowColor: '#3140C2',
+    shadowOpacity: 1,
     shadowRadius: 4,
-    elevation: 5,
+    elevation: 50,
   },
   headerModal: {
     marginBottom: 10,
@@ -57,7 +57,7 @@ const SellerItemStyles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    color: 'white',
+    color: 'black',
     fontWeight: 'bold',
   },
   contentModal: {

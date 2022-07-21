@@ -28,7 +28,7 @@ const MyProducts = ({navigation}) => {
   return (
     <View>
       <Header name="My products" navigation={navigation} />
-      <VerticalList data={products} seller />
+      <VerticalList data={products} seller navigation={navigation} />
     </View>
   );
 };

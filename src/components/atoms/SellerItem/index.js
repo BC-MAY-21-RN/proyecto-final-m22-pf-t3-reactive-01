@@ -5,7 +5,8 @@ import SellerItemStyles from './SellerItemStyles';
 import {deleteProduct} from '../../../auth/authFirestore';
 
 const SellerItem = props => {
-  const {name, price, condition, description, id} = props;
+  const {name, price, condition, description, id, navigation, category, stock} =
+    props;
   const [isModalVisible, setModalVisible] = useState(false);
   return (
     <Pressable
@@ -30,7 +31,15 @@ const SellerItem = props => {
         <IconButton
           name="edit"
           onPress={() => {
-            alert('hola');
+            navigation.navigate('Products', {
+              documentId: id,
+              name: name,
+              price: price,
+              condition: condition,
+              description: description,
+              category: category,
+              stock: stock,
+            });
           }}
           color="#50B838"
           size={30}
@@ -44,7 +53,7 @@ const SellerItem = props => {
           size={30}
         />
       </View>
-      <Modal animationType="slide" visible={isModalVisible} transparent>
+      <Modal animationType="fade" visible={isModalVisible} transparent>
         <View style={SellerItemStyles.modalStyle}>
           <View style={SellerItemStyles.headerModal}>
             <Text style={SellerItemStyles.text}>

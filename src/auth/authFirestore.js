@@ -90,6 +90,36 @@ export const addProduct = async (
     .catch();
 };
 
+export const editProduct = async (
+  id,
+  name,
+  category,
+  price,
+  condition,
+  description,
+  stock,
+  navigation,
+) => {
+  const current = auth().currentUser.uid;
+  await firestore()
+    .collection('Products')
+    .doc(id)
+    .update({
+      name: name,
+      category: category,
+      price: parseFloat(price),
+      condition: condition,
+      description: description,
+      stock: parseInt(stock),
+      uid: current,
+    })
+    .then(() => {
+      alert('The product has been updated successfully!');
+      navigation.navigate('Manage', {myParam: undefined});
+    })
+    .catch();
+};
+
 export const deleteProduct = async (collection, document) => {
   await firestore()
     .collection(collection)
