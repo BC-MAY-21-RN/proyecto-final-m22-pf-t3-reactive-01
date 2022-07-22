@@ -17,16 +17,15 @@ const Style = StyleSheet.create({
 });
 
 const BtnIcon = ({onPress, styles, ...props}) => {
-  let containerStyles = [Style.container];
+  let CONTAINER_STYLES = [Style.container];
   if (styles) {
-    containerStyles = styles;
+    CONTAINER_STYLES.push(styles);
   }
-  const waitAnimationBounceable = () => {
-    setTimeout(onPress, 50);
-  };
+  const waitAnimationBounceable = () => setTimeout(onPress, 50);
+
   return (
     <RNBounceable
-      style={containerStyles}
+      style={CONTAINER_STYLES}
       onPress={waitAnimationBounceable}
       bounceFriction={2}
       bounceEffect={1.2}>
