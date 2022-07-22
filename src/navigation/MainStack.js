@@ -1,67 +1,78 @@
-import * as React from 'react';
+/* ----- library ----- */
+import React, {useEffect, useState} from 'react';
+import {Text, View, Image} from 'react-native';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
-import Register from '../screens/Register';
+import auth from '@react-native-firebase/auth';
+import {getUserInfo, logout} from '../auth/authFirestore';
+/* ----- screens ----- */
 import Home from '../screens/Home';
-import Compras from '../screens/Compras';
-import Favoritos from '../screens/Favoritos';
 import Cuenta from '../screens/Cuenta';
 import Carrito from '../screens/Carrito';
+import Compras from '../screens/Compras';
 import Products from '../screens/Products';
+import Register from '../screens/Register';
+import Favoritos from '../screens/Favoritos';
 import MyProducts from '../screens/MyProducts';
-import {Text, View, Image} from 'react-native';
+import ProductDetails from '../screens/ProductDetails';
+/* ----- components and styles ----- */
 import MenuStyles from './MenuStyles';
 import MenuButtom from '../components/atoms/MenuButtom';
-import auth from '@react-native-firebase/auth';
-import {getUserInfo} from '../auth/authFirestore';
-
-const Drawer = createDrawerNavigator();
 
 const MainStack = () => {
+  const [user, setUser] = useState();
+  const onAuthStateChanged = userStateChanged => setUser(userStateChanged);
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, []);
+  return user ? Drawer() : Login();
+};
+
+const DrawerStack = createDrawerNavigator();
+const Drawer = () => {
   return (
     <NavigationContainer>
-      <Drawer.Navigator
-        initialRouteName={auth().currentUser ? 'Home' : 'Register'}
-        screenOptions={{
-          swipeEnabled: false,
-          headerShown: false,
-        }}
+      <DrawerStack.Navigator
+        initialRouteName={'Home'}
+        screenOptions={{swipeEnabled: false, headerShown: false}}
         drawerContent={props => <MenuItems {...props} />}>
-        <Drawer.Screen
+        <DrawerStack.Screen name="Home" component={Home} />
+        <DrawerStack.Screen name="Shopping" component={Compras} />
+        <DrawerStack.Screen name="Favourites" component={Favoritos} />
+        <DrawerStack.Screen name="Account" component={Cuenta} />
+        <DrawerStack.Screen name="Cart" component={Carrito} />
+        <DrawerStack.Screen name="Products" component={Products} />
+        <DrawerStack.Screen name="Manage" component={MyProducts} />
+        <DrawerStack.Screen name="ProductDetails" component={ProductDetails} />
+      </DrawerStack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+const LoginStack = createNativeStackNavigator();
+const Login = () => {
+  return (
+    <NavigationContainer>
+      <LoginStack.Navigator>
+        <LoginStack.Screen
           name="Register"
           component={Register}
           options={{headerShown: false}}
         />
-        <Drawer.Screen name="Home" component={Home} />
-        <Drawer.Screen name="Shopping" component={Compras} />
-        <Drawer.Screen name="Favourites" component={Favoritos} />
-        <Drawer.Screen name="Account" component={Cuenta} />
-        <Drawer.Screen name="Cart" component={Carrito} />
-        <Drawer.Screen name="Products" component={Products} />
-        <Drawer.Screen name="Manage" component={MyProducts} />
-      </Drawer.Navigator>
+      </LoginStack.Navigator>
     </NavigationContainer>
   );
 };
 
 const MenuItems = ({navigation}) => {
   const current = auth().currentUser;
-  const [userInfo, setUserInfo] = React.useState('');
-  const handleLogout = async () => {
-    await auth().signOut();
-    navigation.reset({
-      index: 0,
-      routes: [{name: 'Register'}],
-    });
-  };
-  React.useEffect(() => {
-    if (current) {
-      getUserInfo(current, setUserInfo);
-    }
-  }, [current]);
+  const [userInfo, setUserInfo] = useState('');
+  getUserInfo(current, setUserInfo);
   return (
     <DrawerContentScrollView style={MenuStyles.container}>
       <View style={MenuStyles.header}>
@@ -74,8 +85,7 @@ const MenuItems = ({navigation}) => {
         <View style={MenuStyles.columna}>
           <Text style={MenuStyles.title}> Bright Shop </Text>
           <Text style={MenuStyles.subtitle}>
-            {' '}
-            {userInfo ? userInfo.firstname : 'username'}{' '}
+            {userInfo ? ' ' + userInfo.firstname : 'username'}
           </Text>
         </View>
       </View>
@@ -127,11 +137,16 @@ const MenuItems = ({navigation}) => {
           <Text style={MenuStyles.division}>Account Options</Text>
         </View>
         <MenuButtom
+          text="Product Details"
+          name="shopping-cart"
+          onPress={() => navigation.navigate('ProductDetails')}
+        />
+        <MenuButtom
           text="Account"
           name="user"
           onPress={() => navigation.navigate('Account')}
         />
-        <MenuButtom text="Log Out" name="sign-out" onPress={handleLogout} />
+        <MenuButtom text="Log Out" name="sign-out" onPress={logout} />
       </View>
     </DrawerContentScrollView>
   );
