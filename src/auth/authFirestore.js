@@ -1,13 +1,13 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
-export const logIn = async (firstname, check, email, password, navigation) => {
+export const logIn = async (firstname, check, email, password) => {
   await auth()
     .createUserWithEmailAndPassword(email, password)
     .then(() => {
       console.log('User creado');
       const current = auth().currentUser;
-      addUserInfo(firstname, check, email, current.uid, 'client', navigation);
+      addUserInfo(firstname, check, email, current.uid, 'client');
     })
     .catch(err => {
       if (
@@ -19,10 +19,10 @@ export const logIn = async (firstname, check, email, password, navigation) => {
     });
 };
 
-export const SignIn = async (email, password, navigation) => {
+export const SignIn = async (email, password) => {
   await auth()
     .signInWithEmailAndPassword(email, password)
-    .then(() => navigation.navigate('Home'))
+    .then(() => {})
     .catch(error => {
       alert('Usuario y/o contraseña incorrectos');
     });
@@ -34,7 +34,6 @@ export const addUserInfo = async (
   email,
   uid,
   usertype,
-  navigation,
 ) => {
   await firestore()
     .collection('Users')
@@ -45,10 +44,15 @@ export const addUserInfo = async (
       uid: uid,
       usertype: usertype,
     })
-    .then(() => {
-      navigation.navigate('Home');
-    })
+    .then(() => {})
     .catch(error => console.log(error));
+};
+export const logout = async () => {
+  try {
+    await auth().signOut();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const getUserInfo = async (currentUser, setUserInfo) => {
