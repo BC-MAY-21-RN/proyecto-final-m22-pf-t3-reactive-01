@@ -69,8 +69,7 @@ export const CarritoStyle = StyleSheet.create({
     fontSize: 13,
   },
   EmptyContainer: {
-    flex: 1,
-    height: '100%',
+    height: Dimensions.get('screen').height - 150,
     justifyContent: 'center',
   },
   EmptyImage: {
@@ -186,4 +185,40 @@ export const ProductsStyles = StyleSheet.create({
     padding: 10,
     fontSize: 20,
   },
+});
+
+export const ProductDetailsStyles = StyleSheet.create({
+  MainContainer: {
+    flexDirection: 'column',
+    margin: 10,
+  },
+  ImageContainer: {
+    width: '100%',
+    height: 200,
+    backgroundColor: 'red',
+  },
+  viewPropsProduct: {},
+  viewPressablesImage: {},
+  Image: {
+    height: 200,
+    resizeMode: 'stretch',
+  },
+  ImageSocialContainer: {
+    position: 'absolute',
+    flexDirection: 'row',
+    bottom: 0,
+    right: 0,
+  },
+  ImageBtn: {
+    backgroundColor: 'white',
+    borderRadius: 20,
+  },
+  text: {
+    color: 'black',
+  },
+  pressablesImage: {
+    borderRadius: 10,
+  },
+  pressableBuy: {},
+  pressableAddToCart: {},
 });

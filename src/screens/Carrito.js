@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, FlatList, SafeAreaView, Image} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  SafeAreaView,
+  Image,
+  Pressable,
+} from 'react-native';
 import {useCart, cartTotal, cartQuantity} from '../utils/cart';
 import CounterInput from '../components/atoms/CounterInput';
 import {CarritoStyle} from './Styles';
@@ -7,6 +14,7 @@ import shallow from 'zustand/shallow';
 import BtnIcon from '../components/atoms/btnIcon';
 import CustomButton from '../components/atoms/register/CustomButton';
 import {money, moneyUnid} from '../utils/format';
+import Header from '../components/atoms/Header';
 
 const Carrito = ({navigation}) => {
   const {cart, clearCart, addItem, removeItem, removeQuantity} = useCart(
@@ -24,31 +32,38 @@ const Carrito = ({navigation}) => {
   const renderItem = props => {
     const {id, name, price, imageRef, quantity} = props.item;
     return (
-      <View style={CarritoStyle.Item}>
-        <Image style={CarritoStyle.ItemImage} source={{uri: imageRef}} />
-        <View style={CarritoStyle.ItemContainerColumn}>
-          <Text style={CarritoStyle.ItemName}>{name}</Text>
-          <View style={CarritoStyle.ItemContainerRow}>
-            <CounterInput
-              onDecrease={() => removeQuantity(id)}
-              onIncrease={() => addItem(props.item)}
-              quantity={quantity}
-            />
-            <View style={CarritoStyle.ItemContainerPrice}>
-              <Text style={CarritoStyle.ItemPriceTotal}>
-                {money(price * quantity)}
-              </Text>
-              <Text style={CarritoStyle.ItemPriceUnid}>{moneyUnid(price)}</Text>
+      <Pressable
+        onPress={() => {
+          navigation.navigate('ProductExample');
+        }}>
+        <View style={CarritoStyle.Item}>
+          <Image style={CarritoStyle.ItemImage} source={{uri: imageRef}} />
+          <View style={CarritoStyle.ItemContainerColumn}>
+            <Text style={CarritoStyle.ItemName}>{name}</Text>
+            <View style={CarritoStyle.ItemContainerRow}>
+              <CounterInput
+                onDecrease={() => removeQuantity(id)}
+                onIncrease={() => addItem(props.item)}
+                quantity={quantity}
+              />
+              <View style={CarritoStyle.ItemContainerPrice}>
+                <Text style={CarritoStyle.ItemPriceTotal}>
+                  {money(price * quantity)}
+                </Text>
+                <Text style={CarritoStyle.ItemPriceUnid}>
+                  {moneyUnid(price)}
+                </Text>
+              </View>
+              <BtnIcon
+                name={'trash-o'}
+                size={20}
+                color={'gray'}
+                onPress={() => removeItem(id)}
+              />
             </View>
-            <BtnIcon
-              name={'trash-o'}
-              size={20}
-              color={'gray'}
-              onPress={() => removeItem(id)}
-            />
           </View>
         </View>
-      </View>
+      </Pressable>
     );
   };
 
@@ -109,27 +124,38 @@ const Carrito = ({navigation}) => {
 
   if (isEmpty) {
     return (
-      <View style={CarritoStyle.EmptyContainer}>
-        <Image
-          style={CarritoStyle.EmptyImage}
-          source={require('../assets/img/shopping-cart.png')}
-        />
-        <Text style={CarritoStyle.EmptyTitle}>Your Cart is Empty</Text>
-        <Text style={CarritoStyle.EmptySubTitle}>
-          Looks like you haven't add any item to your cart yet
-        </Text>
-        <CustomButton
-          style={CarritoStyle.EmptyBtn}
-          styleText={CarritoStyle.EmptyBtnText}
-          onPress={() => navigation.navigate('Home')}
-          title={'SHOP NOW'}
-        />
-      </View>
+      <SafeAreaView>
+        <Header name="Carrito" navigation={navigation} BackBtn />
+        <View style={CarritoStyle.EmptyContainer}>
+          <Image
+            style={CarritoStyle.EmptyImage}
+            source={require('../assets/img/shopping-cart.png')}
+          />
+          <Text style={CarritoStyle.EmptyTitle}>Your Cart is Empty</Text>
+          <Text style={CarritoStyle.EmptySubTitle}>
+            Looks like you haven't add any item to your cart yet
+          </Text>
+          <CustomButton
+            style={CarritoStyle.EmptyBtn}
+            styleText={CarritoStyle.EmptyBtnText}
+            onPress={() => {
+              navigation.navigate('ProductDetails');
+            }}
+            title={'SHOP NOW'}
+          />
+        </View>
+      </SafeAreaView>
     );
   }
 
   return (
     <SafeAreaView style={CarritoStyle.Maincontainer}>
+      <Header
+        name="Carrito"
+        navigation={navigation}
+        icon={'ellipsis-vertical'}
+        BackBtn
+      />
       <FlatList
         data={cart}
         ItemSeparatorComponent={() => <Separator />}
