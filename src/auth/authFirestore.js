@@ -72,7 +72,7 @@ export const addProduct = async (
   description,
   stock,
 ) => {
-  const current = auth().currentUser.uid;
+  const current = await auth().currentUser.uid;
   await firestore()
     .collection('Products')
     .add({

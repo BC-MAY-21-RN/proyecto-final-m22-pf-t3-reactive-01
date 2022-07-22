@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, Button} from 'react-native';
+import React, {useState} from 'react';
+import {View} from 'react-native';
 import InputContainer from '../components/atoms/TextInput';
 import CustomButton from '../components/atoms/register/CustomButton';
 import {ProductsStyles} from './styles';
 import {editProduct, addProduct} from '../auth/authFirestore';
+
 import Header from '../components/atoms/Header';
 
 const Products = ({route, navigation}) => {

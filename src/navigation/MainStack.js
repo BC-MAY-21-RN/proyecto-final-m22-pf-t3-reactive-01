@@ -48,6 +48,8 @@ const MainStack = () => {
 };
 
 const MenuItems = ({navigation}) => {
+  const current = auth().currentUser;
+  const [userInfo, setUserInfo] = React.useState('');
   const handleLogout = async () => {
     await auth().signOut();
     navigation.reset({
@@ -55,10 +57,8 @@ const MenuItems = ({navigation}) => {
       routes: [{name: 'Register'}],
     });
   };
-  const current = auth().currentUser;
-  const [userInfo, setUserInfo] = React.useState('');
   React.useEffect(() => {
-    if (current !== undefined) {
+    if (current) {
       getUserInfo(current, setUserInfo);
     }
   }, [current]);

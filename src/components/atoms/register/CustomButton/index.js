@@ -1,13 +1,23 @@
 import React from 'react';
-import {TouchableOpacity, Text, Image} from 'react-native';
+import {TouchableOpacity, Text, Image, View} from 'react-native';
 import Styles from './Styles';
 
 const CustomButton = props => {
-  const {title, disabel = false, onPress, google} = props;
+  let {title, style, styleText, disabel = false, onPress, google} = props;
+  const TOUCHABLE_STYLES = [Styles.TouchableOpacity];
+  const TEXT_STYLES = [Styles.text];
+  if (disabel) {
+    TOUCHABLE_STYLES.push(Styles.Disabel);
+    onPress = () => {};
+  }
+  if (style) {
+    TOUCHABLE_STYLES.push(style);
+  }
+  if (styleText) {
+    TEXT_STYLES.push(styleText);
+  }
   return (
-    <TouchableOpacity
-      style={disabel ? Styles.TouchableOpacity : Styles.TouchableOpacity2}
-      onPress={disabel ? null : onPress}>
+    <TouchableOpacity style={TOUCHABLE_STYLES} onPress={onPress}>
       {google ? (
         <Image
           style={Styles.image}
@@ -16,7 +26,7 @@ const CustomButton = props => {
           }}
         />
       ) : null}
-      <Text style={Styles.text}>{title}</Text>
+      <Text style={TEXT_STYLES}>{title}</Text>
     </TouchableOpacity>
   );
 };

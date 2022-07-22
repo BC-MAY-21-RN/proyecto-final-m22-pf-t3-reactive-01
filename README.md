@@ -1,12 +1,13 @@
 ![BrightCoders Logo](img/logo-bc.png)
 
 # Bright Shop
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/BC-MAY-21-RN/proyecto-final-m22-pf-t3-reactive-01.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/BC-MAY-21-RN/proyecto-final-m22-pf-t3-reactive-01/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/BC-MAY-21-RN/proyecto-final-m22-pf-t3-reactive-01.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/BC-MAY-21-RN/proyecto-final-m22-pf-t3-reactive-01/context:javascript)
 
 ## Sprint Leader
 
 | Sprint 1 | Sprint 2 | Sprint 3 | Sprint 4 | Sprint 5 | Sprint 6 | Sprint 7 | Sprint 8 |
 |---|---|---|---|---|---|---|---|
-| Luis |
+| Luis | Gerardo | Valentin |
 
 ## Descripción
 
@@ -33,8 +34,8 @@ Bright Shop  es una aplicación para dispositivos android y ios que tiene como o
   - [ ] Hacer comentarios en algún producto.
   - [ ] Hacer reseñas (valoración) de los productos que hayan comprado.
   - [ ] Poder Agregar el producto al carrito de compra
-  - [ ] Eliminar productos del carrito
-  - [ ] Cambiar el monto del producto en el carrito 
+  - [x] Eliminar productos del carrito
+  - [x] Cambiar el monto del producto en el carrito 
   - [ ] Comprar un/os producto/s 
   - [ ] Dar like o dislike a las reseñas.
   - [ ] Denunciar productos o vendedores por una publicación o comportamiento inapropiado en contra de las políticas de la aplicación.
