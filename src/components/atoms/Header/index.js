@@ -1,22 +1,31 @@
 import React from 'react';
-import {View, Text, Pressable} from 'react-native';
-import headerStyles from './headerStyles';
+import {View, Text, Pressable as RnPressable} from 'react-native';
+import Styles from './headerStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Header = props => {
-  const {name, navigation, optional, icon, onPress} = props;
+  const {name, navigation, icon, onPress, BackBtn} = props;
   return (
-    <View style={headerStyles.container}>
-      <Pressable onPress={() => navigation.openDrawer()}>
-        <Icon name="menu" size={30} color="#E5D96C" />
-      </Pressable>
-      <Text style={headerStyles.title}>{name}</Text>
-      {optional ? (
-        <Pressable style={headerStyles.optionalButton} onPress={onPress}>
-          <Icon name={icon} size={30} color="#E5D96C" />
-        </Pressable>
-      ) : null}
+    <View style={Styles.container}>
+      {BackBtn ? (
+        <Pressable onPress={() => navigation.goBack()} name="arrow-back" />
+      ) : (
+        <Pressable onPress={() => navigation.openDrawer()} name="menu" />
+      )}
+      <Text style={Styles.title}>{name}</Text>
+      <Pressable style={Styles.optionalButton} onPress={onPress} name={icon} />
     </View>
+  );
+};
+const Pressable = props => {
+  const {style, name, onPress} = props;
+  if (!name) {
+    return null;
+  }
+  return (
+    <RnPressable style={style} onPress={onPress}>
+      <Icon name={name} size={30} color="#E5D96C" />
+    </RnPressable>
   );
 };
 
