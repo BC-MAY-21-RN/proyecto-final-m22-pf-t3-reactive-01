@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import {View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {ScrollView, View} from 'react-native';
 import InputContainer from '../components/atoms/TextInput';
 import CustomButton from '../components/atoms/register/CustomButton';
-import {ProductsStyles} from './styles';
+import {ProductsStyles} from './Styles';
 import {editProduct, addProduct} from '../auth/authFirestore';
-
+import Picker from '../components/atoms/ImagePicker';
 import Header from '../components/atoms/Header';
 
 const Products = ({route, navigation}) => {
@@ -35,7 +35,7 @@ const Products = ({route, navigation}) => {
   };
 
   return (
-    <View>
+    <ScrollView>
       <Header
         name={route.params ? 'Edit Products' : 'Add Products'}
         navigation={navigation}
@@ -85,6 +85,7 @@ const Products = ({route, navigation}) => {
           onChangeText={a => setStock(a)}
           value={route.params ? String(stock) : stock}
         />
+        <Picker />
         <CustomButton
           title={route.params ? 'Edit Product' : 'Add Product'}
           onPress={() => {
@@ -103,7 +104,7 @@ const Products = ({route, navigation}) => {
           }}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

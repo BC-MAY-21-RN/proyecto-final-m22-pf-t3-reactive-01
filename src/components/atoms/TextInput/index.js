@@ -19,7 +19,7 @@ const InputContainer = props => {
       <TextInput
         style={styles ? styles : defaultS.input}
         placeholder={placeholder}
-        placeholderTextColor="blue"
+        placeholderTextColor="#3140C2"
         secureTextEntry={secure}
         onChangeText={onChangeText}
         keyboardType={keyboardType}
