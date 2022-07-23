@@ -6,6 +6,7 @@ import {ProductsStyles} from './Styles';
 import {editProduct, addProduct} from '../auth/authFirestore';
 import Picker from '../components/atoms/ImagePicker';
 import Header from '../components/atoms/Header';
+import useBusyIndicator from '../components/atoms/register/BusyIndicator';
 
 const Products = ({route, navigation}) => {
   const [name, setName] = useState('');
@@ -14,6 +15,9 @@ const Products = ({route, navigation}) => {
   const [condition, setCondition] = useState('');
   const [description, setDescription] = useState('');
   const [stock, setStock] = useState('');
+  const [url, setUrl] = useState();
+  const [image, setImage] = useState();
+  const BusyIndicator = useBusyIndicator();
 
   useEffect(() => {
     setName(route.params?.name);
@@ -24,14 +28,31 @@ const Products = ({route, navigation}) => {
     setStock(route.params?.stock);
   }, [route.params]);
 
-  const newProduct = () => {
-    addProduct(name, category, price, condition, description, stock);
-    setName('');
-    setCategory('');
-    setPrice('');
-    setCondition('');
-    setDescription('');
-    setStock('');
+  const newProduct = async () => {
+    try {
+      BusyIndicator.Visible(true);
+      await addProduct(
+        name,
+        category,
+        price,
+        condition,
+        description,
+        stock,
+        url,
+        image,
+      );
+      setName('');
+      setCategory('');
+      setPrice('');
+      setCondition('');
+      setDescription('');
+      setStock('');
+      setUrl('');
+      BusyIndicator.Visible(false);
+      alert('The product has been added successfully!');
+    } catch {
+      alert('The product has not be added successfully');
+    }
   };
 
   return (
@@ -85,7 +106,7 @@ const Products = ({route, navigation}) => {
           onChangeText={a => setStock(a)}
           value={route.params ? String(stock) : stock}
         />
-        <Picker />
+        <Picker url={url} setUrl={setUrl} setImage={setImage} />
         <CustomButton
           title={route.params ? 'Edit Product' : 'Add Product'}
           onPress={() => {
@@ -104,6 +125,7 @@ const Products = ({route, navigation}) => {
           }}
         />
       </View>
+      {BusyIndicator.Component}
     </ScrollView>
   );
 };

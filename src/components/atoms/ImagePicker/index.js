@@ -3,13 +3,9 @@ import {Text, View, TouchableOpacity, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import * as ImagePicker from 'react-native-image-picker';
 import pcikerStyles from './pickerStyles';
-import auth from '@react-native-firebase/auth';
 
 const Picker = props => {
-  const {id, carpeta} = props;
-  const [image, setImage] = useState();
-  const [url, setUrl] = useState(undefined);
-  const [encontrado, setEncontrado] = useState(false);
+  const {url, setUrl, setImage} = props;
 
   const addImage = () => {
     let options = {
@@ -35,13 +31,11 @@ const Picker = props => {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         let respuesta = response.assets[0];
-        setImage(respuesta);
+        setImage(respuesta.fileName);
         setUrl(respuesta.uri);
-        setEncontrado(true);
       }
     });
   };
-
   return (
     <View style={pcikerStyles.container}>
       {url && (
