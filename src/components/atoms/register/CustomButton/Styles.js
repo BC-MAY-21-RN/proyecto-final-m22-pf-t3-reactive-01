@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 const Styles = StyleSheet.create({
   TouchableOpacity: {
     justifyContent: 'center',
-    backgroundColor: '#FFF443',
+    backgroundColor: '#E5D96C',
     height: 50,
     alignSelf: 'center',
     width: '90%',

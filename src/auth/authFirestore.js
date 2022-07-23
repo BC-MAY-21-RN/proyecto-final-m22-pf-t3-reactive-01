@@ -1,5 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
 export const logIn = async (firstname, check, email, password, navigation) => {
   await auth()
@@ -71,6 +72,8 @@ export const addProduct = async (
   condition,
   description,
   stock,
+  uri,
+  image,
 ) => {
   const current = await auth().currentUser.uid;
   await firestore()
@@ -82,12 +85,24 @@ export const addProduct = async (
       condition: condition,
       description: description,
       stock: parseInt(stock),
+      image: image,
       uid: current,
     })
     .then(() => {
-      alert('The product has been added successfully!');
+      uploadImage(uri, current, image);
     })
     .catch();
+};
+
+const uploadImage = async (uri, uid, image) => {
+  const task = storage()
+    .ref('Products/' + uid + '/' + image)
+    .putFile(uri);
+  try {
+    await task;
+  } catch (e) {
+    alert('The image cannot be uploaded');
+  }
 };
 
 export const editProduct = async (

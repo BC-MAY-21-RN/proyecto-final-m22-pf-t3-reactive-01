@@ -17,6 +17,7 @@ const VerticalList = props => {
   const renderItem2 = ({item, index}) => (
     <SellerItem
       id={item.documentId}
+      userId={item.uid}
       navigation={navigation}
       name={item.name}
       price={item.price}
@@ -24,6 +25,7 @@ const VerticalList = props => {
       description={item.description}
       category={item.category}
       stock={item.stock}
+      image={item.image}
     />
   );
   return (

@@ -1,13 +1,37 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, Pressable, Image, Modal} from 'react-native';
 import IconButton from '../IconButtom';
 import SellerItemStyles from './SellerItemStyles';
 import {deleteProduct} from '../../../auth/authFirestore';
+import storage from '@react-native-firebase/storage';
 
 const SellerItem = props => {
-  const {name, price, condition, description, id, navigation, category, stock} =
-    props;
+  const {
+    name,
+    price,
+    condition,
+    description,
+    id,
+    navigation,
+    category,
+    stock,
+    userId,
+    image,
+  } = props;
   const [isModalVisible, setModalVisible] = useState(false);
+  const [url, setUrl] = useState(null);
+  const getUri = async path => {
+    const consult = await storage().ref(path).getDownloadURL();
+    try {
+      setUrl(consult);
+    } catch (e) {
+      setUrl(null);
+    }
+  };
+  useEffect(() => {
+    getUri(`Products/${userId}/${image}`);
+  }, [userId, image]);
+
   return (
     <Pressable
       style={SellerItemStyles.container}
@@ -16,7 +40,9 @@ const SellerItem = props => {
       <View>
         <Image
           source={{
-            uri: 'https://cdn.shopify.com/s/files/1/0070/7032/files/how-to-price-a-product.jpg?v=1611727768&width=1024',
+            uri: url
+              ? url
+              : 'https://cdn.shopify.com/s/files/1/0070/7032/files/how-to-price-a-product.jpg?v=1611727768&width=1024',
           }}
           style={SellerItemStyles.image}
         />
