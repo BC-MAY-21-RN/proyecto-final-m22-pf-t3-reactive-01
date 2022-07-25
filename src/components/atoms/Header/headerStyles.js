@@ -17,6 +17,23 @@ const headerStyles = StyleSheet.create({
     right: 15,
     top: 12,
   },
+  headerIconEmbellishment: {
+    position: 'absolute',
+    backgroundColor: '#f04037',
+    borderRadius: 10,
+    width: 15,
+    height: 15,
+    top: -6,
+    right: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  embellishmentText: {
+    color: colors.TXT_SECONDARY_COLOR,
+    fontSize: 12,
+    bottom: 1,
+    fontWeight: 'bold',
+  },
 });
 
 export default headerStyles;
