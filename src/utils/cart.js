@@ -22,17 +22,17 @@ export const useCart = create(
   persist(
     set => ({
       cart: [],
-      addItem: ({id, name, price, image, quantity}) => {
+      addItem: product => {
         set(state => {
           const cart = [...state.cart];
           let include = false;
           cart.forEach(item => {
-            if (item.id === id) {
-              item.quantity += quantity;
+            if (item.id === product.id) {
+              item.quantity += product.quantity;
               include = true;
             }
           });
-          !include ? cart.push({id, name, price, image, quantity}) : null;
+          !include ? cart.push(product) : null;
           return {cart};
         });
       },

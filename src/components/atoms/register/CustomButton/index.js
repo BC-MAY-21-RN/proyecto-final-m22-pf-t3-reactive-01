@@ -1,21 +1,23 @@
 import React from 'react';
-import {TouchableOpacity, Text, Image, View} from 'react-native';
+import {TouchableOpacity, Text, Image} from 'react-native';
 import Styles from './Styles';
 
-const CustomButton = props => {
-  let {title, style, styleText, disabel = false, onPress, google} = props;
+const CustomButton = ({
+  title,
+  style,
+  styleText,
+  disabel = false,
+  onPress,
+  google,
+}) => {
   const TOUCHABLE_STYLES = [Styles.TouchableOpacity];
   const TEXT_STYLES = [Styles.text];
   if (disabel) {
     TOUCHABLE_STYLES.push(Styles.Disabel);
     onPress = () => {};
   }
-  if (style) {
-    TOUCHABLE_STYLES.push(style);
-  }
-  if (styleText) {
-    TEXT_STYLES.push(styleText);
-  }
+  style ? TOUCHABLE_STYLES.push(style) : null;
+  styleText ? TEXT_STYLES.push(styleText) : null;
   return (
     <TouchableOpacity style={TOUCHABLE_STYLES} onPress={onPress}>
       {google ? (
