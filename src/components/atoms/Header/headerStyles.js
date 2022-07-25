@@ -1,22 +1,21 @@
-import React from 'react';
 import {StyleSheet} from 'react-native';
-
+import colors from '../../../constants/colors';
 const headerStyles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    padding: 20,
-    backgroundColor: '#3140C2',
+    padding: 10,
+    backgroundColor: colors.HEADER_COLOR,
   },
   title: {
     fontSize: 25,
     fontWeight: 'bold',
-    color: 'white',
+    color: colors.TXT_SECONDARY_COLOR,
     left: 15,
   },
   optionalButton: {
     position: 'absolute',
     right: 15,
-    top: 20,
+    top: 12,
   },
 });
 

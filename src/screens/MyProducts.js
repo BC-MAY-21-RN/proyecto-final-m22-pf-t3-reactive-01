@@ -27,7 +27,7 @@ const MyProducts = ({navigation}) => {
   }, [isFocused]);
   return (
     <View>
-      <Header name="My products" navigation={navigation} />
+      <Header name="My products" navigation={navigation} BackBtn />
       <VerticalList data={products} seller navigation={navigation} />
     </View>
   );

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {Text, View, TouchableOpacity, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import * as ImagePicker from 'react-native-image-picker';

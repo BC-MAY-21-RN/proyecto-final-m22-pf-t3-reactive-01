@@ -52,7 +52,7 @@ const Register = ({navigation}) => {
   const GoogleSing = async () => {
     try {
       BusyIndicator.Visible(true);
-      await signInGoogle(navigation);
+      await signInGoogle();
       BusyIndicator.Visible(false);
     } catch (err) {
       BusyIndicator.Visible(false);
@@ -66,7 +66,7 @@ const Register = ({navigation}) => {
       formik.submitForm();
       const {name, check, email, password} = formik.values;
       await LogInSchema.validate(formik.values);
-      await logIn(name, check, email, password, navigation);
+      await logIn(name, check, email, password);
       BusyIndicator.Visible(false);
     } catch (err) {
       BusyIndicator.Visible(false);
@@ -80,7 +80,7 @@ const Register = ({navigation}) => {
       formik.submitForm();
       const {email, password} = formik.values;
       await SingInSchema.validate(formik.values);
-      await SignIn(email, password, navigation);
+      await SignIn(email, password);
       BusyIndicator.Visible(false);
     } catch (err) {
       BusyIndicator.Visible(false);

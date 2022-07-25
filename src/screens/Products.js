@@ -8,7 +8,7 @@ import Picker from '../components/atoms/ImagePicker';
 import Header from '../components/atoms/Header';
 import useBusyIndicator from '../components/atoms/register/BusyIndicator';
 
-const Products = ({route, navigation}) => {
+const Products = ({route: {params}, navigation}) => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('');
@@ -20,13 +20,13 @@ const Products = ({route, navigation}) => {
   const BusyIndicator = useBusyIndicator();
 
   useEffect(() => {
-    setName(route.params?.name);
-    setPrice(route.params?.price);
-    setCategory(route.params?.category);
-    setCondition(route.params?.condition);
-    setDescription(route.params?.description);
-    setStock(route.params?.stock);
-  }, [route.params]);
+    setName(params?.name);
+    setPrice(params?.price);
+    setCategory(params?.category);
+    setCondition(params?.condition);
+    setDescription(params?.description);
+    setStock(params?.stock);
+  }, [params]);
 
   const newProduct = async () => {
     try {
@@ -58,11 +58,11 @@ const Products = ({route, navigation}) => {
   return (
     <ScrollView>
       <Header
-        name={route.params ? 'Edit Products' : 'Add Products'}
+        name={params ? 'Edit Products' : 'Add Products'}
         navigation={navigation}
-        optional={route.params ? true : false}
-        icon="close"
+        icon={params ? 'close' : null}
         onPress={() => navigation.navigate('Manage')}
+        BackBtn
       />
       <View style={ProductsStyles.container}>
         <InputContainer
@@ -83,7 +83,7 @@ const Products = ({route, navigation}) => {
           placeholder="Price"
           keyboardType="numeric"
           onChangeText={a => setPrice(a)}
-          value={route.params ? String(price) : price}
+          value={params ? String(price) : price}
         />
         <InputContainer
           styles={ProductsStyles.input}
@@ -104,15 +104,15 @@ const Products = ({route, navigation}) => {
           placeholder="Stock"
           keyboardType="numeric"
           onChangeText={a => setStock(a)}
-          value={route.params ? String(stock) : stock}
+          value={params ? String(stock) : stock}
         />
         <Picker url={url} setUrl={setUrl} setImage={setImage} />
         <CustomButton
-          title={route.params ? 'Edit Product' : 'Add Product'}
+          title={params ? 'Edit Product' : 'Add Product'}
           onPress={() => {
-            route.params
+            params
               ? editProduct(
-                  route.params.documentId,
+                  params.documentId,
                   name,
                   category,
                   price,

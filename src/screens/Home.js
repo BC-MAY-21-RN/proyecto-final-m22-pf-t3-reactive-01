@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Button} from 'react-native';
+import {View} from 'react-native';
 import Header from '../components/atoms/Header';
 
 const Home = ({navigation}) => {
@@ -8,7 +8,6 @@ const Home = ({navigation}) => {
       <Header
         name="Home"
         navigation={navigation}
-        optional
         icon="cart"
         onPress={() => navigation.navigate('Cart')}
       />
