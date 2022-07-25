@@ -22,34 +22,35 @@ export const useCart = create(
   persist(
     set => ({
       cart: [],
-      addItem: item => {
+      addItem: ({id, name, price, image, quantity}) => {
         set(state => {
           const cart = [...state.cart];
-          const {id, name, price, imageRef} = item;
           let include = false;
           cart.forEach(item => {
             if (item.id === id) {
-              item.quantity += 1;
+              item.quantity += quantity;
               include = true;
             }
           });
-          if (!include) {
-            cart.push({
-              id,
-              name,
-              price,
-              imageRef,
-              quantity: 1,
-            });
-          }
+          !include ? cart.push({id, name, price, image, quantity}) : null;
           return {cart};
         });
       },
       removeItem: id => {
         set(state => {
           const cart = state.cart.filter(item => {
-            if (item.id !== id) {
-              return item;
+            return item.id !== id ? item : null;
+          });
+          return {cart};
+        });
+      },
+      addQuantity: id => {
+        set(state => {
+          const cart = [...state.cart];
+          cart.forEach(item => {
+            if (item.id === id) {
+              item.quantity += 1;
+              return {cart};
             }
           });
           return {cart};
@@ -61,11 +62,8 @@ export const useCart = create(
           cart.forEach(item => {
             if (item.id === id) {
               const newQuantity = item.quantity - 1;
-              if (newQuantity <= 0) {
-                return {cart};
-              } else {
-                item.quantity = newQuantity;
-              }
+              newQuantity >= 1 ? (item.quantity = newQuantity) : null;
+              return {cart};
             }
           });
           return {cart};
