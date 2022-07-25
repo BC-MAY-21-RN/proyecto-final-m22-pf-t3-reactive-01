@@ -8,7 +8,6 @@ const Home = ({navigation}) => {
       <Header
         name="Home"
         navigation={navigation}
-        optional
         icon="cart"
         onPress={() => navigation.navigate('Cart')}
       />

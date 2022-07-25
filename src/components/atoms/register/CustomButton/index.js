@@ -16,8 +16,12 @@ const CustomButton = ({
     TOUCHABLE_STYLES.push(Styles.Disabel);
     onPress = () => {};
   }
-  style ? TOUCHABLE_STYLES.push(style) : null;
-  styleText ? TEXT_STYLES.push(styleText) : null;
+  if (style) {
+    TOUCHABLE_STYLES.push(style);
+  }
+  if (styleText) {
+    TEXT_STYLES.push(styleText);
+  }
   return (
     <TouchableOpacity style={TOUCHABLE_STYLES} onPress={onPress}>
       {google ? (

@@ -21,7 +21,9 @@ const Style = StyleSheet.create({
 
 const BtnIcon = ({onPress, styles, directory, ...props}) => {
   let CONTAINER_STYLES = [Style.container];
-  styles ? CONTAINER_STYLES.push(styles) : null;
+  if (styles) {
+    CONTAINER_STYLES.push(styles);
+  }
   const waitAnimationBounceable = () => setTimeout(onPress, 50);
 
   return (

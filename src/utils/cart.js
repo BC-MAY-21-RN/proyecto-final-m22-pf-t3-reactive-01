@@ -32,14 +32,18 @@ export const useCart = create(
               include = true;
             }
           });
-          !include ? cart.push(product) : null;
+          if (!include) {
+            cart.push(product);
+          }
           return {cart};
         });
       },
       removeItem: id => {
         set(state => {
           const cart = state.cart.filter(item => {
-            return item.id !== id ? item : null;
+            if (item.id !== id) {
+              return item;
+            }
           });
           return {cart};
         });
@@ -62,7 +66,9 @@ export const useCart = create(
           cart.forEach(item => {
             if (item.id === id) {
               const newQuantity = item.quantity - 1;
-              newQuantity >= 1 ? (item.quantity = newQuantity) : null;
+              if (newQuantity >= 1) {
+                item.quantity = newQuantity;
+              }
               return {cart};
             }
           });

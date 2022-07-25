@@ -3,8 +3,7 @@ import {View, Text, Pressable as RnPressable} from 'react-native';
 import Styles from './headerStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const Header = props => {
-  const {name, navigation, icon, onPress, BackBtn} = props;
+const Header = ({name, navigation, icon, onPress, BackBtn}) => {
   return (
     <View style={Styles.container}>
       {BackBtn ? (
@@ -17,8 +16,7 @@ const Header = props => {
     </View>
   );
 };
-const Pressable = props => {
-  const {style, name, onPress} = props;
+const Pressable = ({style, name, onPress}) => {
   if (!name) {
     return null;
   }

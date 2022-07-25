@@ -32,7 +32,13 @@ const ProductDetails = ({route: {params}, navigation}) => {
 
   return (
     <SafeAreaView style={Styles.MainContainer}>
-      <Header name="Product D" navigation={navigation} BackBtn />
+      <Header
+        name="Producto Detalle"
+        navigation={navigation}
+        icon="cart"
+        onPress={() => navigation.navigate('Cart')}
+        BackBtn
+      />
       <ScrollView style={Styles.ScrollContainer}>
         <View style={Styles.ImageContainer}>
           <Image style={Styles.Image} source={{uri: image}} />

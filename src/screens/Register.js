@@ -80,7 +80,7 @@ const Register = ({navigation}) => {
       formik.submitForm();
       const {email, password} = formik.values;
       await SingInSchema.validate(formik.values);
-      await SignIn(email, password, navigation);
+      await SignIn(email, password);
       BusyIndicator.Visible(false);
     } catch (err) {
       BusyIndicator.Visible(false);
