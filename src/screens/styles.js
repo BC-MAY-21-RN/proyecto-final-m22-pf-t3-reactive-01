@@ -1,5 +1,6 @@
-import {Dimensions, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import colors from '../constants/colors';
+import sizes from '../constants/sizes';
 export const RegisterStyle = StyleSheet.create({
   container: {
     backgroundColor: colors.background,
@@ -46,7 +47,7 @@ export const CarritoStyle = StyleSheet.create({
     flexDirection: 'column',
     paddingHorizontal: 10,
     justifyContent: 'space-between',
-    width: Dimensions.get('screen').width - 110,
+    flex: 1,
   },
   ItemName: {
     color: colors.TXT_PRIMARY_COLOR,
@@ -69,8 +70,9 @@ export const CarritoStyle = StyleSheet.create({
     fontSize: 13,
   },
   EmptyContainer: {
-    height: Dimensions.get('screen').height - 150,
+    flexGrow: 1,
     justifyContent: 'center',
+    paddingVertical: 10,
   },
   EmptyImage: {
     height: 200,
@@ -92,6 +94,7 @@ export const CarritoStyle = StyleSheet.create({
   EmptyBtn: {
     backgroundColor: colors.BTN_PRIMARY_COLOR,
     color: colors.BTN_TXT_PRIMARY_COLOR,
+    maxWidth: 400,
   },
   EmptyBtnText: {
     color: colors.BTN_TXT_PRIMARY_COLOR,
@@ -188,20 +191,29 @@ export const ProductsStyles = StyleSheet.create({
 });
 
 export const ProductDetailsStyles = StyleSheet.create({
-  MainContainer: {
+  MainContainer: {flex: 1},
+  ScrollContainer: {
     flexDirection: 'column',
-    margin: 10,
+    backgroundColor: colors.BACKGROUND_COLOR,
+    padding: 10,
   },
   ImageContainer: {
     width: '100%',
-    height: 200,
-    backgroundColor: 'red',
+    height: 250,
   },
-  viewPropsProduct: {},
-  viewPressablesImage: {},
   Image: {
-    height: 200,
-    resizeMode: 'stretch',
+    height: 250,
+    resizeMode: 'contain', // cover, contain, stretch, repeat, center
+  },
+  ImageIndicator: {
+    backgroundColor: colors.ICON_BACKGROUND_SECONDARY_COLOR,
+    top: 0,
+    left: 0,
+    position: 'absolute',
+    borderRadius: 10,
+    paddingHorizontal: 6,
+    color: colors.TXT_PRIMARY_COLOR,
+    fontWeight: '600',
   },
   ImageSocialContainer: {
     position: 'absolute',
@@ -210,15 +222,61 @@ export const ProductDetailsStyles = StyleSheet.create({
     right: 0,
   },
   ImageBtn: {
-    backgroundColor: 'white',
+    backgroundColor: colors.ICON_BACKGROUND_SECONDARY_COLOR,
     borderRadius: 20,
+    marginRight: 5,
+    borderWidth: 0,
+    width: 40,
+    height: 40,
   },
-  text: {
-    color: 'black',
+  Condition: {color: colors.TXT_LIGHT_PRIMARY_COLOR},
+  Name: {color: colors.TXT_PRIMARY_COLOR, fontSize: 16, fontWeight: '600'},
+  DescriptionTitle: {fontSize: 16},
+  Description: {
+    color: colors.TXT_PRIMARY_COLOR,
+    fontSize: 14,
+    paddingTop: 10,
   },
-  pressablesImage: {
-    borderRadius: 10,
+  StockContainer: {
+    flexDirection: 'row',
+    paddingVertical: 10,
+    justifyContent: 'space-evenly',
   },
-  pressableBuy: {},
-  pressableAddToCart: {},
+  StockItem: {
+    alignItems: 'center',
+  },
+  StockText: {
+    color: colors.TXT_PRIMARY_COLOR,
+    fontSize: 17,
+    fontWeight: '400',
+  },
+  Price: {
+    fontSize: 25,
+    color: colors.TXT_PRIMARY_COLOR,
+    fontWeight: '600',
+    padding: 10,
+  },
+  CartBtn: {
+    backgroundColor: colors.BTN_PRIMARY_COLOR,
+    marginTop: 0,
+    height: 50,
+    width: sizes.ScreenWidth - 20,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  CartBtnText: {
+    color: colors.BTN_TXT_PRIMARY_COLOR,
+    letterSpacing: 1,
+    fontSize: 15,
+    fontWeight: '600',
+  },
+  AddToCartBtn: {
+    backgroundColor: colors.BTN_LIGHT_PRIMARY_COLOR,
+    marginBottom: 30,
+  },
+  AddToCartBtnText: {color: colors.BTN_TXT_LIGHT_PRIMARY_COLOR},
+  Separator: {
+    height: 0.9,
+    backgroundColor: colors.DIVIDER_COLOR,
+  },
 });

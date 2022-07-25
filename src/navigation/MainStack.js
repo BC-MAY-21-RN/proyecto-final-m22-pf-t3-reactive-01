@@ -40,14 +40,14 @@ const Drawer = () => {
       <DrawerStack.Navigator
         initialRouteName={'Home'}
         screenOptions={{swipeEnabled: false, headerShown: false}}
-        drawerContent={props => <MenuItems {...props} />}>
+        drawerContent={props => MenuItems({...props})}>
         <DrawerStack.Screen name="Home" component={Home} />
+        <DrawerStack.Screen name="Cart" component={Carrito} />
+        <DrawerStack.Screen name="Manage" component={MyProducts} />
+        <DrawerStack.Screen name="Account" component={Cuenta} />
+        <DrawerStack.Screen name="Products" component={Products} />
         <DrawerStack.Screen name="Shopping" component={Compras} />
         <DrawerStack.Screen name="Favourites" component={Favoritos} />
-        <DrawerStack.Screen name="Account" component={Cuenta} />
-        <DrawerStack.Screen name="Cart" component={Carrito} />
-        <DrawerStack.Screen name="Products" component={Products} />
-        <DrawerStack.Screen name="Manage" component={MyProducts} />
         <DrawerStack.Screen name="ProductDetails" component={ProductDetails} />
       </DrawerStack.Navigator>
     </NavigationContainer>

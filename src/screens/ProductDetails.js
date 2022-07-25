@@ -1,87 +1,102 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  Pressable,
-  Image,
-  Icon,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, Image, SafeAreaView, ScrollView} from 'react-native';
+import {money} from '../utils/format';
+import {useCart} from '../utils/cart';
+import shallow from 'zustand/shallow';
 import BtnIcon from '../components/atoms/btnIcon';
 import Header from '../components/atoms/Header';
-import {ProductDetailsStyles} from './Styles';
+import CounterInput from '../components/atoms/CounterInput';
+import CustomButton from '../components/atoms/register/CustomButton';
+import {ProductDetailsStyles as Styles} from './Styles';
+const userId = '152346';
 const json = {
-  id: 1,
-  name: 'sdfdsdf',
-  description: 'sdfsdf',
+  description:
+    'Computadora PRIDE GAMING CRFT DWN / Designed With NZXT / NVIDIA® GeForce RTX™ 3070 Ti / AMD Ryzen 9 5900X / 32GB RAM / 1TB SSD M.2 NVMe / ENF. LIQ. 280MM / 750W 80+ GOLD ',
   image:
     'https://ddtech.mx/assets/uploads/thumb_c25ba6722c213cbf0287d4dd2bc94bf8.png',
-  condition: 'usado',
+  condition: 'Usado',
   stock: 4545,
   price: 154445.56,
   like: ['123456', '152346'],
-};
+  id: 0,
+  name: 'Monitor Gamer Xzeal XZ4015-1 / Negro / 27" / 1MS / 165HZ / Full HD / VA / G-Sync & Freesync / Frameless / HDMI - DP / 2 años de garantía',
+}; // Eliminar hasta terminar
 
-const ProductDetails = ({navigation}) => {
-  const {id, name, description, image, condition, stock, price} = json;
+const ProductDetails = ({route: {params}, navigation}) => {
+  const {like, name, description, image, condition, stock, price} = params.item;
+  const {addItem} = useCart(state => ({addItem: state.addItem}), shallow);
+  const [quantity, setquantity] = useState(1);
+  const onDecrease = () => (quantity > 1 ? setquantity(quantity - 1) : null);
+  const onIncrease = () => setquantity(quantity + 1);
+  const BuyItem = () => addItem({...json, quantity});
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={Styles.MainContainer}>
       <Header name="Product D" navigation={navigation} BackBtn />
-      <ScrollView>
-        <View style={ProductDetailsStyles.MainContainer}>
-          <View style={ProductDetailsStyles.ImageContainer}>
-            <Image style={ProductDetailsStyles.Image} source={{uri: image}} />
-            <View style={ProductDetailsStyles.ImageSocialContainer}>
-              <BtnIcon
-                name={'heart'}
-                size={20}
-                styles={ProductDetailsStyles.ImageBtn}
-                color={'red'}
-                onPress={() => {}}
-              />
-              <BtnIcon
-                name={'heart'}
-                size={20}
-                styles={ProductDetailsStyles.ImageBtn}
-                color={'black'}
-                onPress={() => {}}
-              />
-            </View>
+      <ScrollView style={Styles.ScrollContainer}>
+        <View style={Styles.ImageContainer}>
+          <Image style={Styles.Image} source={{uri: image}} />
+          <Text style={Styles.ImageIndicator}>1 / 8</Text>
+          <View style={Styles.ImageSocialContainer}>
+            <BtnIcon
+              name={'heart'}
+              size={20}
+              styles={Styles.ImageBtn}
+              color={like.includes(userId) ? 'red' : 'black'}
+              onPress={() => {}}
+            />
+            <BtnIcon
+              name={'share-social-outline'}
+              directory={'Ionicons'}
+              size={20}
+              styles={Styles.ImageBtn}
+              color={'black'}
+              onPress={() => {}}
+            />
           </View>
-          <View style={ProductDetailsStyles.viewPressablesImage}>
-            <Pressable style={ProductDetailsStyles.pressablesImage}>
-              <Text>like</Text>
-            </Pressable>
-            <Pressable style={ProductDetailsStyles.pressablesImage}>
-              <Text>save</Text>
-            </Pressable>
-            <Pressable style={ProductDetailsStyles.pressablesImage}>
-              <Text>share</Text>
-            </Pressable>
-          </View>
-          <Text style={ProductDetailsStyles.container}>
-            Estado del producto:{condition}
-          </Text>
-          <Text style={ProductDetailsStyles.text}>{name}</Text>
-          <Text style={ProductDetailsStyles.text}>{description}</Text>
-          <View style={ProductDetailsStyles.viewPropsProduct}>
-            <Text style={ProductDetailsStyles.text}>{stock}</Text>
-            <Pressable style={ProductDetailsStyles.pressable}>
-              <Text>Comprar</Text>
-            </Pressable>
-          </View>
-          <Text style={ProductDetailsStyles.text}>${price}</Text>
-          <Pressable style={ProductDetailsStyles.pressableBuy}>
-            <Text>Comprar ahora</Text>
-          </Pressable>
-          <Pressable style={ProductDetailsStyles.pressableAddToCart}>
-            <Text>Agregar al carrito</Text>
-          </Pressable>
         </View>
+        <Text style={Styles.Condition}>{condition}</Text>
+        <Text style={Styles.Name}>{name}</Text>
+        <Separator />
+        <Text style={[Styles.Description, Styles.DescriptionTitle]}>
+          Acerca de este artículo
+        </Text>
+        <Text style={Styles.Description}>{description}</Text>
+        <Separator />
+        <View style={Styles.StockContainer}>
+          <View style={Styles.StockItem}>
+            <Text style={Styles.StockText}>Disponibles: </Text>
+            <Text style={Styles.StockText}>{stock}</Text>
+          </View>
+          <View style={Styles.StockItem}>
+            <Text style={Styles.StockText}>Cantidad</Text>
+            <CounterInput
+              onDecrease={onDecrease}
+              onIncrease={onIncrease}
+              quantity={quantity}
+            />
+          </View>
+        </View>
+        <Separator />
+        <Text style={Styles.Price}>{money(price)}</Text>
+        <CustomButton
+          style={Styles.CartBtn}
+          styleText={Styles.CartBtnText}
+          onPress={BuyItem}
+          title={'Comprar ahora'}
+        />
+        <CustomButton
+          style={[Styles.CartBtn, Styles.AddToCartBtn]}
+          styleText={[Styles.CartBtnText, Styles.AddToCartBtnText]}
+          onPress={BuyItem}
+          title={'Agregar al carrito'}
+        />
       </ScrollView>
     </SafeAreaView>
   );
 };
 
+const Separator = () => {
+  return <View style={Styles.Separator} />;
+};
 export default ProductDetails;
