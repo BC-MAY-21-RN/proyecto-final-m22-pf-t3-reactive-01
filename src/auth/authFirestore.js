@@ -1,5 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
 export const logIn = async (firstname, check, email, password) => {
   await auth()
@@ -65,7 +66,7 @@ export const getUserInfo = async (currentUser, setUserInfo) => {
         setUserInfo(documentSnapshot.data());
       });
     })
-    .catch(error => console.log(error));
+    .catch();
 };
 
 export const addProduct = async (
@@ -75,6 +76,8 @@ export const addProduct = async (
   condition,
   description,
   stock,
+  uri,
+  image,
 ) => {
   const current = await auth().currentUser.uid;
   await firestore()
@@ -86,10 +89,62 @@ export const addProduct = async (
       condition: condition,
       description: description,
       stock: parseInt(stock),
+      image: image,
       uid: current,
     })
     .then(() => {
-      alert('The product has been added successfully!');
+      uploadImage(uri, current, image);
     })
     .catch();
+};
+
+const uploadImage = async (uri, uid, image) => {
+  const task = storage()
+    .ref('Products/' + uid + '/' + image)
+    .putFile(uri);
+  try {
+    await task;
+  } catch (e) {
+    alert('The image cannot be uploaded');
+  }
+};
+
+export const editProduct = async (
+  id,
+  name,
+  category,
+  price,
+  condition,
+  description,
+  stock,
+  navigation,
+) => {
+  const current = auth().currentUser.uid;
+  await firestore()
+    .collection('Products')
+    .doc(id)
+    .update({
+      name: name,
+      category: category,
+      price: parseFloat(price),
+      condition: condition,
+      description: description,
+      stock: parseInt(stock),
+      uid: current,
+    })
+    .then(() => {
+      alert('The product has been updated successfully!');
+      navigation.navigate('Manage', {myParam: undefined});
+    })
+    .catch();
+};
+
+export const deleteProduct = async (collection, document) => {
+  await firestore()
+    .collection(collection)
+    .doc(document)
+    .delete()
+    .then(() => {
+      alert('Successful removal!');
+    });
 };

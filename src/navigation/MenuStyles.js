@@ -24,6 +24,7 @@ const MenuStyles = StyleSheet.create({
     height: 150,
     bottom: 5,
   },
+  image: {height: 100, width: 100},
   columna: {
     flexDirection: 'column',
     justifyContent: 'center',

@@ -4,7 +4,7 @@ import ListItemStyles from './ListItemStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const ListItem = props => {
-  const {name, price, condition, description} = props;
+  const {name, price, condition, description, longPress} = props;
   return (
     <View style={ListItemStyles.container}>
       <View>
@@ -15,7 +15,7 @@ const ListItem = props => {
           style={ListItemStyles.image}
         />
         <Pressable style={ListItemStyles.button}>
-          <Icon name="heart" color="blue" size={20} />
+          <Icon name="heart" color="green" size={20} />
         </Pressable>
       </View>
       <View style={ListItemStyles.content}>

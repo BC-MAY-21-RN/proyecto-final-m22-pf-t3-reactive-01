@@ -77,10 +77,10 @@ const MenuItems = ({navigation}) => {
     <DrawerContentScrollView style={MenuStyles.container}>
       <View style={MenuStyles.header}>
         <Image
+          style={MenuStyles.header}
           source={{
             uri: 'https://www.freeiconspng.com/thumbs/retail-store-icon/retail-store-icon-6.png',
           }}
-          style={{height: 100, width: 100}}
         />
         <View style={MenuStyles.columna}>
           <Text style={MenuStyles.title}> Bright Shop </Text>
@@ -136,11 +136,6 @@ const MenuItems = ({navigation}) => {
         <View style={MenuStyles.otheroptions}>
           <Text style={MenuStyles.division}>Account Options</Text>
         </View>
-        <MenuButtom
-          text="Product Details"
-          name="shopping-cart"
-          onPress={() => navigation.navigate('ProductDetails')}
-        />
         <MenuButtom
           text="Account"
           name="user"
