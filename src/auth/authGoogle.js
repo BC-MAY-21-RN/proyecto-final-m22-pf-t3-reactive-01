@@ -5,7 +5,7 @@ import {
 import auth from '@react-native-firebase/auth';
 import {addUserInfo} from './authFirestore';
 import {API_URL} from '@env';
-export const signInGoogle = async navigation => {
+export const signInGoogle = async () => {
   try {
     GoogleSignin.configure({
       webClientId: API_URL,
@@ -22,7 +22,6 @@ export const signInGoogle = async navigation => {
         email: authAux.additionalUserInfo.profile.email,
         uid: current.uid,
         usertype: 'client',
-        navigation: navigation,
       };
       addUserInfo(
         userData.firstname,
@@ -30,10 +29,8 @@ export const signInGoogle = async navigation => {
         userData.email,
         userData.uid,
         userData.usertype,
-        userData.navigation,
       );
     }
-    return navigation.navigate('Home');
   } catch (error) {
     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
       console.log('user cancelled the login flow: ' + error.code);

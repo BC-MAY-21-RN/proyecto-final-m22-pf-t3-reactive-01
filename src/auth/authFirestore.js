@@ -1,13 +1,14 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
-export const logIn = async (firstname, check, email, password, navigation) => {
+export const logIn = async (firstname, check, email, password) => {
   await auth()
     .createUserWithEmailAndPassword(email, password)
     .then(() => {
       console.log('User creado');
       const current = auth().currentUser;
-      addUserInfo(firstname, check, email, current.uid, 'client', navigation);
+      addUserInfo(firstname, check, email, current.uid, 'client');
     })
     .catch(err => {
       if (
@@ -19,10 +20,10 @@ export const logIn = async (firstname, check, email, password, navigation) => {
     });
 };
 
-export const SignIn = async (email, password, navigation) => {
+export const SignIn = async (email, password) => {
   await auth()
     .signInWithEmailAndPassword(email, password)
-    .then(() => navigation.navigate('Home'))
+    .then(() => {})
     .catch(error => {
       alert('Usuario y/o contraseña incorrectos');
     });
@@ -34,7 +35,6 @@ export const addUserInfo = async (
   email,
   uid,
   usertype,
-  navigation,
 ) => {
   await firestore()
     .collection('Users')
@@ -45,10 +45,15 @@ export const addUserInfo = async (
       uid: uid,
       usertype: usertype,
     })
-    .then(() => {
-      navigation.navigate('Home');
-    })
+    .then(() => {})
     .catch(error => console.log(error));
+};
+export const logout = async () => {
+  try {
+    await auth().signOut();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const getUserInfo = async (currentUser, setUserInfo) => {
@@ -61,7 +66,7 @@ export const getUserInfo = async (currentUser, setUserInfo) => {
         setUserInfo(documentSnapshot.data());
       });
     })
-    .catch(error => console.log(error));
+    .catch();
 };
 
 export const addProduct = async (
@@ -71,6 +76,8 @@ export const addProduct = async (
   condition,
   description,
   stock,
+  uri,
+  image,
 ) => {
   const current = await auth().currentUser.uid;
   await firestore()
@@ -82,10 +89,62 @@ export const addProduct = async (
       condition: condition,
       description: description,
       stock: parseInt(stock),
+      image: image,
       uid: current,
     })
     .then(() => {
-      alert('The product has been added successfully!');
+      uploadImage(uri, current, image);
     })
     .catch();
+};
+
+const uploadImage = async (uri, uid, image) => {
+  const task = storage()
+    .ref('Products/' + uid + '/' + image)
+    .putFile(uri);
+  try {
+    await task;
+  } catch (e) {
+    alert('The image cannot be uploaded');
+  }
+};
+
+export const editProduct = async (
+  id,
+  name,
+  category,
+  price,
+  condition,
+  description,
+  stock,
+  navigation,
+) => {
+  const current = auth().currentUser.uid;
+  await firestore()
+    .collection('Products')
+    .doc(id)
+    .update({
+      name: name,
+      category: category,
+      price: parseFloat(price),
+      condition: condition,
+      description: description,
+      stock: parseInt(stock),
+      uid: current,
+    })
+    .then(() => {
+      alert('The product has been updated successfully!');
+      navigation.navigate('Manage', {myParam: undefined});
+    })
+    .catch();
+};
+
+export const deleteProduct = async (collection, document) => {
+  await firestore()
+    .collection(collection)
+    .doc(document)
+    .delete()
+    .then(() => {
+      alert('Successful removal!');
+    });
 };

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, {useEffect, useState} from 'react';
 import {View, Text, Button, Image, Pressable} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -5,6 +6,10 @@ import Header from '../components/atoms/Header';
 import {CuentaStyle} from './Styles';
 import auth from '@react-native-firebase/auth';
 import {getUserInfo} from '../auth/authFirestore';
+=======
+import React from 'react';
+import {View, Text} from 'react-native';
+>>>>>>> master
 
 const Cuenta = ({navigation}) => {
   const current = auth().currentUser;
