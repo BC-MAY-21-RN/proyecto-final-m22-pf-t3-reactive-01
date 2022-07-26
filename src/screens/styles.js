@@ -190,6 +190,94 @@ export const ProductsStyles = StyleSheet.create({
   },
 });
 
+
+export const CuentaStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  titleAccount: {
+    fontSize: 30,
+    textAlign: 'center',
+  },
+  labelName: {
+    color: '#F4F4F4',
+    marginLeft: 30,
+    fontSize: 25,
+    textTransform: 'capitalize',
+  },
+  labelUserType: {
+    color: '#F4F4F4',
+    marginLeft: 30,
+    fontSize: 20,
+    textTransform: 'capitalize',
+  },
+  containerImageAndName: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    margin: 10,
+    padding: 10,
+    backgroundColor: '#3140C2',
+    elevation: 2,
+    borderRadius: 20,
+  },
+  image: {
+    width: 80,
+    height: 80,
+    elevation: 1,
+  },
+  iconChangeImage: {
+    position: 'absolute',
+    top: 67,
+    left: 63,
+    backgroundColor: 'white',
+    paddingHorizontal: 4,
+    paddingVertical: 3,
+    borderRadius: 30,
+    elevation: 2,
+  },
+
+  titleDataContainer: {
+    color: 'black',
+    fontSize: 20,
+    marginLeft: 15,
+    marginTop: 15,
+  },
+  containerLabelInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    margin: 10,
+    backgroundColor: '#F4F4F4',
+    padding: 10,
+    borderRadius: 10,
+    elevation: 2,
+  },
+  iconData:{
+display:'flex',
+justifyContent:'center',
+alignItems:'center',
+flexDirection:'row'
+  },
+  labelInfo: {
+    color: 'black',
+    marginHorizontal: 9,
+    textTransform: 'capitalize',
+  },
+  buttonDeleteAccount: {
+    backgroundColor: '#D40C1C',
+    color: 'white',
+    padding: 10,
+    borderRadius: 15,
+    marginTop: 10,
+    marginHorizontal: 60,
+    elevation: 3,
+  },
+  textDeleteAccount: {
+    textAlign: 'center',}})
+
 export const ProductDetailsStyles = StyleSheet.create({
   MainContainer: {flex: 1},
   ScrollContainer: {
@@ -278,5 +366,6 @@ export const ProductDetailsStyles = StyleSheet.create({
   Separator: {
     height: 0.9,
     backgroundColor: colors.DIVIDER_COLOR,
+
   },
 });
