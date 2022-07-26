@@ -190,7 +190,7 @@ export const ProductsStyles = StyleSheet.create({
   },
 });
 
-<<<<<<< HEAD
+
 export const CuentaStyle = StyleSheet.create({
   container: {
     flex: 1,
@@ -276,8 +276,8 @@ flexDirection:'row'
     elevation: 3,
   },
   textDeleteAccount: {
-    textAlign: 'center',
-=======
+    textAlign: 'center',}})
+
 export const ProductDetailsStyles = StyleSheet.create({
   MainContainer: {flex: 1},
   ScrollContainer: {
@@ -366,6 +366,6 @@ export const ProductDetailsStyles = StyleSheet.create({
   Separator: {
     height: 0.9,
     backgroundColor: colors.DIVIDER_COLOR,
->>>>>>> master
+
   },
 });

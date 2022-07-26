@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, {useEffect, useState} from 'react';
 import {View, Text, Button, Image, Pressable} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -6,10 +5,6 @@ import Header from '../components/atoms/Header';
 import {CuentaStyle} from './Styles';
 import auth from '@react-native-firebase/auth';
 import {getUserInfo} from '../auth/authFirestore';
-=======
-import React from 'react';
-import {View, Text} from 'react-native';
->>>>>>> master
 
 const Cuenta = ({navigation}) => {
   const current = auth().currentUser;
@@ -19,9 +14,6 @@ const Cuenta = ({navigation}) => {
       getUserInfo(current, setUserInfo);
     }
   }, [current]);
-  console.log(userInfo);
-
-
 
   return (
     <>
@@ -34,7 +26,7 @@ const Cuenta = ({navigation}) => {
             source={{
               uri: userInfo.image
                 ? userInfo.image
-                : 'https://cdn-icons.flaticon.com/png/512/3177/premium/3177440.png?token=exp=1658853261~hmac=f3a929966a7622cb1074f524742c56b7',
+                : 'https://cdn-icons.flaticon.com/png/512/3177/premium/3177440.png?token=exp=1658869029~hmac=e35d35bf14c5a9eb0180ef8afc9b4a27',
             }}
             style={CuentaStyle.image}
           />
@@ -90,9 +82,7 @@ const Cuenta = ({navigation}) => {
               </Text>
 
               <Icon
-                name={
-                  userInfo.fullName ? 'create-outline' : 'add-outline'
-                }
+                name={userInfo.fullName ? 'create-outline' : 'add-outline'}
                 size={20}
                 color="#3140C2"
               />
