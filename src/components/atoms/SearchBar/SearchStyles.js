@@ -19,9 +19,11 @@ const SearchStyles = StyleSheet.create({
     position: 'absolute',
     zIndex: 20,
     left: 15,
+    top: 3,
   },
-  activity: {
+  cancelIcon: {
     position: 'absolute',
+    zIndex: 20,
     right: 15,
     top: 5,
   },
