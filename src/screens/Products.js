@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {ScrollView, View} from 'react-native';
+import {ScrollView, View, Text} from 'react-native';
 import InputContainer from '../components/atoms/TextInput';
 import CustomButton from '../components/atoms/register/CustomButton';
 import {ProductsStyles} from './Styles';
@@ -7,6 +7,7 @@ import {editProduct, addProduct} from '../auth/authFirestore';
 import Picker from '../components/atoms/ImagePicker';
 import Header from '../components/atoms/Header';
 import useBusyIndicator from '../components/atoms/register/BusyIndicator';
+import SwitchSelector from 'react-native-switch-selector';
 
 const Products = ({route: {params}, navigation}) => {
   const [name, setName] = useState('');
@@ -18,6 +19,42 @@ const Products = ({route: {params}, navigation}) => {
   const [url, setUrl] = useState();
   const [image, setImage] = useState();
   const BusyIndicator = useBusyIndicator();
+  const categories = [
+    {
+      label: 'Home',
+      value: 'Home',
+    },
+    {
+      label: 'Super',
+      value: 'Supermarket',
+    },
+    {
+      label: 'Fashion',
+      value: 'Fashion',
+    },
+    {
+      label: 'Tech',
+      value: 'Technology',
+    },
+    {
+      label: 'Games',
+      value: 'Games',
+    },
+  ];
+  const conditions = [
+    {
+      label: 'New',
+      value: 'New',
+    },
+    {
+      label: 'Preowned',
+      value: 'Preowned',
+    },
+    {
+      label: 'Used',
+      value: 'Used',
+    },
+  ];
 
   useEffect(() => {
     setName(params?.name);
@@ -72,11 +109,18 @@ const Products = ({route: {params}, navigation}) => {
           onChangeText={a => setName(a)}
           value={name}
         />
-        <InputContainer
-          styles={ProductsStyles.input}
-          placeholder="Category"
-          onChangeText={a => setCategory(a)}
-          value={category}
+        <Text style={ProductsStyles.text}>Select a category : </Text>
+        <SwitchSelector
+          options={categories}
+          initial={0}
+          onPress={a => setCategory(a)}
+          fontSize={16}
+          textColor="#3140C2"
+          borderColor="#3140C2"
+          buttonColor="#3140C2"
+          hasPadding
+          height={50}
+          style={ProductsStyles.switch}
         />
         <InputContainer
           styles={ProductsStyles.input}
@@ -85,11 +129,18 @@ const Products = ({route: {params}, navigation}) => {
           onChangeText={a => setPrice(a)}
           value={params ? String(price) : price}
         />
-        <InputContainer
-          styles={ProductsStyles.input}
-          placeholder="Condition"
-          onChangeText={a => setCondition(a)}
-          value={condition}
+        <Text style={ProductsStyles.text}>Select the condition: </Text>
+        <SwitchSelector
+          options={conditions}
+          initial={0}
+          onPress={a => setCondition(a)}
+          fontSize={16}
+          textColor="#3140C2"
+          borderColor="#3140C2"
+          buttonColor="#3140C2"
+          hasPadding
+          height={50}
+          style={ProductsStyles.switch}
         />
         <InputContainer
           styles={ProductsStyles.textarea}

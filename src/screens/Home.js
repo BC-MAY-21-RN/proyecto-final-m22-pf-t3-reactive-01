@@ -26,6 +26,7 @@ const Home = ({navigation}) => {
       .catch();
   }, [isFocused]);
 
+  //Search method
   useEffect(() => {
     //Function to get all products
     const getProducts = async () => {
@@ -51,6 +52,7 @@ const Home = ({navigation}) => {
     };
     getProductsFiltered();
   }, [isFocused, searchValue]);
+
   return (
     <View>
       <Header
