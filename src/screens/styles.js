@@ -194,10 +194,9 @@ export const ProductsStyles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    fontWeight: 'bold',
-    fontStyle: 'italic',
+    fontWeight: '500',
     marginTop: 20,
-    color: '#3140C2',
+    color: 'black',
   },
 });
 

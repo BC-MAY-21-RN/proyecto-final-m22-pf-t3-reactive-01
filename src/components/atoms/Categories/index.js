@@ -1,12 +1,10 @@
 import React from 'react';
-import {Pressable, View, Text} from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
-import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
+import {View} from 'react-native';
 import categoriesStyles from './categoriesStyles';
 import BtnCategory from '../BtnCategory';
 
 const Categories = props => {
-  const {navigation, selected} = props;
+  const {navigation, selected, setProducts, setEmpty} = props;
   return (
     <View style={categoriesStyles.container}>
       <BtnCategory
@@ -15,6 +13,8 @@ const Categories = props => {
         title="Home"
         name="home"
         onPress={() => {
+          setEmpty ? setEmpty(false) : null;
+          setProducts ? setProducts([]) : null;
           navigation.navigate('Category', {
             category: 'Home',
           });
@@ -26,6 +26,8 @@ const Categories = props => {
         title="Super"
         name="shoppingcart"
         onPress={() => {
+          setEmpty ? setEmpty(false) : null;
+          setProducts ? setProducts([]) : null;
           navigation.navigate('Category', {
             category: 'Supermarket',
           });
@@ -37,6 +39,8 @@ const Categories = props => {
         title="Fashion"
         name="tshirt-crew-outline"
         onPress={() => {
+          setEmpty ? setEmpty(false) : null;
+          setProducts ? setProducts([]) : null;
           navigation.navigate('Category', {
             category: 'Fashion',
           });
@@ -49,6 +53,8 @@ const Categories = props => {
         title="Technology"
         name="monitor-cellphone"
         onPress={() => {
+          setEmpty ? setEmpty(false) : null;
+          setProducts ? setProducts([]) : null;
           navigation.navigate('Category', {
             category: 'Technology',
           });
@@ -61,6 +67,8 @@ const Categories = props => {
         title="Games"
         name="gamepad-variant-outline"
         onPress={() => {
+          setEmpty ? setEmpty(false) : null;
+          setProducts ? setProducts([]) : null;
           navigation.navigate('Category', {
             category: 'Games',
           });
