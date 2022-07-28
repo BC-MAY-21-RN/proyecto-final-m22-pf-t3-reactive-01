@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import Header from '../components/atoms/Header';
 import {useIsFocused} from '@react-navigation/native';
-import auth from '@react-native-firebase/auth';
+import Categories from '../components/atoms/Categories';
 import firestore from '@react-native-firebase/firestore';
 import VerticalList from '../components/atoms/VerticalList';
 
@@ -62,6 +62,7 @@ const Home = ({navigation}) => {
         onPress={() => navigation.navigate('Cart')}
         search={[searchValue, setSearchValue]}
       />
+      <Categories navigation={navigation} />
       <VerticalList data={filter ? filter : products} navigation={navigation} />
     </View>
   );
