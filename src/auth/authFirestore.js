@@ -1,6 +1,7 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
+import React, {useState} from 'react';
 
 export const logIn = async (firstname, check, email, password) => {
   await auth()
@@ -147,4 +148,55 @@ export const deleteProduct = async (collection, document) => {
     .then(() => {
       alert('Successful removal!');
     });
+};
+
+export const addInfo = async (info, uID) => {
+
+
+  const inputName = info.input;
+  const value = info.inputValue;
+
+ 
+  
+  
+  if (inputName === 'User') {
+     await firestore().collection('Users').doc(uID).update({
+       firstname: value,
+   });
+   } else if (inputName === 'Email') {
+     await firestore().collection('Users').doc(uID).update({
+       email: value,
+     });
+   } else if (inputName === 'Usertype') {
+    await firestore().collection('Users').doc(uID).update({
+      usertype: value,
+    });
+   } else if (inputName === 'Fullname') {
+     await firestore().collection('Users').doc(uID).update({
+      fullname: value,
+    });
+  } else if (inputName === 'Cel') {
+     await firestore().collection('Users').doc(uID).update({
+       cel: value,
+    });
+   } else if (inputName === 'Dni') {
+     await firestore().collection('Users').doc(uID).update({
+       dni: value,
+     })
+   } else if (inputName === 'Image') {
+     await firestore().collection('Users').doc(uID).update({
+       image: value,
+     });
+   } else {
+     console.log('errrr ');}
+};
+export const userID = async (uID, setUID) => {
+  const querySnapshot = await firestore()
+    .collection('Users')
+    .where('uid', '==', uID)
+    .get();
+  querySnapshot.forEach(doc => {
+    setUID(doc.id);
+    console.log('ddddd  ///   '+doc.id)
+  });
 };

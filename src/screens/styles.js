@@ -190,7 +190,6 @@ export const ProductsStyles = StyleSheet.create({
   },
 });
 
-
 export const CuentaStyle = StyleSheet.create({
   container: {
     flex: 1,
@@ -225,6 +224,7 @@ export const CuentaStyle = StyleSheet.create({
   image: {
     width: 80,
     height: 80,
+    borderRadius: 100,
     elevation: 1,
   },
   iconChangeImage: {
@@ -255,11 +255,11 @@ export const CuentaStyle = StyleSheet.create({
     borderRadius: 10,
     elevation: 2,
   },
-  iconData:{
-display:'flex',
-justifyContent:'center',
-alignItems:'center',
-flexDirection:'row'
+  iconData: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   labelInfo: {
     color: 'black',
@@ -275,8 +275,16 @@ flexDirection:'row'
     marginHorizontal: 60,
     elevation: 3,
   },
+  inputEditAndAdd: {
+    color: '#3140C2',
+    paddingVertical: 0,
+    paddingHorizontal: 20,
+    margin: -10,
+  },
   textDeleteAccount: {
-    textAlign: 'center',}})
+    textAlign: 'center',
+  },
+});
 
 export const ProductDetailsStyles = StyleSheet.create({
   MainContainer: {flex: 1},
@@ -366,6 +374,5 @@ export const ProductDetailsStyles = StyleSheet.create({
   Separator: {
     height: 0.9,
     backgroundColor: colors.DIVIDER_COLOR,
-
   },
 });
