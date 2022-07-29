@@ -7,7 +7,16 @@ import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconIon from 'react-native-vector-icons/Ionicons';
 import IconEvilIcons from 'react-native-vector-icons/EvilIcons';
 import {useCart, cartQuantity} from '../../../utils/cart';
-const Header = ({name, navigation, icon, directory, onPress, BackBtn}) => {
+import SearchBar from '../SearchBar';
+const Header = ({
+  name,
+  navigation,
+  icon,
+  directory,
+  onPress,
+  BackBtn,
+  search,
+}) => {
   let navigate, icoName;
   if (BackBtn) {
     navigate = () => navigation.goBack();
@@ -19,7 +28,11 @@ const Header = ({name, navigation, icon, directory, onPress, BackBtn}) => {
   return (
     <View style={Styles.container}>
       <Pressable onPress={navigate} name={icoName} directory={directory} />
-      <Text style={Styles.title}>{name}</Text>
+      {search ? (
+        <SearchBar value={search[0]} setValue={search[1]} />
+      ) : (
+        <Text style={Styles.title}>{name}</Text>
+      )}
       <Pressable
         style={Styles.optionalButton}
         onPress={onPress}

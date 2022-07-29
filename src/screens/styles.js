@@ -188,6 +188,16 @@ export const ProductsStyles = StyleSheet.create({
     padding: 10,
     fontSize: 20,
   },
+  switch: {
+    width: 300,
+    marginTop: 20,
+  },
+  text: {
+    fontSize: 18,
+    fontWeight: '500',
+    marginTop: 20,
+    color: 'black',
+  },
 });
 
 export const CuentaStyle = StyleSheet.create({
