@@ -5,7 +5,8 @@ import ModalInputStyle from './ModalInputStyle';
 import Icon from 'react-native-vector-icons/Ionicons';
 import validateSchema from '../../../utils/schemasValidateProfile';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import { addInfo, getUserInfo, updateInfo } from '../../../auth/authFirestore';
+import {addInfo} from '../../../auth/authFirestore';
+import requestCameraPermission from '../../../utils/requestCameraPermissions';
 
 const ModalInput = props => {
   const {action, input, state, stateEdit, iconInput, imageProfile, uID} = props;
@@ -49,6 +50,7 @@ const ModalInput = props => {
       setNumericInput(false);
     }
   }, [state]);
+
   useEffect(() => {
     if (input === 'Usertype' && usertypeSelect === false) {
       setUsertypeSelect(true);
@@ -86,6 +88,7 @@ const ModalInput = props => {
                 setSubmitFailed(false);
                 stateEdit(!state);
                 setNumericInput(false);
+                setInputValue('');
               }}
             />
           ) : (
@@ -101,6 +104,7 @@ const ModalInput = props => {
                     stateEdit(!state);
                     setNumericInput(false);
                     setImage('');
+                    setInputValue('');
                   }}
                 />
               ) : (
@@ -114,6 +118,7 @@ const ModalInput = props => {
                     stateEdit(!state);
                     setNumericInput(false);
                     setImage('');
+                    setInputValue('');
                   }}
                 />
               )}
@@ -121,21 +126,33 @@ const ModalInput = props => {
           )}
 
           <Text style={ModalInputStyle.text}>
-            <Icon name={iconAction} size={15} color={'black'} /> {action} your{' '}
+            <Icon name={iconAction} size={15} color={'#3140C2'} /> {action} your{' '}
             {input}
           </Text>
 
           {usertypeSelect ? (
-            <SwitchSelector
-              options={options}
-              initial={0}
-              height={45}
-              style={ModalInputStyle.switchSelector}
-              buttonColor={'#3140C2'}
-              borderColor={'#3140C2'}
-              borderRadius={50}
-              onPress={value => setInputValue(value)}
-            />
+            <>
+              <SwitchSelector
+                options={options}
+                initial={0}
+                height={45}
+                style={ModalInputStyle.switchSelector}
+                buttonColor={'#3140C2'}
+                borderColor={'#3140C2'}
+                borderRadius={50}
+                onPress={value => setInputValue(value)}
+              />
+              {sumbitFailed ? (
+                <View style={ModalInputStyle.containerErrorMessage}>
+                  <Icon name={'alert-circle-outline'} size={15} color={'red'} />
+                  <Text style={ModalInputStyle.errorMessage}>
+                    {errorMessage}
+                  </Text>
+                </View>
+              ) : (
+                <></>
+              )}
+            </>
           ) : (
             <>
               {imageInput ? (
@@ -150,9 +167,11 @@ const ModalInput = props => {
                     <Pressable
                       style={ModalInputStyle.pressableImagePicker}
                       onPress={() => {
-                        launchCamera(optionImage, response => {
-                          console.log('picker image to camera', response);
-                        });
+                        requestCameraPermission(),
+                          launchCamera(optionImage, response => {
+                            setImage(response.assets[0].uri);
+                            setInputValue(response.assets[0].uri);
+                          });
                       }}>
                       <Icon
                         name={'camera-outline'}
@@ -248,19 +267,23 @@ const ModalInput = props => {
                   .then(() => {
                     console.log('to pass');
                     if (action == 'Add') {
-                      addInfo({input:input,inputValue:inputValue},uID)
+                      addInfo({input: input, inputValue: inputValue}, uID);
                       stateEdit(!state);
                       setUsertypeSelect(false);
                       setImage('');
-                      
-                      console.log(`${input} is add and saved: ${inputValue}.... ${uID} `);
+                      setSubmitFailed(false);
+
+                      console.log(
+                        `${input} is add and saved: ${inputValue}.... ${uID} `,
+                      );
                       setInputValue('');
                       setNumericInput(false);
                     } else if (action === 'Change') {
-                      addInfo({input:input,inputValue:inputValue},uID)
+                      addInfo({input: input, inputValue: inputValue}, uID);
                       stateEdit(!state);
                       setUsertypeSelect(false);
                       setImage('');
+                      setSubmitFailed(false);
                       console.log(
                         `${input} is change and save: ${inputValue} `,
                       );
@@ -270,7 +293,6 @@ const ModalInput = props => {
                   })
                   .catch(errr => {
                     const error = errr.message;
-
                     setSubmitFailed(true);
                     setErrorMessage(error);
                   });
@@ -278,6 +300,8 @@ const ModalInput = props => {
                 setSubmitFailed(true),
                   imageInput
                     ? setErrorMessage(' Please select your image')
+                    : usertypeSelect
+                    ? setErrorMessage(' Please select one option')
                     : setErrorMessage(' Please complete the camp');
               }
             }}>
