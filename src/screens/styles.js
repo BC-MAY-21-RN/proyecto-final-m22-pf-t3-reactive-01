@@ -278,9 +278,9 @@ export const CuentaStyle = StyleSheet.create({
   },
   buttonDeleteAccount: {
     backgroundColor: '#D40C1C',
-    color: 'white',
+    color: '#ffff',
     padding: 10,
-    borderRadius: 15,
+    borderRadius: 10,
     marginTop: 10,
     marginHorizontal: 60,
     elevation: 3,

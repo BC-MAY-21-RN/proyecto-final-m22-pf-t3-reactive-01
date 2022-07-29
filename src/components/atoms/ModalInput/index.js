@@ -7,6 +7,7 @@ import validateSchema from '../../../utils/schemasValidateProfile';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {addInfo} from '../../../auth/authFirestore';
 import requestCameraPermission from '../../../utils/requestCameraPermissions';
+import Loader from '../Loader';
 
 const ModalInput = props => {
   const {action, input, state, stateEdit, iconInput, imageProfile, uID} = props;
@@ -18,6 +19,7 @@ const ModalInput = props => {
   const [numericInput, setNumericInput] = useState(false);
   const [imageInput, setImageInput] = useState(false);
   const [image, setImage] = useState(imageProfile);
+  const [loading, setLoading] = useState(false);
   const optionImage = {
     title: 'Select Image',
     customButtons: [
@@ -67,7 +69,8 @@ const ModalInput = props => {
       }
     }
   }, [action]);
-  return (
+  return (<>
+    {loading?(<><Loader state={loading} text={'loading..'} stateEdit={setLoading}/></>):(<>
     <Modal
       animationType="slide"
       transparent={true}
@@ -75,7 +78,8 @@ const ModalInput = props => {
       onRequestClose={() => {
         stateEdit(!state);
       }}>
-      <View style={ModalInputStyle.containerModal}>
+       
+          <View style={ModalInputStyle.containerModal}>
         <View style={ModalInputStyle.conatinerView}>
           {usertypeSelect ? (
             <Icon
@@ -267,28 +271,25 @@ const ModalInput = props => {
                   .then(() => {
                     console.log('to pass');
                     if (action == 'Add') {
+                      setLoading(true)
                       addInfo({input: input, inputValue: inputValue}, uID);
                       stateEdit(!state);
                       setUsertypeSelect(false);
                       setImage('');
                       setSubmitFailed(false);
-
-                      console.log(
-                        `${input} is add and saved: ${inputValue}.... ${uID} `,
-                      );
                       setInputValue('');
                       setNumericInput(false);
+                     
                     } else if (action === 'Change') {
+                      setLoading(true)
                       addInfo({input: input, inputValue: inputValue}, uID);
                       stateEdit(!state);
                       setUsertypeSelect(false);
                       setImage('');
                       setSubmitFailed(false);
-                      console.log(
-                        `${input} is change and save: ${inputValue} `,
-                      );
                       setInputValue('');
                       setNumericInput(false);
+                     
                     }
                   })
                   .catch(errr => {
@@ -308,9 +309,10 @@ const ModalInput = props => {
             <Text style={ModalInputStyle.textToSave}>Save changes</Text>
           </Pressable>
         </View>
-      </View>
-    </Modal>
-  );
+      </View></Modal></>)}
+     
+    
+  </>);
 };
 
 export default ModalInput;

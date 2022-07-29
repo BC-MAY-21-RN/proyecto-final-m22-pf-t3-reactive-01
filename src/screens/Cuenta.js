@@ -6,6 +6,7 @@ import {CuentaStyle} from './Styles';
 import auth from '@react-native-firebase/auth';
 import {getUserInfo, userID} from '../auth/authFirestore';
 import ModalInput from '../components/atoms/ModalInput/index';
+import ModalWarningDelete from '../components/atoms/ModalWarningDelete';
 
 const Cuenta = ({navigation}) => {
   const current = auth().currentUser;
@@ -15,6 +16,8 @@ const Cuenta = ({navigation}) => {
   const [inputSelect, setInputSelect] = useState('');
   const [iconInput, setIconInput] = useState('sync-outline');
   const [uID, setUID] = useState();
+  const [deleteAccount, setDeleteAccount] = useState(false);
+
   useEffect(() => {
     if (current) {
       userID(current.uid, setUID);
@@ -38,7 +41,7 @@ const Cuenta = ({navigation}) => {
             source={{
               uri: userInfo.image
                 ? userInfo.image
-                : 'https://cdn-icons.flaticon.com/png/512/3177/premium/3177440.png?token=exp=1659021792~hmac=59d2ecb84a4d47e3c5261fd88f6d9f21',
+                : 'https://cdn-icons.flaticon.com/png/512/1144/premium/1144709.png?token=exp=1659120810~hmac=580876099a7d075301cb7eca9d1aa455',
             }}
             style={CuentaStyle.image}
           />
@@ -72,7 +75,7 @@ const Cuenta = ({navigation}) => {
               imageProfile={
                 userInfo.image
                   ? userInfo.image
-                  : 'https://cdn-icons.flaticon.com/png/512/3177/premium/3177440.png?token=exp=1659021792~hmac=59d2ecb84a4d47e3c5261fd88f6d9f21'
+                  : 'https://cdn-icons.flaticon.com/png/512/1144/premium/1144709.png?token=exp=1659120810~hmac=580876099a7d075301cb7eca9d1aa455'
               }
             />
             <View style={CuentaStyle.iconData}>
@@ -113,7 +116,10 @@ const Cuenta = ({navigation}) => {
           </View>
           <View style={CuentaStyle.containerLabelInfo}>
             <View style={CuentaStyle.iconData}>
-              <Icon name={'finger-print-outline'} size={20} color={'#3140C2'}></Icon>
+              <Icon
+                name={'finger-print-outline'}
+                size={20}
+                color={'#3140C2'}></Icon>
               <Text style={CuentaStyle.labelInfo}>User Type</Text>
             </View>
             <Text style={CuentaStyle.labelInfo}>{userInfo.usertype}</Text>
@@ -135,7 +141,10 @@ const Cuenta = ({navigation}) => {
           <View>
             <View style={CuentaStyle.containerLabelInfo}>
               <View style={CuentaStyle.iconData}>
-                <Icon name={'reader-outline'} size={20} color={'#3140C2'}></Icon>
+                <Icon
+                  name={'reader-outline'}
+                  size={20}
+                  color={'#3140C2'}></Icon>
                 <Text style={CuentaStyle.labelInfo}>full name</Text>
               </View>
               <Text style={CuentaStyle.labelInfo}>
@@ -211,7 +220,17 @@ const Cuenta = ({navigation}) => {
             </View>
           </View>
         </View>
-        <Pressable style={CuentaStyle.buttonDeleteAccount}>
+
+        <ModalWarningDelete
+          state={deleteAccount}
+          stateEdit={setDeleteAccount}
+          uID={uID}
+        />
+        <Pressable
+          style={CuentaStyle.buttonDeleteAccount}
+          onPress={() => {
+            setDeleteAccount(true);
+          }}>
           <Text style={CuentaStyle.textDeleteAccount}>Delete Account</Text>
         </Pressable>
       </View>
