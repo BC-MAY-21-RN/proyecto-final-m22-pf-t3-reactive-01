@@ -1,8 +1,9 @@
 import * as Yup from 'yup';
 
 const schemaInputUser = Yup.string()
-  .min(6, 'Too Short!')
-  .max(20, 'Too Long!')
+  .min(6, 'The user name must be at least 6 digits long')
+  .max(20, 'The user name must not be longer than 20 digits')
+  .matches(/^[aA-zZ\s]+$/,'Is not in correct format')
   .required('Name Required');
 
 const schemaInputEmail = Yup.string()
@@ -12,16 +13,20 @@ const schemaInputEmail = Yup.string()
 const schemaInputUserType = Yup.string().required();
 
 const schemaInputFullname = Yup.string()
-  .min(6, 'Too Short!')
-  .max(22, 'Too Long!')
+  .min(6, ' The full name must be at least 6 digits long')
+  .max(22, ' The fullname must not be longer than 22 digits')
+  .matches(/^[aA-zZ\s]+$/,'Is not in correct format')
   .required();
 
 const schemaInputCel = Yup.string()
-  .min(10, 'Too Short!')
-  .max(12, 'Too Long!')
+  .min(10, 'The number must be at least 10 digits')
+  .max(12, 'The number must not exceed 12 digits.')
   .required();
 
-const schemaInputDni = Yup.number().required();
+const schemaInputDni = Yup.string()
+.min(8, ' The number must be at least 8 digits')
+.max(8, ' The number must be at least 8 digits')
+.required()
 
 const schemaInputImage = Yup.string().required();
 

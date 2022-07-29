@@ -76,7 +76,7 @@ const Cuenta = ({navigation}) => {
               }
             />
             <View style={CuentaStyle.iconData}>
-              <Icon name={'person-outline'} size={20} color={'black'}></Icon>
+              <Icon name={'person-outline'} size={20} color={'#3140C2'}></Icon>
               <Text style={CuentaStyle.labelInfo}>User</Text>
             </View>
 
@@ -84,7 +84,7 @@ const Cuenta = ({navigation}) => {
             <Icon
               name={'create-outline'}
               size={20}
-              color="#3140C2"
+              color="#767676"
               onPress={() => {
                 setAction('Change'),
                   setModalVisible(true),
@@ -95,14 +95,14 @@ const Cuenta = ({navigation}) => {
           </View>
           <View style={CuentaStyle.containerLabelInfo}>
             <View style={CuentaStyle.iconData}>
-              <Icon name={'mail-outline'} size={20} color={'black'}></Icon>
+              <Icon name={'mail-outline'} size={20} color={'#3140C2'}></Icon>
               <Text style={CuentaStyle.labelInfo}>Email</Text>
             </View>
             <Text style={CuentaStyle.labelInfo}>{userInfo.email}</Text>
             <Icon
               name={'create-outline'}
               size={20}
-              color="#3140C2"
+              color="#767676"
               onPress={() => {
                 setAction('Change'),
                   setModalVisible(true),
@@ -113,14 +113,14 @@ const Cuenta = ({navigation}) => {
           </View>
           <View style={CuentaStyle.containerLabelInfo}>
             <View style={CuentaStyle.iconData}>
-              <Icon name={'man-outline'} size={20} color={'black'}></Icon>
+              <Icon name={'finger-print-outline'} size={20} color={'#3140C2'}></Icon>
               <Text style={CuentaStyle.labelInfo}>User Type</Text>
             </View>
             <Text style={CuentaStyle.labelInfo}>{userInfo.usertype}</Text>
             <Icon
               name={'create-outline'}
               size={20}
-              color="#3140C2"
+              color="#767676"
               onPress={() => {
                 setAction('Change'),
                   setModalVisible(true),
@@ -135,7 +135,7 @@ const Cuenta = ({navigation}) => {
           <View>
             <View style={CuentaStyle.containerLabelInfo}>
               <View style={CuentaStyle.iconData}>
-                <Icon name={'reader-outline'} size={20} color={'black'}></Icon>
+                <Icon name={'reader-outline'} size={20} color={'#3140C2'}></Icon>
                 <Text style={CuentaStyle.labelInfo}>full name</Text>
               </View>
               <Text style={CuentaStyle.labelInfo}>
@@ -145,7 +145,7 @@ const Cuenta = ({navigation}) => {
               <Icon
                 name={userInfo.fullname ? 'create-outline' : 'add-outline'}
                 size={20}
-                color="#3140C2"
+                color="#767676"
                 onPress={() => {
                   userInfo.fullname
                     ? (setAction('Change'),
@@ -161,7 +161,7 @@ const Cuenta = ({navigation}) => {
             </View>
             <View style={CuentaStyle.containerLabelInfo}>
               <View style={CuentaStyle.iconData}>
-                <Icon name={'call-outline'} size={20} color={'black'}></Icon>
+                <Icon name={'call-outline'} size={20} color={'#3140C2'}></Icon>
                 <Text style={CuentaStyle.labelInfo}>Cel</Text>
               </View>
               <Text style={CuentaStyle.labelInfo}>
@@ -170,7 +170,7 @@ const Cuenta = ({navigation}) => {
               <Icon
                 name={userInfo.cel ? 'create-outline' : 'add-outline'}
                 size={20}
-                color="#3140C2"
+                color="#767676"
                 onPress={() => {
                   userInfo.cel
                     ? (setAction('Change'),
@@ -186,7 +186,7 @@ const Cuenta = ({navigation}) => {
             </View>
             <View style={CuentaStyle.containerLabelInfo}>
               <View style={CuentaStyle.iconData}>
-                <Icon name={'card-outline'} size={20} color={'black'}></Icon>
+                <Icon name={'card-outline'} size={20} color={'#3140C2'}></Icon>
                 <Text style={CuentaStyle.labelInfo}>DNI</Text>
               </View>
               <Text style={CuentaStyle.labelInfo}>
@@ -195,7 +195,7 @@ const Cuenta = ({navigation}) => {
               <Icon
                 name={userInfo.dni ? 'create-outline' : 'add-outline'}
                 size={20}
-                color="#3140C2"
+                color="#767676"
                 onPress={() => {
                   userInfo.dni
                     ? (setAction('Change'),
