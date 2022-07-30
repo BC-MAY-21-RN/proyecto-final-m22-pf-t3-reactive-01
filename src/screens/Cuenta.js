@@ -39,7 +39,7 @@ const Cuenta = ({navigation}) => {
         <Header name="Account" navigation={navigation} />
       </View>
 
-      { loading && !userInfo ? (
+      {loading && !userInfo ? (
         <>
           <Loader state={loading} text={'loading..'} stateEdit={setLoading} />
         </>
@@ -83,7 +83,7 @@ const Cuenta = ({navigation}) => {
               <Text style={CuentaStyle.titleDataContainer}>Account data</Text>
               <View style={CuentaStyle.containerLabelInfo}>
                 <ModalInput
-                statusImage={userInfo.image}
+                  statusImage={userInfo.image}
                   action={action}
                   uID={uID}
                   input={inputSelect}
@@ -178,7 +178,7 @@ const Cuenta = ({navigation}) => {
                   <Icon
                     name={userInfo.fullname ? 'create-outline' : 'add-outline'}
                     size={20}
-                    color={userInfo.fullname ? "#767676" : '#3140C2'}
+                    color={userInfo.fullname ? '#767676' : '#3140C2'}
                     style={userInfo.fullname ? CuentaStyle.iconEdit : ''}
                     onPress={() => {
                       userInfo.fullname
@@ -197,15 +197,10 @@ const Cuenta = ({navigation}) => {
                       name={'trash-outline'}
                       size={20}
                       color={'#D40C1C'}
-                      
                       onPress={() => {
-                        userInfo.fullname
-                          ? (deleteCamp('Fullname', uID),
-                            setLoading(true),
-                            setDeleteToCamp(true))
-                          : (err) => {
-                              console.log('Error: '+err);
-                            };
+                        deleteCamp('Fullname', uID),
+                          setLoading(true),
+                          setDeleteToCamp(true);
                       }}
                     />
                   ) : (
@@ -226,7 +221,7 @@ const Cuenta = ({navigation}) => {
                   <Icon
                     name={userInfo.cel ? 'create-outline' : 'add-outline'}
                     size={20}
-                    color={userInfo.cel ? "#767676" : '#3140C2'}
+                    color={userInfo.cel ? '#767676' : '#3140C2'}
                     style={userInfo.cel ? CuentaStyle.iconEdit : ''}
                     onPress={() => {
                       userInfo.cel
@@ -240,20 +235,15 @@ const Cuenta = ({navigation}) => {
                           setIconInput('call-outline'));
                     }}
                   />
-                   {userInfo.cel ? (
+                  {userInfo.cel ? (
                     <Icon
                       name={'trash-outline'}
                       size={20}
                       color={'#D40C1C'}
-                     
                       onPress={() => {
-                        userInfo.cel
-                          ? (deleteCamp('Cel', uID),
-                            setLoading(true),
-                            setDeleteToCamp(true))
-                          : (err) => {
-                              console.log('Error: '+err);
-                            };
+                        deleteCamp('Cel', uID),
+                          setLoading(true),
+                          setDeleteToCamp(true);
                       }}
                     />
                   ) : (
@@ -274,7 +264,7 @@ const Cuenta = ({navigation}) => {
                   <Icon
                     name={userInfo.dni ? 'create-outline' : 'add-outline'}
                     size={20}
-                    color={userInfo.dni ? "#767676" : '#3140C2'}
+                    color={userInfo.dni ? '#767676' : '#3140C2'}
                     style={userInfo.dni ? CuentaStyle.iconEdit : ''}
                     onPress={() => {
                       userInfo.dni
@@ -293,15 +283,10 @@ const Cuenta = ({navigation}) => {
                       name={'trash-outline'}
                       size={20}
                       color={'#D40C1C'}
-                      
                       onPress={() => {
-                        userInfo.dni
-                          ? (deleteCamp('Dni', uID),
-                            setLoading(true),
-                            setDeleteToCamp(true))
-                          : (err) => {
-                              console.log('Error: '+err);
-                            };
+                        deleteCamp('Dni', uID),
+                          setLoading(true),
+                          setDeleteToCamp(true);
                       }}
                     />
                   ) : (

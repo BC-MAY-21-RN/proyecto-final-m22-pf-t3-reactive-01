@@ -1,4 +1,3 @@
-import React from 'react';
 import {StyleSheet} from 'react-native';
 
 const ModalWarningDeleteStyle = StyleSheet.create({
@@ -23,9 +22,6 @@ const ModalWarningDeleteStyle = StyleSheet.create({
     borderStartWidth: 1,
     borderTopWidth: 1,
     borderBottomWidth: 3,
-  },
-  textWarning: {
-    color: 'black',
   },
   pressableGoBack: {
     backgroundColor: '#F4F4F4',

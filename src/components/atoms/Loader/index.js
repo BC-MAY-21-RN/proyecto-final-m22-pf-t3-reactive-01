@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {Text, View, Modal, Animated, Image} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {Text, View, Modal, Animated} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LoaderStyle from './LoaderStyle';
 
 const Loader = props => {
   const {state, stateEdit} = props;
   const [text, setText] = useState('');
-  const [animationFade, setAnimationFade] = useState(new Animated.Value(0));
-  const [animationScale, setAnimationScale] = useState(new Animated.Value(0));
+  const animationFade = useRef(new Animated.Value(0)).current
+  const animationScale = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
     Animated.timing(animationFade, {
