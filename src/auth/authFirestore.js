@@ -151,44 +151,40 @@ export const deleteProduct = async (collection, document) => {
 };
 
 export const addInfo = async (info, uID) => {
-
-
   const inputName = info.input;
   const value = info.inputValue;
 
- 
-  
-  
   if (inputName === 'User') {
-     await firestore().collection('Users').doc(uID).update({
-       firstname: value,
-   });
-   } else if (inputName === 'Email') {
-     await firestore().collection('Users').doc(uID).update({
-       email: value,
-     });
-   } else if (inputName === 'Usertype') {
+    await firestore().collection('Users').doc(uID).update({
+      firstname: value,
+    });
+  } else if (inputName === 'Email') {
+    await firestore().collection('Users').doc(uID).update({
+      email: value,
+    });
+  } else if (inputName === 'Usertype') {
     await firestore().collection('Users').doc(uID).update({
       usertype: value,
     });
-   } else if (inputName === 'Fullname') {
-     await firestore().collection('Users').doc(uID).update({
+  } else if (inputName === 'Fullname') {
+    await firestore().collection('Users').doc(uID).update({
       fullname: value,
     });
   } else if (inputName === 'Cel') {
-     await firestore().collection('Users').doc(uID).update({
-       cel: value,
+    await firestore().collection('Users').doc(uID).update({
+      cel: value,
     });
-   } else if (inputName === 'Dni') {
-     await firestore().collection('Users').doc(uID).update({
-       dni: value,
-     })
-   } else if (inputName === 'Image') {
-     await firestore().collection('Users').doc(uID).update({
-       image: value,
-     });
-   } else {
-     console.log('errrr ');}
+  } else if (inputName === 'Dni') {
+    await firestore().collection('Users').doc(uID).update({
+      dni: value,
+    });
+  } else if (inputName === 'Image') {
+    await firestore().collection('Users').doc(uID).update({
+      image: value,
+    });
+  } else {
+    console.log('error input or input value ');
+  }
 };
 export const userID = async (uID, setUID) => {
   const querySnapshot = await firestore()
@@ -197,6 +193,42 @@ export const userID = async (uID, setUID) => {
     .get();
   querySnapshot.forEach(doc => {
     setUID(doc.id);
-    console.log('ddddd  ///   '+doc.id)
   });
 };
+
+export const deleteAccount = async uID => {
+  await firestore()
+    .collection('Users')
+    .doc(uID)
+    .delete()
+    .then(() => {
+      logout();
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+export const deleteCamp = async(input,uID)=>{
+  const inputName = input;
+
+ 
+  if (inputName === 'Fullname') {
+    await firestore().collection('Users').doc(uID).update({
+      fullname: '',
+    });
+  } else if (inputName === 'Cel') {
+    await firestore().collection('Users').doc(uID).update({
+      cel: '',
+    });
+  } else if (inputName === 'Dni') {
+    await firestore().collection('Users').doc(uID).update({
+      dni: '',
+    });
+  } else if (inputName === 'Image') {
+    await firestore().collection('Users').doc(uID).update({
+      image: '',
+    });
+  } else {
+    console.log('error action of delte camp ');
+  }
+}

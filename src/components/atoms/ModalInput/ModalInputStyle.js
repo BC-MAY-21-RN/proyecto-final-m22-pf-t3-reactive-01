@@ -100,18 +100,34 @@ const ModalInputStyle = StyleSheet.create({
     top: 10,
     left: 20,
   },
+  iconImagePickerDelete: {
+    backgroundColor: '#F4F4F4',
+    borderRadius: 100,
+    padding: 8,
+    position: 'absolute',
+    top: 140,
+    left: 100,
+    elevation: 5,
+    zIndex: 2,
+  },
   filenameImage: {
     color: '#000',
     marginVertical: 5,
     marginLeft: 20,
     textAlign: 'center',
   },
+  imagePreviewContainer: {
+    width: 154,
+    height: 154,
+    elevation: 5,
+    marginLeft: 39,
+    marginVertical: 10,
+    borderRadius: 90,
+  },
   imagePreviewStyle: {
     width: 150,
     height: 150,
     borderRadius: 90,
-    marginLeft: 39,
-    marginVertical: 10,
   },
   iconImageUpload: {
     position: 'absolute',
@@ -125,21 +141,22 @@ const ModalInputStyle = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 10,
     marginHorizontal: -15,
-    marginBottom:8
+    marginBottom: 8,
   },
   iconCloseImagePicker: {
     position: 'absolute',
     top: 10,
     left: 270,
   },
-  containerErrorMessageImage:{display: 'flex',
-  flexDirection: 'row',
-  marginLeft: -12,
- 
-  marginBottom: -10,
-  maxWidth: 200,
-  maxHeight: 15,
-  }
+  containerErrorMessageImage: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginLeft: -12,
+
+    marginBottom: -10,
+    maxWidth: 200,
+    maxHeight: 15,
+  },
 });
 
 export default ModalInputStyle;
