@@ -183,7 +183,7 @@ export const addInfo = async (info, uID) => {
       image: value,
     });
   } else {
-    console.log('errrr ');
+    console.log('error input or input value ');
   }
 };
 export const userID = async (uID, setUID) => {
@@ -193,7 +193,6 @@ export const userID = async (uID, setUID) => {
     .get();
   querySnapshot.forEach(doc => {
     setUID(doc.id);
-    console.log('ddddd  ///   ' + doc.id);
   });
 };
 
@@ -203,11 +202,33 @@ export const deleteAccount = async uID => {
     .doc(uID)
     .delete()
     .then(() => {
-      console.log('Delete account successfily');
-      logout()
+      logout();
     })
     .catch(err => {
-      console.log('error iun action of delete account ' + err)
-      ;
+      console.log(err);
     });
 };
+export const deleteCamp = async(input,uID)=>{
+  const inputName = input;
+
+ 
+  if (inputName === 'Fullname') {
+    await firestore().collection('Users').doc(uID).update({
+      fullname: '',
+    });
+  } else if (inputName === 'Cel') {
+    await firestore().collection('Users').doc(uID).update({
+      cel: '',
+    });
+  } else if (inputName === 'Dni') {
+    await firestore().collection('Users').doc(uID).update({
+      dni: '',
+    });
+  } else if (inputName === 'Image') {
+    await firestore().collection('Users').doc(uID).update({
+      image: '',
+    });
+  } else {
+    console.log('error action of delte camp ');
+  }
+}

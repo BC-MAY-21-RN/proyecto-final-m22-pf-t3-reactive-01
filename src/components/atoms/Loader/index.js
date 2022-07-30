@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View, Modal, Animated} from 'react-native';
+import {Text, View, Modal, Animated, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LoaderStyle from './LoaderStyle';
 
@@ -12,7 +12,7 @@ const Loader = props => {
   useEffect(() => {
     Animated.timing(animationFade, {
       toValue: 1,
-      duration: 500,
+      duration: 200,
       useNativeDriver: true,
     }).start();
 
@@ -61,6 +61,24 @@ const Loader = props => {
       <View style={LoaderStyle.container}>
         <Animated.View
           style={[LoaderStyle.background, {opacity: animationFade}]}>
+          <Icon
+            color="#F4F4F4"
+            size={60}
+            name={'person'}
+            style={LoaderStyle.iconReloadCenter}
+          />
+          <Icon
+            color="#0000999e"
+            size={66}
+            name={'person'}
+            style={LoaderStyle.iconReloadCenter2}
+          />
+          <Icon
+            color="#0000999e"
+            size={66}
+            name={'person'}
+            style={LoaderStyle.iconReloadCenter3}
+          />
           <Animated.View
             style={[
               LoaderStyle.backgroundActivityIndicator,
@@ -76,12 +94,7 @@ const Loader = props => {
                 ],
               },
             ]}>
-            <Icon
-              color="#3140C2"
-              size={25}
-              name={'ellipse-outline'}
-              style={LoaderStyle.iconReload}
-            />
+            <View style={LoaderStyle.iconReload} />
           </Animated.View>
 
           <Text style={LoaderStyle.message}>Loading{text}</Text>

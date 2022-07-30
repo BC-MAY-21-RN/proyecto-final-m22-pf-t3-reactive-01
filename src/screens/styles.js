@@ -294,6 +294,15 @@ export const CuentaStyle = StyleSheet.create({
   textDeleteAccount: {
     textAlign: 'center',
   },
+  iconDelete:{
+    position:'absolute',
+    left:313
+  } ,
+  iconEdit:{
+    position:'absolute',
+    left:280
+      } ,
+  
 });
 
 export const ProductDetailsStyles = StyleSheet.create({
