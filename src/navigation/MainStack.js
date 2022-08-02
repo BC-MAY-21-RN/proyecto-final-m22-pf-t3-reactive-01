@@ -123,7 +123,7 @@ const MenuItems = ({navigation}) => {
           name="shopping-cart"
           onPress={() => navigation.navigate('Cart')}
         />
-        {userType === 'seller' && (
+        {userType === 'Seller' && (
           <>
             <View style={MenuStyles.otheroptions}>
               <Text style={MenuStyles.division}>Seller Options</Text>

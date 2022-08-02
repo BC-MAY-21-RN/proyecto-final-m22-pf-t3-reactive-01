@@ -143,7 +143,7 @@ export const addInfo = async (info, uID) => {
 
   if (inputName === 'User') {
     await firestore().collection('Users').doc(uID).update({
-      firstname: value,
+      userName: value,
     });
   } else if (inputName === 'Email') {
     await firestore().collection('Users').doc(uID).update({
@@ -151,11 +151,11 @@ export const addInfo = async (info, uID) => {
     });
   } else if (inputName === 'Usertype') {
     await firestore().collection('Users').doc(uID).update({
-      usertype: value,
+      userType: value,
     });
   } else if (inputName === 'Fullname') {
     await firestore().collection('Users').doc(uID).update({
-      fullname: value,
+      fullName: value,
     });
   } else if (inputName === 'Cel') {
     await firestore().collection('Users').doc(uID).update({
@@ -172,15 +172,6 @@ export const addInfo = async (info, uID) => {
   } else {
     console.log('error input or input value ');
   }
-};
-export const userID = async (uID, setUID) => {
-  const querySnapshot = await firestore()
-    .collection('Users')
-    .where('uid', '==', uID)
-    .get();
-  querySnapshot.forEach(doc => {
-    setUID(doc.id);
-  });
 };
 
 export const deleteAccount = async uID => {

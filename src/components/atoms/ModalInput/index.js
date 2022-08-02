@@ -346,12 +346,12 @@ const ModalInput = props => {
                           setErrorMessage(error);
                         });
                     } else {
-                      setSubmitFailed(true),
-                        imageInput
-                          ? setErrorMessage(' Please select your image')
-                          : usertypeSelect
-                          ? setErrorMessage(' Please select one option')
-                          : setErrorMessage(' Please complete the camp');
+                      setSubmitFailed(true);
+                      imageInput
+                        ? setErrorMessage(' Please select your image')
+                        : usertypeSelect
+                        ? setErrorMessage(' Please select one option')
+                        : setErrorMessage(' Please complete the camp');
                     }
                   }}>
                   <Text style={ModalInputStyle.textToSave}>Save changes</Text>

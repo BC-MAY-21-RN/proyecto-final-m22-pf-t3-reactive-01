@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Header from '../components/atoms/Header';
 import {CuentaStyle} from './Styles';
 import auth from '@react-native-firebase/auth';
-import {deleteCamp, getUserInfo, userID} from '../auth/authFirestore';
+import {deleteCamp, getUserInfo} from '../auth/authFirestore';
 import ModalInput from '../components/atoms/ModalInput/index';
 import ModalWarningDelete from '../components/atoms/ModalWarningDelete';
 import Loader from '../components/atoms/Loader';
@@ -23,7 +23,7 @@ const Cuenta = ({navigation}) => {
 
   useEffect(() => {
     if (current) {
-      userID(current.uid, setUID);
+      setUID(current.uid);
       setLoading(true);
     }
   }, []);
@@ -32,23 +32,15 @@ const Cuenta = ({navigation}) => {
       getUserInfo(current, setUserInfo);
     }
   }, [(current && modalVisible) || (current && userInfo)]);
-
   return (
     <>
-      <View>
-        <Header name="Account" navigation={navigation} />
-      </View>
-
+      <Header name="Account" navigation={navigation} BackBtn />
       {loading && !userInfo ? (
-        <>
-          <Loader state={loading} text={'loading..'} stateEdit={setLoading} />
-        </>
+        <Loader state={loading} text={'loading..'} stateEdit={setLoading} />
       ) : (
         <>
-          {loading && deleteToCamp ? (
+          {loading && deleteToCamp && (
             <Loader state={loading} text={'loading..'} stateEdit={setLoading} />
-          ) : (
-            <></>
           )}
           <View style={CuentaStyle.container}>
             <View style={CuentaStyle.containerImageAndName}>
@@ -66,16 +58,16 @@ const Cuenta = ({navigation}) => {
                 size={16}
                 color="#3140C2"
                 onPress={() => {
-                  setAction('Change'),
-                    setModalVisible(true),
-                    setInputSelect('Image');
+                  setAction('Change');
+                  setModalVisible(true);
+                  setInputSelect('Image');
                   setIconInput('image-outline');
                 }}
               />
               <View>
-                <Text style={CuentaStyle.labelName}>{userInfo.firstname}</Text>
+                <Text style={CuentaStyle.labelName}>{userInfo.userName}</Text>
                 <Text style={CuentaStyle.labelUserType}>
-                  {userInfo.usertype}
+                  {userInfo.userType}
                 </Text>
               </View>
             </View>
@@ -97,32 +89,26 @@ const Cuenta = ({navigation}) => {
                   }
                 />
                 <View style={CuentaStyle.iconData}>
-                  <Icon
-                    name={'person-outline'}
-                    size={20}
-                    color={'#3140C2'}></Icon>
+                  <Icon name={'person-outline'} size={20} color={'#3140C2'} />
                   <Text style={CuentaStyle.labelInfo}>User</Text>
                 </View>
 
-                <Text style={CuentaStyle.labelInfo}>{userInfo.firstname}</Text>
+                <Text style={CuentaStyle.labelInfo}>{userInfo.userName}</Text>
                 <Icon
                   name={'create-outline'}
                   size={20}
                   color="#767676"
                   onPress={() => {
-                    setAction('Change'),
-                      setModalVisible(true),
-                      setInputSelect('User');
+                    setAction('Change');
+                    setModalVisible(true);
+                    setInputSelect('User');
                     setIconInput('person-outline');
                   }}
                 />
               </View>
               <View style={CuentaStyle.containerLabelInfo}>
                 <View style={CuentaStyle.iconData}>
-                  <Icon
-                    name={'mail-outline'}
-                    size={20}
-                    color={'#3140C2'}></Icon>
+                  <Icon name={'mail-outline'} size={20} color={'#3140C2'} />
                   <Text style={CuentaStyle.labelInfo}>Email</Text>
                 </View>
                 <Text style={CuentaStyle.labelInfo}>{userInfo.email}</Text>
@@ -131,9 +117,9 @@ const Cuenta = ({navigation}) => {
                   size={20}
                   color="#767676"
                   onPress={() => {
-                    setAction('Change'),
-                      setModalVisible(true),
-                      setInputSelect('Email');
+                    setAction('Change');
+                    setModalVisible(true);
+                    setInputSelect('Email');
                     setIconInput('mail-outline');
                   }}
                 />
@@ -143,18 +129,19 @@ const Cuenta = ({navigation}) => {
                   <Icon
                     name={'finger-print-outline'}
                     size={20}
-                    color={'#3140C2'}></Icon>
+                    color={'#3140C2'}
+                  />
                   <Text style={CuentaStyle.labelInfo}>User Type</Text>
                 </View>
-                <Text style={CuentaStyle.labelInfo}>{userInfo.usertype}</Text>
+                <Text style={CuentaStyle.labelInfo}>{userInfo.userType}</Text>
                 <Icon
                   name={'create-outline'}
                   size={20}
                   color="#767676"
                   onPress={() => {
-                    setAction('Change'),
-                      setModalVisible(true),
-                      setInputSelect('Usertype');
+                    setAction('Change');
+                    setModalVisible(true);
+                    setInputSelect('Usertype');
                     setIconInput('man-outline');
                   }}
                 />
@@ -165,23 +152,20 @@ const Cuenta = ({navigation}) => {
               <View>
                 <View style={CuentaStyle.containerLabelInfo}>
                   <View style={CuentaStyle.iconData}>
-                    <Icon
-                      name={'reader-outline'}
-                      size={20}
-                      color={'#3140C2'}></Icon>
+                    <Icon name={'reader-outline'} size={20} color={'#3140C2'} />
                     <Text style={CuentaStyle.labelInfo}>full name</Text>
                   </View>
                   <Text style={CuentaStyle.labelInfo}>
-                    {userInfo.fullname ? userInfo.fullname : ''}
+                    {userInfo.fullName ? userInfo.fullName : ''}
                   </Text>
 
                   <Icon
-                    name={userInfo.fullname ? 'create-outline' : 'add-outline'}
+                    name={userInfo.fullName ? 'create-outline' : 'add-outline'}
                     size={20}
-                    color={userInfo.fullname ? '#767676' : '#3140C2'}
-                    style={userInfo.fullname ? CuentaStyle.iconEdit : ''}
+                    color={userInfo.fullName ? '#767676' : '#3140C2'}
+                    style={userInfo.fullName ? CuentaStyle.iconEdit : ''}
                     onPress={() => {
-                      userInfo.fullname
+                      userInfo.fullName
                         ? (setAction('Change'),
                           setModalVisible(true),
                           setInputSelect('Fullname'),
@@ -192,27 +176,22 @@ const Cuenta = ({navigation}) => {
                           setIconInput('reader-outline'));
                     }}
                   />
-                  {userInfo.fullname ? (
+                  {userInfo.fullName && (
                     <Icon
                       name={'trash-outline'}
                       size={20}
                       color={'#D40C1C'}
                       onPress={() => {
-                        deleteCamp('Fullname', uID),
-                          setLoading(true),
-                          setDeleteToCamp(true);
+                        deleteCamp('Fullname', uID);
+                        setLoading(true);
+                        setDeleteToCamp(true);
                       }}
                     />
-                  ) : (
-                    <></>
                   )}
                 </View>
                 <View style={CuentaStyle.containerLabelInfo}>
                   <View style={CuentaStyle.iconData}>
-                    <Icon
-                      name={'call-outline'}
-                      size={20}
-                      color={'#3140C2'}></Icon>
+                    <Icon name={'call-outline'} size={20} color={'#3140C2'} />
                     <Text style={CuentaStyle.labelInfo}>Cel</Text>
                   </View>
                   <Text style={CuentaStyle.labelInfo}>
@@ -235,27 +214,22 @@ const Cuenta = ({navigation}) => {
                           setIconInput('call-outline'));
                     }}
                   />
-                  {userInfo.cel ? (
+                  {userInfo.cel && (
                     <Icon
                       name={'trash-outline'}
                       size={20}
                       color={'#D40C1C'}
                       onPress={() => {
-                        deleteCamp('Cel', uID),
-                          setLoading(true),
-                          setDeleteToCamp(true);
+                        deleteCamp('Cel', uID);
+                        setLoading(true);
+                        setDeleteToCamp(true);
                       }}
                     />
-                  ) : (
-                    <></>
                   )}
                 </View>
                 <View style={CuentaStyle.containerLabelInfo}>
                   <View style={CuentaStyle.iconData}>
-                    <Icon
-                      name={'card-outline'}
-                      size={20}
-                      color={'#3140C2'}></Icon>
+                    <Icon name={'card-outline'} size={20} color={'#3140C2'} />
                     <Text style={CuentaStyle.labelInfo}>DNI</Text>
                   </View>
                   <Text style={CuentaStyle.labelInfo}>
@@ -278,19 +252,17 @@ const Cuenta = ({navigation}) => {
                           setIconInput('card-outline'));
                     }}
                   />
-                  {userInfo.dni ? (
+                  {userInfo.dni && (
                     <Icon
                       name={'trash-outline'}
                       size={20}
                       color={'#D40C1C'}
                       onPress={() => {
-                        deleteCamp('Dni', uID),
-                          setLoading(true),
-                          setDeleteToCamp(true);
+                        deleteCamp('Dni', uID);
+                        setLoading(true);
+                        setDeleteToCamp(true);
                       }}
                     />
-                  ) : (
-                    <></>
                   )}
                 </View>
               </View>
