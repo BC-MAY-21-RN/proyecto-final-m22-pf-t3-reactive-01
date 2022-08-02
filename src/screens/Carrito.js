@@ -76,9 +76,9 @@ const renderItem = ({removeQuantity, addQuantity, removeItem, item}) => {
               <Text style={CarritoStyle.ItemPriceUnid}>{moneyUnid(price)}</Text>
             </View>
             <BtnIcon
-              name={'trash-o'}
+              iconName={'trash-o'}
               size={20}
-              color={'gray'}
+              styleIcon={CarritoStyle.Gray}
               onPress={() => removeItem(id)}
             />
           </View>
@@ -90,7 +90,7 @@ const renderItem = ({removeQuantity, addQuantity, removeItem, item}) => {
 const EmptyComponent = () => {
   return (
     <SafeAreaView style={CarritoStyle.Maincontainer}>
-      <Header name="Carrito" navigation={nav} BackBtn />
+      <Header name="Carrito" BackBtn />
       <ScrollView contentContainerStyle={CarritoStyle.EmptyContainer}>
         <Image
           style={CarritoStyle.EmptyImage}

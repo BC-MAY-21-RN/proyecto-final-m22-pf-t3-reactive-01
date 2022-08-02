@@ -172,6 +172,7 @@ export const CarritoStyle = StyleSheet.create({
   FooterStickySubText: {
     color: colors.TXT_PRIMARY_COLOR,
   },
+  Gray: {color: 'gray'},
 });
 
 export const ProductsStyles = StyleSheet.create({
@@ -349,6 +350,8 @@ export const ProductDetailsStyles = StyleSheet.create({
     width: 40,
     height: 40,
   },
+  Red: {color: 'red'},
+  Black: {color: 'black'},
   Condition: {color: colors.TXT_LIGHT_PRIMARY_COLOR},
   Name: {color: colors.TXT_PRIMARY_COLOR, fontSize: 16, fontWeight: '600'},
   DescriptionTitle: {fontSize: 16},

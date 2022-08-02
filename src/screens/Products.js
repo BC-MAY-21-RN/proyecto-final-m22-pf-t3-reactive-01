@@ -18,7 +18,7 @@ const Products = ({route: {params}, navigation}) => {
   const [stock, setStock] = useState('');
   const [url, setUrl] = useState();
   const [image, setImage] = useState();
-  const BusyIndicator = useBusyIndicator();
+  const {BIVisible, BusyIndicator} = useBusyIndicator();
   const categories = [
     {
       label: 'Home',
@@ -67,7 +67,7 @@ const Products = ({route: {params}, navigation}) => {
 
   const newProduct = async () => {
     try {
-      BusyIndicator.Visible(true);
+      BIVisible(true);
       await addProduct(
         name,
         category,
@@ -85,7 +85,7 @@ const Products = ({route: {params}, navigation}) => {
       setDescription('');
       setStock('');
       setUrl('');
-      BusyIndicator.Visible(false);
+      BIVisible(false);
       alert('The product has been added successfully!');
     } catch {
       alert('The product has not be added successfully');
@@ -175,7 +175,7 @@ const Products = ({route: {params}, navigation}) => {
           }}
         />
       </View>
-      {BusyIndicator.Component}
+      <BusyIndicator />
     </ScrollView>
   );
 };
