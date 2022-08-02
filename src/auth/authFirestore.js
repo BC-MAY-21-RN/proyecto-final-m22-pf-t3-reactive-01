@@ -1,54 +1,45 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
-import React, {useState} from 'react';
-
-export const logIn = async (firstname, check, email, password) => {
-  await auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(() => {
-      console.log('User creado');
-      const current = auth().currentUser;
-      addUserInfo(firstname, check, email, current.uid, 'client');
-    })
-    .catch(err => {
-      if (
-        err?.message ===
-        '[auth/email-already-in-use] The email address is already in use by another account.'
-      ) {
-        alert('The email address is already in use by another account.');
-      }
-    });
+import {setOneDocumentSync, getOneDocumenByUid} from './cloudFirestore';
+export const SignUp = async ({userName, suscribe, email, password}) => {
+  try {
+    const Auth = await auth().createUserWithEmailAndPassword(email, password);
+    const {uid, photoURL, displayName} = Auth.user;
+    const User = await setOneDocumentSync(
+      {
+        userName,
+        suscribe,
+        email,
+        userType: 'client',
+        image: photoURL,
+        fullName: displayName,
+      },
+      'Users',
+      uid,
+    );
+    return User;
+  } catch (error) {
+    if (
+      error?.message ===
+      '[auth/email-already-in-use] The email address is already in use by another account.'
+    ) {
+      alert('The email address is already in use by another account.');
+    }
+    console.log(error);
+  }
 };
 
 export const SignIn = async (email, password) => {
-  await auth()
-    .signInWithEmailAndPassword(email, password)
-    .then(() => {})
-    .catch(error => {
-      alert('Usuario y/o contraseña incorrectos');
-    });
+  try {
+    const Auth = await auth().signInWithEmailAndPassword(email, password);
+    const User = await getOneDocumenByUid('Users', Auth.user.uid);
+    return User;
+  } catch (error) {
+    alert('Usuario y/o contraseña incorrectos');
+  }
 };
 
-export const addUserInfo = async (
-  firstname,
-  suscribe,
-  email,
-  uid,
-  usertype,
-) => {
-  await firestore()
-    .collection('Users')
-    .add({
-      firstname: firstname,
-      suscribe: suscribe,
-      email: email,
-      uid: uid,
-      usertype: usertype,
-    })
-    .then(() => {})
-    .catch(error => console.log(error));
-};
 export const logout = async () => {
   try {
     await auth().signOut();
@@ -58,16 +49,12 @@ export const logout = async () => {
 };
 
 export const getUserInfo = async (currentUser, setUserInfo) => {
-  await firestore()
-    .collection('Users')
-    .where('uid', '==', currentUser.uid)
-    .get()
-    .then(querySnapshot => {
-      querySnapshot.forEach(documentSnapshot => {
-        setUserInfo(documentSnapshot.data());
-      });
-    })
-    .catch();
+  try {
+    const Document = await getOneDocumenByUid('Users', currentUser.uid);
+    setUserInfo(Document);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const addProduct = async (
@@ -151,44 +138,40 @@ export const deleteProduct = async (collection, document) => {
 };
 
 export const addInfo = async (info, uID) => {
-
-
   const inputName = info.input;
   const value = info.inputValue;
 
- 
-  
-  
   if (inputName === 'User') {
-     await firestore().collection('Users').doc(uID).update({
-       firstname: value,
-   });
-   } else if (inputName === 'Email') {
-     await firestore().collection('Users').doc(uID).update({
-       email: value,
-     });
-   } else if (inputName === 'Usertype') {
+    await firestore().collection('Users').doc(uID).update({
+      firstname: value,
+    });
+  } else if (inputName === 'Email') {
+    await firestore().collection('Users').doc(uID).update({
+      email: value,
+    });
+  } else if (inputName === 'Usertype') {
     await firestore().collection('Users').doc(uID).update({
       usertype: value,
     });
-   } else if (inputName === 'Fullname') {
-     await firestore().collection('Users').doc(uID).update({
+  } else if (inputName === 'Fullname') {
+    await firestore().collection('Users').doc(uID).update({
       fullname: value,
     });
   } else if (inputName === 'Cel') {
-     await firestore().collection('Users').doc(uID).update({
-       cel: value,
+    await firestore().collection('Users').doc(uID).update({
+      cel: value,
     });
-   } else if (inputName === 'Dni') {
-     await firestore().collection('Users').doc(uID).update({
-       dni: value,
-     })
-   } else if (inputName === 'Image') {
-     await firestore().collection('Users').doc(uID).update({
-       image: value,
-     });
-   } else {
-     console.log('errrr ');}
+  } else if (inputName === 'Dni') {
+    await firestore().collection('Users').doc(uID).update({
+      dni: value,
+    });
+  } else if (inputName === 'Image') {
+    await firestore().collection('Users').doc(uID).update({
+      image: value,
+    });
+  } else {
+    console.log('errrr ');
+  }
 };
 export const userID = async (uID, setUID) => {
   const querySnapshot = await firestore()
@@ -197,6 +180,6 @@ export const userID = async (uID, setUID) => {
     .get();
   querySnapshot.forEach(doc => {
     setUID(doc.id);
-    console.log('ddddd  ///   '+doc.id)
+    console.log('ddddd  ///   ' + doc.id);
   });
 };
