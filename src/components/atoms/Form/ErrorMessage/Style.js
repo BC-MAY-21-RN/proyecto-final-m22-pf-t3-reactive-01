@@ -1,25 +1,18 @@
 import {StyleSheet} from 'react-native';
-
 const Style = StyleSheet.create({
-  checkboxContainer: {
+  Container: {
     flexDirection: 'row',
   },
-  label: {
-    marginTop: 6,
-  },
-  error: {
+  Error: {
     color: 'red',
     fontSize: 13,
     paddingBottom: 1,
     marginHorizontal: 6,
   },
-  iconerror: {
+  IconError: {
     marginTop: 2,
     color: 'red',
     marginLeft: 10,
-  },
-  Containerow: {
-    flexDirection: 'row',
   },
 });
 

@@ -2,24 +2,16 @@ import React from 'react';
 import {View, Text, Pressable as RnPressable} from 'react-native';
 import Styles from './headerStyles';
 import colors from '../../../constants/colors';
-import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import IconIon from 'react-native-vector-icons/Ionicons';
-import IconEvilIcons from 'react-native-vector-icons/EvilIcons';
 import {useCart, cartQuantity} from '../../../utils/cart';
+import {useNavigation} from '@react-navigation/native';
+import Icon from '../Icon';
 import SearchBar from '../SearchBar';
-const Header = ({
-  name,
-  navigation,
-  icon,
-  directory,
-  onPress,
-  BackBtn,
-  search,
-}) => {
+const Header = ({name, icon, directory, onPress, BackBtn, search}) => {
+  const navigation = useNavigation();
   let navigate, icoName;
   if (BackBtn) {
     navigate = () => navigation.goBack();
+    directory = 'Ionicons';
     icoName = 'arrow-back';
   } else {
     navigate = () => navigation.openDrawer();
@@ -57,20 +49,6 @@ const Pressable = ({style, name, onPress, directory}) => {
       {name === 'cart' ? <CartIcon /> : null}
     </RnPressable>
   );
-};
-
-const Icon = ({directory, ...props}) => {
-  //Props name, size, color
-  switch (directory) {
-    case 'Ionicons':
-      return <IconFontAwesome {...props} />;
-    case 'EvilIcons':
-      return <IconEvilIcons {...props} />;
-    case 'FontAwesome5':
-      return <IconFontAwesome5 {...props} />;
-    default:
-      return <IconIon {...props} />;
-  }
 };
 
 const CartIcon = () => {

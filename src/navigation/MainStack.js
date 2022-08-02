@@ -5,10 +5,12 @@ import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
+import {subscriberUserId} from '../auth/cloudFirestore';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
-import {getUserInfo, logout} from '../auth/authFirestore';
+import {logout} from '../auth/authFirestore';
+import {useUser} from '../utils/user';
 /* ----- screens ----- */
 import Home from '../screens/Home';
 import Cuenta from '../screens/Cuenta';
@@ -72,22 +74,31 @@ const Login = () => {
 };
 
 const MenuItems = ({navigation}) => {
-  const current = auth().currentUser;
-  const [userInfo, setUserInfo] = useState('');
-  getUserInfo(current, setUserInfo);
+  const user = useUser(state => state.user);
+  const storeUser = useUser(state => state.storeUser);
+  let {image, userName, userType, uid} = user;
+  let ImageUser =
+    'https://www.freeiconspng.com/thumbs/retail-store-icon/retail-store-icon-6.png';
+  if (image) {
+    ImageUser = image;
+  }
+  useEffect(() => {
+    const subscriber = subscriberUserId(uid, storeUser);
+    return () => subscriber();
+  }, [uid, storeUser]);
   return (
     <DrawerContentScrollView style={MenuStyles.container}>
       <View style={MenuStyles.header}>
         <Image
-          style={MenuStyles.header}
+          style={MenuStyles.Image}
           source={{
-            uri: 'https://www.freeiconspng.com/thumbs/retail-store-icon/retail-store-icon-6.png',
+            uri: ImageUser,
           }}
         />
         <View style={MenuStyles.columna}>
           <Text style={MenuStyles.title}> Bright Shop </Text>
           <Text style={MenuStyles.subtitle}>
-            {userInfo ? ' ' + userInfo.firstname : 'username'}
+            {userName ? ' ' + userName : 'username'}
           </Text>
         </View>
       </View>
@@ -97,8 +108,23 @@ const MenuItems = ({navigation}) => {
           name="home"
           onPress={() => navigation.navigate('Home')}
         />
-        {userInfo.usertype === 'seller' ? (
-          <View>
+        <MenuButtom
+          text="Shopping"
+          name="shopping-bag"
+          onPress={() => navigation.navigate('Shopping')}
+        />
+        <MenuButtom
+          text="Favourites"
+          name="heart"
+          onPress={() => navigation.navigate('Favourites')}
+        />
+        <MenuButtom
+          text="Cart"
+          name="shopping-cart"
+          onPress={() => navigation.navigate('Cart')}
+        />
+        {userType === 'Seller' && (
+          <>
             <View style={MenuStyles.otheroptions}>
               <Text style={MenuStyles.division}>Seller Options</Text>
             </View>
@@ -112,28 +138,7 @@ const MenuItems = ({navigation}) => {
               name="gears"
               onPress={() => navigation.navigate('Manage')}
             />
-          </View>
-        ) : (
-          <View>
-            <View style={MenuStyles.otheroptions}>
-              <Text style={MenuStyles.division}>User Options</Text>
-            </View>
-            <MenuButtom
-              text="Shopping"
-              name="shopping-bag"
-              onPress={() => navigation.navigate('Shopping')}
-            />
-            <MenuButtom
-              text="Favourites"
-              name="heart"
-              onPress={() => navigation.navigate('Favourites')}
-            />
-            <MenuButtom
-              text="Cart"
-              name="shopping-cart"
-              onPress={() => navigation.navigate('Cart')}
-            />
-          </View>
+          </>
         )}
         <View style={MenuStyles.otheroptions}>
           <Text style={MenuStyles.division}>Account Options</Text>

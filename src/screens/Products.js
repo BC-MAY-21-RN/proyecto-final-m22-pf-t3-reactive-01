@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {ScrollView, View, Text} from 'react-native';
 import InputContainer from '../components/atoms/TextInput';
-import CustomButton from '../components/atoms/register/CustomButton';
+import CustomButton from '../components/atoms/Form/CustomButton';
 import {ProductsStyles} from './Styles';
 import {editProduct, addProduct} from '../auth/authFirestore';
 import Picker from '../components/atoms/ImagePicker';
 import Header from '../components/atoms/Header';
-import useBusyIndicator from '../components/atoms/register/BusyIndicator';
+import useBusyIndicator from '../components/atoms/Form/BusyIndicator';
 import SwitchSelector from 'react-native-switch-selector';
 
 const Products = ({route: {params}, navigation}) => {
@@ -18,7 +18,7 @@ const Products = ({route: {params}, navigation}) => {
   const [stock, setStock] = useState('');
   const [url, setUrl] = useState();
   const [image, setImage] = useState();
-  const BusyIndicator = useBusyIndicator();
+  const {BIVisible, BusyIndicator} = useBusyIndicator();
   const categories = [
     {
       label: 'Home',
@@ -67,7 +67,7 @@ const Products = ({route: {params}, navigation}) => {
 
   const newProduct = async () => {
     try {
-      BusyIndicator.Visible(true);
+      BIVisible(true);
       await addProduct(
         name,
         category,
@@ -85,7 +85,7 @@ const Products = ({route: {params}, navigation}) => {
       setDescription('');
       setStock('');
       setUrl('');
-      BusyIndicator.Visible(false);
+      BIVisible(false);
       alert('The product has been added successfully!');
     } catch {
       alert('The product has not be added successfully');
@@ -96,7 +96,6 @@ const Products = ({route: {params}, navigation}) => {
     <ScrollView>
       <Header
         name={params ? 'Edit Products' : 'Add Products'}
-        navigation={navigation}
         icon={params ? 'close' : null}
         onPress={() => navigation.navigate('Manage')}
         BackBtn
@@ -176,7 +175,7 @@ const Products = ({route: {params}, navigation}) => {
           }}
         />
       </View>
-      {BusyIndicator.Component}
+      <BusyIndicator />
     </ScrollView>
   );
 };

@@ -13,7 +13,7 @@ import CounterInput from '../components/atoms/CounterInput';
 import {CarritoStyle} from './Styles';
 import shallow from 'zustand/shallow';
 import BtnIcon from '../components/atoms/btnIcon';
-import CustomButton from '../components/atoms/register/CustomButton';
+import CustomButton from '../components/atoms/Form/CustomButton';
 import {money, moneyUnid} from '../utils/format';
 import Header from '../components/atoms/Header';
 let nav = null;
@@ -38,12 +38,7 @@ const Carrito = ({navigation}) => {
 
   return (
     <SafeAreaView style={CarritoStyle.Maincontainer}>
-      <Header
-        name="Carrito"
-        navigation={nav}
-        icon={'ellipsis-vertical'}
-        BackBtn
-      />
+      <Header name="Carrito" icon={'ellipsis-vertical'} BackBtn />
       <FlatList
         data={cart}
         ItemSeparatorComponent={Separator}
@@ -81,9 +76,9 @@ const renderItem = ({removeQuantity, addQuantity, removeItem, item}) => {
               <Text style={CarritoStyle.ItemPriceUnid}>{moneyUnid(price)}</Text>
             </View>
             <BtnIcon
-              name={'trash-o'}
+              iconName={'trash-o'}
               size={20}
-              color={'gray'}
+              styleIcon={CarritoStyle.Gray}
               onPress={() => removeItem(id)}
             />
           </View>
@@ -95,7 +90,7 @@ const renderItem = ({removeQuantity, addQuantity, removeItem, item}) => {
 const EmptyComponent = () => {
   return (
     <SafeAreaView style={CarritoStyle.Maincontainer}>
-      <Header name="Carrito" navigation={nav} BackBtn />
+      <Header name="Carrito" BackBtn />
       <ScrollView contentContainerStyle={CarritoStyle.EmptyContainer}>
         <Image
           style={CarritoStyle.EmptyImage}

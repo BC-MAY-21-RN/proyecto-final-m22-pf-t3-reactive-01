@@ -3,8 +3,7 @@ import {Text, Pressable} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import butonStyles from './butonStyles';
 
-const MenuButtom = props => {
-  const {text, onPress, name} = props;
+const MenuButtom = ({text, onPress, name}) => {
   return (
     <Pressable style={butonStyles.container} onPress={onPress}>
       <Icon name={name} size={20} color="#4C5BF7" />

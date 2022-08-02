@@ -6,7 +6,7 @@ import shallow from 'zustand/shallow';
 import BtnIcon from '../components/atoms/btnIcon';
 import Header from '../components/atoms/Header';
 import CounterInput from '../components/atoms/CounterInput';
-import CustomButton from '../components/atoms/register/CustomButton';
+import CustomButton from '../components/atoms/Form/CustomButton';
 import {ProductDetailsStyles as Styles} from './Styles';
 const userId = '152346';
 const json = {
@@ -34,7 +34,6 @@ const ProductDetails = ({route: {params}, navigation}) => {
     <SafeAreaView style={Styles.MainContainer}>
       <Header
         name="Producto Detalle"
-        navigation={navigation}
         icon="cart"
         onPress={() => navigation.navigate('Cart')}
         BackBtn
@@ -45,18 +44,18 @@ const ProductDetails = ({route: {params}, navigation}) => {
           <Text style={Styles.ImageIndicator}>1 / 8</Text>
           <View style={Styles.ImageSocialContainer}>
             <BtnIcon
-              name={'heart'}
+              iconName={'heart'}
               size={20}
-              styles={Styles.ImageBtn}
-              color={like.includes(userId) ? 'red' : 'black'}
+              style={Styles.ImageBtn}
+              styleIcon={like.includes(userId) ? Styles.Red : Styles.Black}
               onPress={() => {}}
             />
             <BtnIcon
-              name={'share-social-outline'}
+              iconName={'share-social-outline'}
               directory={'Ionicons'}
               size={20}
-              styles={Styles.ImageBtn}
-              color={'black'}
+              styleIcon={Styles.Black}
+              style={Styles.ImageBtn}
               onPress={() => {}}
             />
           </View>

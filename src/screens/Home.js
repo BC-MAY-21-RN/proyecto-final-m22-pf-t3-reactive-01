@@ -57,8 +57,8 @@ const Home = ({navigation}) => {
     <View>
       <Header
         name="Home"
-        navigation={navigation}
         icon="cart"
+        directory={'Ionicons'}
         onPress={() => navigation.navigate('Cart')}
         search={[searchValue, setSearchValue]}
       />

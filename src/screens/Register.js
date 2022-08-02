@@ -1,103 +1,77 @@
-import React, {useState} from 'react';
-import {View, Text, ScrollView, Pressable} from 'react-native';
-import {useFormik} from 'formik';
-import {RegisterStyle} from './Styles';
-import * as Yup from 'yup';
-import useBusyIndicator from '../components/atoms/register/BusyIndicator';
-import Input from '../components/atoms/register/Input';
-import Checkbox from '../components/atoms/register/checkbox';
-import {SignIn, logIn} from '../auth/authFirestore';
+import Input from '../components/atoms/Form/Input';
+import Checkbox from '../components/atoms/Form/Checkbox';
+import CustomButton from '../components/atoms/Form/CustomButton';
+import useBusyIndicator from '../components/atoms/Form/BusyIndicator';
+import {RegisterStyle as Style} from './Styles';
+import React, {useState, useCallback} from 'react';
+import {View, Text, ScrollView, SafeAreaView} from 'react-native';
 import {signInGoogle} from '../auth/authGoogle';
-import CustomButton from '../components/atoms/register/CustomButton';
-
-const LogInSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(6, 'Too Short!')
-    .max(10, 'Too Long!')
-    .required('Name Required'),
-  email: Yup.string().email('Invalid email').required('Email Required'),
-  password: Yup.string()
-    .min(8, 'Too Short!')
-    .required('Password Required')
-    .matches(
-      /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/,
-      'Must Contain 6 Characters, One Lowercase, One Number and One Special Case Character',
-    ),
-  check: Yup.boolean()
-    .oneOf([true], 'you must accept the terms')
-    .required('Required'),
-});
-const SingInSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Email Required'),
-  password: Yup.string()
-    .min(8, 'Too Short!')
-    .required('Password Required')
-    .matches(
-      /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/,
-      'Must Contain 6 Characters, One Lowercase, One Number and One Special Case Character',
-    ),
-});
-
+import {SignIn, SignUp} from '../auth/authFirestore';
+import {useFormik} from 'formik';
+import {
+  SignUpSchema,
+  validateCredentials,
+} from '../utils/schemasValidateProfile';
+import SvgComponent from '../assets/svg/Stacked';
+import {useUser} from '../utils/user';
 const Register = ({navigation}) => {
-  const [isRegisterScreen, setIsRegister] = useState(true);
-  const BusyIndicator = useBusyIndicator();
+  const storeUser = useUser(state => state.storeUser);
+  const [signUpForm, setSignUpForm] = useState(true);
+  const {BIVisible, BusyIndicator} = useBusyIndicator();
 
   const formik = useFormik({
-    initialValues: {name: '', email: '', password: '', check: false},
-    validationSchema: LogInSchema,
+    initialValues: {userName: '', email: '', password: '', check: false},
+    validationSchema: SignUpSchema,
     validateOnChange: false,
     onSubmit: formValue => {},
   });
-
-  const GoogleSing = async () => {
+  const GoogleSing = useCallback(async () => {
     try {
-      BusyIndicator.Visible(true);
-      await signInGoogle();
-      BusyIndicator.Visible(false);
+      BIVisible(true);
+      const user = await signInGoogle();
+      storeUser(user);
+      BIVisible(false);
     } catch (err) {
-      BusyIndicator.Visible(false);
+      BIVisible(false);
       console.log('Ocurrio un error' + err);
     }
-  };
+  }, [BIVisible, storeUser]);
 
-  const MethodLogIn = async () => {
+  const submit = async () => {
     try {
-      BusyIndicator.Visible(true);
+      BIVisible(true);
+      formik.values.userName = formik.values.userName.replace(/\s/g, '');
+      formik.values.password = formik.values.password.replace(/\s/g, '');
       formik.submitForm();
-      const {name, check, email, password} = formik.values;
-      await LogInSchema.validate(formik.values);
-      await logIn(name, check, email, password);
-      BusyIndicator.Visible(false);
+      const {userName, check, email, password} = formik.values;
+      if (signUpForm) {
+        await validateCredentials(formik.values, true);
+        const user = await SignUp({userName, suscribe: check, email, password});
+        storeUser(user);
+      } else {
+        await validateCredentials(formik.values);
+        const user = await SignIn(email, password);
+        storeUser(user);
+      }
+      BIVisible(false);
     } catch (err) {
-      BusyIndicator.Visible(false);
-      console.log('Ocurrio un error' + err);
-    }
-  };
-
-  const MethodSingIn = async () => {
-    try {
-      BusyIndicator.Visible(true);
-      formik.submitForm();
-      const {email, password} = formik.values;
-      await SingInSchema.validate(formik.values);
-      await SignIn(email, password);
-      BusyIndicator.Visible(false);
-    } catch (err) {
-      BusyIndicator.Visible(false);
-      console.log('Ocurrio un error' + err);
+      BIVisible(false);
     }
   };
 
   return (
-    <ScrollView style={RegisterStyle.container}>
-      <Text style={RegisterStyle.title}>Brightshop</Text>
-      <View style={RegisterStyle.view}>
-        {isRegisterScreen && (
+    <SafeAreaView style={Style.MainContainer}>
+      <View style={Style.SvgComponent}>
+        <SvgComponent />
+      </View>
+      <ScrollView contentContainerStyle={Style.ScrollContainer}>
+        <Text style={Style.Title}>Brightshop</Text>
+        {signUpForm && (
           <Input
-            title="First Name *"
-            error={formik.errors.name}
-            value={formik.values.name}
-            onChangeText={text => formik.setFieldValue('name', text)}
+            title="User Name *"
+            error={formik.errors.userName}
+            value={formik.values.userName}
+            onChangeText={text => formik.setFieldValue('userName', text)}
           />
         )}
         <Input
@@ -113,7 +87,7 @@ const Register = ({navigation}) => {
           onChangeText={text => formik.setFieldValue('password', text)}
           secure
         />
-        {isRegisterScreen && (
+        {signUpForm && (
           <Checkbox
             title="I agree to the Terms and Privacy Policy *"
             error={formik.errors.check}
@@ -122,33 +96,32 @@ const Register = ({navigation}) => {
           />
         )}
         <CustomButton
-          onPress={() => {
-            isRegisterScreen ? MethodLogIn() : MethodSingIn();
-          }}
-          title={isRegisterScreen ? 'Log In' : 'Sing In'}
+          style={Style.Btn}
+          onPress={submit}
+          title={signUpForm ? 'Sign Up' : 'Log In'}
         />
         <CustomButton
+          style={Style.Btn}
           onPress={GoogleSing}
-          title={
-            isRegisterScreen ? 'Log In With Google"' : 'Sing In With Google"'
-          }
-          google
+          title={signUpForm ? 'Sing Up With Google' : 'Log In With Google'}
+          iconName="https://cdn.pixabay.com/photo/2015/12/11/11/43/google-1088004_960_720.png"
         />
-        <View style={RegisterStyle.row}>
-          <Text>
-            {!isRegisterScreen
-              ? 'You need to register? '
-              : 'Already have an account? '}
+        <View style={Style.ContainerRow}>
+          <Text style={Style.Text}>
+            {signUpForm
+              ? 'Already have an account? '
+              : 'You need to register? '}
           </Text>
-          <Pressable onPress={() => setIsRegister(!isRegisterScreen)}>
-            <Text style={RegisterStyle.link}>
-              {!isRegisterScreen ? 'Log In' : 'Sing In'}
-            </Text>
-          </Pressable>
+          <CustomButton
+            style={Style.ChangeScreenBtn}
+            styleText={Style.Link}
+            onPress={() => setSignUpForm(!signUpForm)}
+            title={signUpForm ? 'Log In' : 'Sing Up'}
+          />
         </View>
-        {BusyIndicator.Component}
-      </View>
-    </ScrollView>
+        <BusyIndicator />
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

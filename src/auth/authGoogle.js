@@ -3,8 +3,8 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
-import {addUserInfo} from './authFirestore';
 import {API_URL} from '@env';
+import {setOneDocumentSync, getOneDocumenByUid} from './cloudFirestore';
 export const signInGoogle = async () => {
   try {
     GoogleSignin.configure({
@@ -14,22 +14,24 @@ export const signInGoogle = async () => {
     const {idToken} = await GoogleSignin.signIn();
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
     const authAux = await auth().signInWithCredential(googleCredential);
+    const {uid, photoURL, displayName, email} = authAux.user;
+    const {given_name} = authAux.additionalUserInfo.profile;
     if (authAux.additionalUserInfo.isNewUser) {
-      const current = auth().currentUser;
-      const userData = {
-        firstname: authAux.additionalUserInfo.profile.given_name,
-        suscribe: false,
-        email: authAux.additionalUserInfo.profile.email,
-        uid: current.uid,
-        usertype: 'client',
-      };
-      addUserInfo(
-        userData.firstname,
-        userData.suscribe,
-        userData.email,
-        userData.uid,
-        userData.usertype,
+      const User = await setOneDocumentSync(
+        {
+          userName: given_name,
+          suscribe: false,
+          email,
+          userType: 'client',
+          image: photoURL,
+          fullName: displayName,
+        },
+        'Users',
+        uid,
       );
+      return User;
+    } else {
+      return await getOneDocumenByUid('Users', uid);
     }
   } catch (error) {
     if (error.code === statusCodes.SIGN_IN_CANCELLED) {

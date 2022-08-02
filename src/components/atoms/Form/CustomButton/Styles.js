@@ -2,28 +2,33 @@ import {StyleSheet} from 'react-native';
 
 const Styles = StyleSheet.create({
   TouchableOpacity: {
+    flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: '#E5D96C',
     height: 50,
     alignSelf: 'center',
+    alignItems: 'center',
     width: '90%',
     borderRadius: 10,
-    marginTop: 35,
+    marginTop: 15,
   },
   Disabel: {
     backgroundColor: 'grey',
   },
-  text: {
+  Text: {
     color: 'black',
     fontSize: 15,
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  image: {
-    position: 'absolute',
+  Image: {
     width: 25,
     height: 25,
-    left: 50,
+    marginRight: 20,
+  },
+  Icon: {
+    marginRight: 20,
+    color: 'black',
   },
 });
 
