@@ -1,59 +1,93 @@
-import * as Yup from 'yup';
+import * as yup from 'yup';
 
-const schemaInputUser = Yup.string()
-  .min(6, 'The user name must be at least 6 digits long')
-  .max(20, 'The user name must not be longer than 20 digits')
-  .matches(/^[aA-zZ\s]+$/,'Is not in correct format')
-  .required('Name Required');
+export const schemaUserName = yup
+  .string()
+  .min(6, 'User Name must be at least 6 digits long')
+  .max(20, 'User Name must not be longer than 20 digits')
+  .matches(/^[aA-zZ\s]+$/, 'User Name can only have letters')
+  .required('User Name Required');
 
-const schemaInputEmail = Yup.string()
+export const schemaEmail = yup
+  .string()
   .email('Invalid email')
   .required('Email Required');
 
-const schemaInputUserType = Yup.string().required();
+export const schemaUserType = yup.string().required();
 
-const schemaInputFullname = Yup.string()
-  .min(6, ' The full name must be at least 6 digits long')
-  .max(22, ' The fullname must not be longer than 22 digits')
-  .matches(/^[aA-zZ\s]+$/,'Is not in correct format')
+export const schemaFullname = yup
+  .string()
+  .min(6, 'Full name must be at least 6 digits long')
+  .max(22, 'Full name must not be longer than 22 digits')
+  .matches(/^[aA-zZ\s]+$/, 'Full name can only have letters')
   .required();
 
-const schemaInputCel = Yup.string()
+export const schemaCel = yup
+  .string()
   .min(10, 'The number must be at least 10 digits')
   .max(12, 'The number must not exceed 12 digits.')
   .required();
 
-const schemaInputDni = Yup.string()
-.min(8, ' The number must be at least 8 digits')
-.max(8, ' The number must be at least 8 digits')
-.required()
+export const schemaDni = yup
+  .string()
+  .min(8, 'The number must be at least 8 digits')
+  .max(8, 'The number must be at least 8 digits')
+  .required();
 
-const schemaInputImage = Yup.string().required();
+export const schemaImage = yup.string().required();
 
-const validateSchema = (inputname, inputValue) => {
+export const schemaCheckTerms = yup
+  .boolean()
+  .oneOf([true], 'you must accept the terms')
+  .required();
+
+export const schemaPassword = yup
+  .string()
+  .min(8, 'Password must be at least 8 Character')
+  .required('Password Required')
+  .matches(
+    /^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/,
+    'Must Contain 6 Characters, One Lowercase, One Number and One Special Case Character',
+  );
+export const SignUpSchema = yup.object().shape({
+  userName: schemaUserName,
+  email: schemaEmail,
+  password: schemaPassword,
+  check: schemaCheckTerms,
+});
+export const LogInSchema = yup.object().shape({
+  email: schemaEmail,
+  password: schemaPassword,
+});
+
+export const validateSchema = (inputname, inputValue) => {
   if (inputname === 'User') {
     console.log(`validate ${inputname}`);
-    return schemaInputUser.validate(inputValue);
+    return schemaUserName.validate(inputValue);
   } else if (inputname === 'Email') {
     console.log(`validate ${inputname}`);
-    return schemaInputEmail.validate(inputValue);
+    return schemaEmail.validate(inputValue);
   } else if (inputname === 'Usertype') {
     console.log(`validate ${inputname}`);
-    return schemaInputUserType.validate(inputValue);
+    return schemaUserType.validate(inputValue);
   } else if (inputname === 'Fullname') {
     console.log(`validate ${inputname}`);
-    return schemaInputFullname.validate(inputValue);
+    return schemaFullname.validate(inputValue);
   } else if (inputname === 'Cel') {
     console.log(`validate${inputname}`);
-    return schemaInputCel.validate(inputValue);
+    return schemaCel.validate(inputValue);
   } else if (inputname === 'Dni') {
     console.log(`validate ${inputname}`);
-    return schemaInputDni.validate(inputValue);
-  }else if (inputname === 'Image') {
+    return schemaDni.validate(inputValue);
+  } else if (inputname === 'Image') {
     console.log(`validate ${inputname}`);
-    return schemaInputImage.validate(inputValue);
-  }  else {
+    return schemaImage.validate(inputValue);
+  } else {
     console.log('no se pudo validar');
   }
 };
-export default validateSchema;
+
+export const validateCredentials = (credentials = {}, SignUp = false) => {
+  return SignUp
+    ? SignUpSchema.validate(credentials)
+    : LogInSchema.validate(credentials);
+};
