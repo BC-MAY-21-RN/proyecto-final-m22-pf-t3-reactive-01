@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import {AwesomeTextInput} from 'react-native-awesome-text-input';
-import {View, Pressable} from 'react-native';
+import {View} from 'react-native';
 import Style from './Style';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import ErrorMessage from '../ErrorMessage';
 import CustomButton from '../CustomButton';
 const Input = ({
