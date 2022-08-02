@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {ScrollView, View, Text} from 'react-native';
 import InputContainer from '../components/atoms/TextInput';
-import CustomButton from '../components/atoms/register/CustomButton';
+import CustomButton from '../components/atoms/Form/CustomButton';
 import {ProductsStyles} from './Styles';
 import {editProduct, addProduct} from '../auth/authFirestore';
 import Picker from '../components/atoms/ImagePicker';
 import Header from '../components/atoms/Header';
-import useBusyIndicator from '../components/atoms/register/BusyIndicator';
+import useBusyIndicator from '../components/atoms/Form/BusyIndicator';
 import SwitchSelector from 'react-native-switch-selector';
 
 const Products = ({route: {params}, navigation}) => {
@@ -96,7 +96,6 @@ const Products = ({route: {params}, navigation}) => {
     <ScrollView>
       <Header
         name={params ? 'Edit Products' : 'Add Products'}
-        navigation={navigation}
         icon={params ? 'close' : null}
         onPress={() => navigation.navigate('Manage')}
         BackBtn

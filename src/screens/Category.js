@@ -31,7 +31,6 @@ const Category = ({route: {params}, navigation}) => {
     <View>
       <Header
         name={params?.category}
-        navigation={navigation}
         icon="cart"
         onPress={() => navigation.navigate('Cart')}
         BackBtn

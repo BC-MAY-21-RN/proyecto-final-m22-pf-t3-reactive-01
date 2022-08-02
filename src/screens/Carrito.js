@@ -13,7 +13,7 @@ import CounterInput from '../components/atoms/CounterInput';
 import {CarritoStyle} from './Styles';
 import shallow from 'zustand/shallow';
 import BtnIcon from '../components/atoms/btnIcon';
-import CustomButton from '../components/atoms/register/CustomButton';
+import CustomButton from '../components/atoms/Form/CustomButton';
 import {money, moneyUnid} from '../utils/format';
 import Header from '../components/atoms/Header';
 let nav = null;
@@ -38,12 +38,7 @@ const Carrito = ({navigation}) => {
 
   return (
     <SafeAreaView style={CarritoStyle.Maincontainer}>
-      <Header
-        name="Carrito"
-        navigation={nav}
-        icon={'ellipsis-vertical'}
-        BackBtn
-      />
+      <Header name="Carrito" icon={'ellipsis-vertical'} BackBtn />
       <FlatList
         data={cart}
         ItemSeparatorComponent={Separator}

@@ -3,7 +3,7 @@ import {Modal, Pressable, Text, TextInput, View, Image} from 'react-native';
 import SwitchSelector from 'react-native-switch-selector';
 import ModalInputStyle from './ModalInputStyle';
 import Icon from 'react-native-vector-icons/Ionicons';
-import validateSchema from '../../../utils/schemasValidateProfile';
+import {validateSchema} from '../../../utils/schemasValidateProfile';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {addInfo} from '../../../auth/authFirestore';
 import requestCameraPermission from '../../../utils/requestCameraPermissions';
