@@ -293,9 +293,9 @@ export const CuentaStyle = StyleSheet.create({
   },
   buttonDeleteAccount: {
     backgroundColor: '#D40C1C',
-    color: 'white',
+    color: '#ffff',
     padding: 10,
-    borderRadius: 15,
+    borderRadius: 10,
     marginTop: 10,
     marginHorizontal: 60,
     elevation: 3,
@@ -309,6 +309,15 @@ export const CuentaStyle = StyleSheet.create({
   textDeleteAccount: {
     textAlign: 'center',
   },
+  iconDelete:{
+    position:'absolute',
+    left:313
+  } ,
+  iconEdit:{
+    position:'absolute',
+    left:280
+      } ,
+  
 });
 
 export const ProductDetailsStyles = StyleSheet.create({
