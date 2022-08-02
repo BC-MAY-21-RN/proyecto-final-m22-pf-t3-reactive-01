@@ -2,31 +2,45 @@ import {StyleSheet} from 'react-native';
 import colors from '../constants/colors';
 import sizes from '../constants/sizes';
 export const RegisterStyle = StyleSheet.create({
-  container: {
-    backgroundColor: colors.background,
+  MainContainer: {
+    flex: 1,
+    paddingHorizontal: 10,
   },
-  row: {
-    marginTop: 25,
-    flexDirection: 'row',
+  SvgComponent: {position: 'absolute'},
+  ScrollContainer: {
+    flexDirection: 'column',
+    backgroundColor: 'transparent',
+    flexGrow: 1,
     justifyContent: 'center',
   },
-  link: {
+  Title: {
+    fontSize: 40,
+    color: colors.TXT_SECONDARY_COLOR,
+    fontWeight: 'bold',
+    paddingVertical: 15,
+    textAlign: 'center',
+  },
+  ContainerRow: {
+    marginVertical: 25,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  Text: {
+    color: colors.TXT_PRIMARY_COLOR,
+  },
+  ChangeScreenBtn: {
+    width: 60,
+    height: 30,
+    marginTop: 0,
+    backgroundColor: 'transparent',
+  },
+  Link: {
     color: 'blue',
     textDecorationLine: 'underline',
-    marginBottom: 10,
   },
-  view: {
-    padding: 10,
-  },
-  title: {
-    fontSize: 40,
-    color: '#ffff',
-    backgroundColor: '#1600FF',
-    fontWeight: 'bold',
-    marginBottom: 15,
-    textAlign: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 50,
+  Btn: {
+    elevation: 4,
   },
 });
 
