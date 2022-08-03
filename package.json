@@ -23,6 +23,7 @@
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/native-stack": "^6.7.0",
     "formik": "^2.2.9",
+    "native-forms": "^1.7.3",
     "react": "18.2.0",
     "react-native": "0.69.2",
     "react-native-awesome-text-input": "^1.1.5",
