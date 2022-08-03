@@ -50,7 +50,7 @@ const Drawer = () => {
         <DrawerStack.Screen name="Account" component={Cuenta} />
         <DrawerStack.Screen name="Products" component={Products} />
         <DrawerStack.Screen name="Shopping" component={Compras} />
-        <DrawerStack.Screen name="Favourites" component={Favoritos} />
+        <DrawerStack.Screen name="WishList" component={Favoritos} />
         <DrawerStack.Screen name="ProductDetails" component={ProductDetails} />
         <DrawerStack.Screen name="Category" component={Category} />
       </DrawerStack.Navigator>
@@ -114,9 +114,9 @@ const MenuItems = ({navigation}) => {
           onPress={() => navigation.navigate('Shopping')}
         />
         <MenuButtom
-          text="Favourites"
+          text="WishList"
           name="heart"
-          onPress={() => navigation.navigate('Favourites')}
+          onPress={() => navigation.navigate('WishList')}
         />
         <MenuButtom
           text="Cart"
