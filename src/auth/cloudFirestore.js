@@ -28,3 +28,16 @@ export const subscriberUserId = (uid, storeUser) => {
       storeUser({...documentSnapshot.data(), uid});
     });
 };
+
+export const updateLikes = async (docID, userID, array) => {
+  let uidArrayUnion;
+  if (array) {
+    uidArrayUnion = array;
+  } else {
+    uidArrayUnion = firestore.FieldValue.arrayUnion(userID);
+  }
+  await firestore()
+    .collection('Products')
+    .doc(docID)
+    .update({like: uidArrayUnion});
+};

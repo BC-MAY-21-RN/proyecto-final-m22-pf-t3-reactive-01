@@ -1,5 +1,12 @@
-import React, {useState} from 'react';
-import {View, Text, Image, SafeAreaView, ScrollView} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  Text,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  ToastAndroid,
+} from 'react-native';
 import {money} from '../utils/format';
 import {useCart} from '../utils/cart';
 import shallow from 'zustand/shallow';
@@ -9,6 +16,7 @@ import CounterInput from '../components/atoms/CounterInput';
 import CustomButton from '../components/atoms/Form/CustomButton';
 import auth from '@react-native-firebase/auth';
 import {ProductDetailsStyles as Styles} from './Styles';
+import {updateLikes} from '../auth/cloudFirestore';
 
 const ProductDetails = ({route: {params}, navigation}) => {
   const userId = auth().currentUser.uid;
@@ -20,11 +28,35 @@ const ProductDetails = ({route: {params}, navigation}) => {
   const onIncrease = () => setquantity(quantity + 1);
   const BuyItem = () => addItem({...params.item, quantity});
   const [liked, setLiked] = useState();
-  if (like.includes(userId)) {
-    setLiked(true);
-  }
+  useEffect(() => {
+    if (like.includes(userId)) {
+      setLiked(true);
+    } else {
+      setLiked(false);
+    }
+  }, [like, userId]);
   const handleLike = () => {
-    setLiked(!liked);
+    if (liked) {
+      for (var i = 0; i < like.length; i++) {
+        if (like[i] === userId) {
+          like.splice(i, 1);
+          i--;
+        }
+      }
+      updateLikes(id, userId, like);
+      ToastAndroid.show(
+        'The product was removed to your Wish List!',
+        ToastAndroid.SHORT,
+      );
+      setLiked(false);
+    } else {
+      updateLikes(id, userId, null);
+      ToastAndroid.show(
+        'The product was added to your Wish List!',
+        ToastAndroid.SHORT,
+      );
+      setLiked(true);
+    }
   };
   return (
     <SafeAreaView style={Styles.MainContainer}>
