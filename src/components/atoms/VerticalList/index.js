@@ -18,6 +18,7 @@ const VerticalList = props => {
       category={item.category}
       stock={item.stock}
       image={item.image}
+      like={item.like}
     />
   );
   const renderItem2 = ({item, index}) => (

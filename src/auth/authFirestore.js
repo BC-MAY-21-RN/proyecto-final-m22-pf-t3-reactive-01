@@ -79,6 +79,7 @@ export const addProduct = async (
       stock: parseInt(stock),
       image: image,
       uid: current,
+      like: [null],
     })
     .then(() => {
       uploadImage(uri, current, image);

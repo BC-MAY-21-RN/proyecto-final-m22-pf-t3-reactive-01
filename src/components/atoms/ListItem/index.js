@@ -16,6 +16,7 @@ const ListItem = props => {
     stock,
     userId,
     image,
+    like,
   } = props;
   const [url, setUrl] = useState(null);
   const getUri = async path => {
@@ -32,20 +33,22 @@ const ListItem = props => {
   return (
     <Pressable
       style={ListItemStyles.container}
-      /*onPress={() => {
+      onPress={() => {
         navigation.navigate('ProductDetails', {
-          like: null,
-          name: name,
-          description: description,
-          image: url
-            ? url
-            : 'https://www.shutterstock.com/search/not-uploaded-yet',
-          condition: condition,
-          stock: stock,
-          price: price,
+          item: {
+            id: id,
+            like: like,
+            name: name,
+            description: description,
+            image: url
+              ? url
+              : 'https://www.shutterstock.com/search/not-uploaded-yet',
+            condition: condition,
+            stock: stock,
+            price: price,
+          },
         });
-      }}*/
-    >
+      }}>
       <View>
         <Image
           source={{

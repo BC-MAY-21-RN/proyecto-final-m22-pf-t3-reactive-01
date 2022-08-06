@@ -309,15 +309,14 @@ export const CuentaStyle = StyleSheet.create({
   textDeleteAccount: {
     textAlign: 'center',
   },
-  iconDelete:{
-    position:'absolute',
-    left:313
-  } ,
-  iconEdit:{
-    position:'absolute',
-    left:280
-      } ,
-  
+  iconDelete: {
+    position: 'absolute',
+    left: 313,
+  },
+  iconEdit: {
+    position: 'absolute',
+    left: 280,
+  },
 });
 
 export const ProductDetailsStyles = StyleSheet.create({
@@ -410,5 +409,38 @@ export const ProductDetailsStyles = StyleSheet.create({
   Separator: {
     height: 0.9,
     backgroundColor: colors.DIVIDER_COLOR,
+  },
+});
+
+export const WishStyles = StyleSheet.create({
+  container: {
+    padding: 20,
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 18,
+    fontWeight: '500',
+    marginTop: 50,
+    color: 'black',
+  },
+  text2: {
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: '400',
+    marginTop: 30,
+    maxWidth: 200,
+    fontStyle: 'italic',
+  },
+  ImageBtn: {
+    backgroundColor: colors.ICON_BACKGROUND_SECONDARY_COLOR,
+    borderRadius: 50,
+    padding: 5,
+    width: 70,
+    height: 70,
+    top: 20,
+    right: '40%',
+  },
+  Black: {
+    color: 'black',
   },
 });
