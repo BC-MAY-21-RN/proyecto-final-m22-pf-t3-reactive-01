@@ -9,18 +9,18 @@ import Header from '../components/atoms/Header';
 import useBusyIndicator from '../components/atoms/Form/BusyIndicator';
 import SwitchSelector from 'react-native-switch-selector';
 import {useUser} from '../utils/user';
-import {addOneDocumentAsync, uploadImage} from '../auth/cloudFirestore';
+import {addProductAsync, uploadImage} from '../auth/cloudFirestore';
 const Products = ({route: {params}, navigation}) => {
   const user = useUser(state => state.user);
   const {BIVisible, BusyIndicator} = useBusyIndicator();
   const formSkeleton = {
     name: '',
     category: 'Home',
-    price: 100,
+    price: '',
     condition: 'New',
     like: [],
     description: '',
-    stock: 1,
+    stock: '',
     image: '',
     uri: '',
     uidUser: user.uid,
@@ -53,7 +53,7 @@ const Products = ({route: {params}, navigation}) => {
       const Path = `Products/${user.uid}/${formData.image}`;
       const Url = await uploadImage(Path, uri);
       document.image = Url;
-      await addOneDocumentAsync(document, 'Products');
+      await addProductAsync(document);
       setformData(formSkeleton);
       BIVisible(false);
       alert('The product has been added successfully!');
@@ -141,7 +141,11 @@ const Products = ({route: {params}, navigation}) => {
         <CustomButton
           title={params ? 'Edit Product' : 'Add Product'}
           onPress={() => {
-            params ? editProduct(formData, navigation) : newProduct();
+            params
+              ? {
+                  /*editProduct(formData, navigation)*/
+                }
+              : newProduct();
           }}
         />
       </View>

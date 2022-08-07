@@ -13,6 +13,15 @@ export const addOneDocumentAsync = async (Document, Collection) => {
   await batch.commit();
 };
 
+export const addProductAsync = async Document => {
+  const batch = firestore().batch();
+  const Ref = firestore().collection('Products').doc();
+  const Ref2 = firestore().collection('Comments').doc();
+  batch.set(Ref, {...Document, uidComments: Ref2.id});
+  batch.set(Ref2, {uidProducts: Ref.id, comments: []});
+  await batch.commit();
+};
+
 export const setOneDocumentSync = async (Document, Collection, uid) => {
   await firestore().collection(Collection).doc(uid).set(Document);
   return {...Document, uid};
