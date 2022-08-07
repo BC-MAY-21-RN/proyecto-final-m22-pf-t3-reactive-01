@@ -3,7 +3,7 @@ import {View, Text, Pressable, Image, Modal} from 'react-native';
 import IconButton from '../IconButtom';
 import SellerItemStyles from './SellerItemStyles';
 import {deleteDocumentByUid} from '../../../auth/cloudFirestore';
-
+import {money} from '../../../utils/format';
 const SellerItem = ({
   name,
   price,
@@ -42,8 +42,8 @@ const SellerItem = ({
       </View>
       <View style={SellerItemStyles.content}>
         <Text style={SellerItemStyles.title}>{name}</Text>
-        <Text>{description}</Text>
-        <Text style={SellerItemStyles.price}>${price}</Text>
+        <Text style={SellerItemStyles.description}>{description}</Text>
+        <Text style={SellerItemStyles.price}>{money(price)}</Text>
         <Text style={SellerItemStyles.condition}>{condition}</Text>
       </View>
       <View style={{marginTop: 10}}>

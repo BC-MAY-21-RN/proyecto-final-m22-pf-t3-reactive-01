@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Pressable, Image} from 'react-native';
 import ListItemStyles from './ListItemStyles';
-
+import {money} from '../../../utils/format';
 const ListItem = ({
   name,
   price,
@@ -43,8 +43,8 @@ const ListItem = ({
       </View>
       <View style={ListItemStyles.content}>
         <Text style={ListItemStyles.title}>{name}</Text>
-        <Text>{description}</Text>
-        <Text style={ListItemStyles.price}>${price}</Text>
+        <Text style={ListItemStyles.description}>{description}</Text>
+        <Text style={ListItemStyles.price}>{money(price)}</Text>
         <Text style={ListItemStyles.condition}>{condition}</Text>
       </View>
     </Pressable>

@@ -28,9 +28,13 @@ const SellerItemStyles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
   },
+  description: {
+    color: 'black',
+  },
   price: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: 'black',
   },
   condition: {
     color: 'green',

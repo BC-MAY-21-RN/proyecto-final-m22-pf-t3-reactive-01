@@ -59,6 +59,24 @@ export const subscriberMyProducts = (uidUser, setProducts) => {
     });
 };
 
+export const subscriberMyWishList = (uidUser, setProducts, setEmpty) => {
+  return firestore()
+    .collection('Products')
+    .where('like', 'array-contains', uidUser)
+    .onSnapshot(querySnapshot => {
+      const array = [];
+      querySnapshot.forEach(documentSnapshot => {
+        array.push({uid: documentSnapshot.id, ...documentSnapshot.data()});
+      });
+      setProducts(array);
+      if (array.length !== 0) {
+        setEmpty(false);
+      } else {
+        setEmpty(true);
+      }
+    });
+};
+
 export const updateLikes = async (docID, userID, array) => {
   let uidArrayUnion;
   if (array) {

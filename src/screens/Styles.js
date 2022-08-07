@@ -432,6 +432,7 @@ export const WishStyles = StyleSheet.create({
     marginTop: 30,
     maxWidth: 200,
     fontStyle: 'italic',
+    color: colors.TXT_PRIMARY_COLOR,
   },
   ImageBtn: {
     backgroundColor: colors.ICON_BACKGROUND_SECONDARY_COLOR,
