@@ -4,12 +4,12 @@ import ListItem from '../ListItem';
 import SellerItem from '../SellerItem';
 import VerticalStyles from './VerticalStyles';
 
-const VerticalList = props => {
-  const {data, seller, navigation} = props;
+const VerticalList = ({data, seller, navigation}) => {
   const renderItem = ({item, index}) => (
     <ListItem
-      id={item.documentId}
-      userId={item.uid}
+      uid={item.uid}
+      uidUser={item.uidUser}
+      like={item.like}
       navigation={navigation}
       name={item.name}
       price={item.price}
@@ -22,8 +22,9 @@ const VerticalList = props => {
   );
   const renderItem2 = ({item, index}) => (
     <SellerItem
-      id={item.documentId}
-      userId={item.uid}
+      uid={item.uid}
+      uidUser={item.uidUser}
+      like={item.like}
       navigation={navigation}
       name={item.name}
       price={item.price}

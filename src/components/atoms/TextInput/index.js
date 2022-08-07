@@ -1,26 +1,29 @@
 import React from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 
-const InputContainer = props => {
-  const {
-    styles,
-    placeholder,
-    secure,
-    onChangeText,
-    value,
-    keyboardType,
-    maxLength,
-    multiline,
-    numberOfLines,
-    disabled,
-  } = props;
+const InputContainer = ({
+  styles,
+  name,
+  placeholder,
+  secure,
+  onChange,
+  onChangeText,
+  value,
+  keyboardType,
+  maxLength,
+  multiline,
+  numberOfLines,
+  disabled,
+}) => {
   return (
     <View>
       <TextInput
+        name={name}
         style={styles ? styles : defaultS.input}
         placeholder={placeholder}
         placeholderTextColor="#3140C2"
         secureTextEntry={secure}
+        onChange={onChange}
         onChangeText={onChangeText}
         keyboardType={keyboardType}
         value={value}
@@ -42,8 +45,8 @@ const defaultS = StyleSheet.create({
     marginTop: 15,
     backgroundColor: 'white',
     borderRadius: 10,
-    borderColor: 'grey',
     padding: 10,
     fontSize: 20,
+    color: 'black',
   },
 });

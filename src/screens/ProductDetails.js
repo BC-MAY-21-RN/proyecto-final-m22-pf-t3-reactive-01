@@ -28,7 +28,7 @@ const ProductDetails = ({route: {params}, navigation}) => {
   const [quantity, setquantity] = useState(1);
   const onDecrease = () => (quantity > 1 ? setquantity(quantity - 1) : null);
   const onIncrease = () => setquantity(quantity + 1);
-  const BuyItem = () => addItem({...json, quantity});
+  const BuyItem = () => addItem({...params.item, quantity});
 
   return (
     <SafeAreaView style={Styles.MainContainer}>

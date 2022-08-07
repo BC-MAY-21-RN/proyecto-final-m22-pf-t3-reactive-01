@@ -190,6 +190,7 @@ export const ProductsStyles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     fontSize: 20,
+    color: 'black',
   },
   textarea: {
     height: 150,
@@ -202,6 +203,7 @@ export const ProductsStyles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     fontSize: 20,
+    color: 'black',
   },
   switch: {
     width: 300,
@@ -309,15 +311,14 @@ export const CuentaStyle = StyleSheet.create({
   textDeleteAccount: {
     textAlign: 'center',
   },
-  iconDelete:{
-    position:'absolute',
-    left:313
-  } ,
-  iconEdit:{
-    position:'absolute',
-    left:280
-      } ,
-  
+  iconDelete: {
+    position: 'absolute',
+    left: 313,
+  },
+  iconEdit: {
+    position: 'absolute',
+    left: 280,
+  },
 });
 
 export const ProductDetailsStyles = StyleSheet.create({

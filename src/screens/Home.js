@@ -18,7 +18,7 @@ const Home = ({navigation}) => {
       .then(querySnapshot => {
         const productsAux = [];
         querySnapshot.forEach(documentSnapshot => {
-          documentSnapshot.data().documentId = documentSnapshot.id;
+          documentSnapshot.data().uid = documentSnapshot.id;
           productsAux.push(documentSnapshot.data());
         });
         isFocused && setProducts(productsAux);
@@ -58,7 +58,7 @@ const Home = ({navigation}) => {
       <Header
         name="Home"
         icon="cart"
-        directory={'Ionicons'}
+        directory="Ionicons"
         onPress={() => navigation.navigate('Cart')}
         search={[searchValue, setSearchValue]}
       />
