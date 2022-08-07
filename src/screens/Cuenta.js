@@ -31,7 +31,7 @@ const Cuenta = ({navigation}) => {
     if (current) {
       getUserInfo(current, setUserInfo);
     }
-  }, [(current && modalVisible) || (current && userInfo)]);
+  }, [current, modalVisible]);
   return (
     <>
       <Header name="Account" navigation={navigation} BackBtn />
