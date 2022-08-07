@@ -14,12 +14,12 @@ import BtnIcon from '../components/atoms/btnIcon';
 import Header from '../components/atoms/Header';
 import CounterInput from '../components/atoms/CounterInput';
 import CustomButton from '../components/atoms/Form/CustomButton';
-import auth from '@react-native-firebase/auth';
+import {useUser} from '../utils/user';
 import {ProductDetailsStyles as Styles} from './Styles';
-import {updateLikes} from '../auth/cloudFirestore';
+import {addLike, removeLike} from '../auth/cloudFirestore';
 
 const ProductDetails = ({route: {params}, navigation}) => {
-  const userId = auth().currentUser.uid;
+  const user = useUser(state => state.user);
   const {uid, like, name, description, image, condition, stock, price} =
     params.item;
   const {addItem} = useCart(state => ({addItem: state.addItem}), shallow);
@@ -29,35 +29,24 @@ const ProductDetails = ({route: {params}, navigation}) => {
   const BuyItem = () => addItem({...params.item, quantity});
   const [liked, setLiked] = useState();
   useEffect(() => {
-    if (like.includes(userId)) {
+    if (like.includes(user.uid)) {
       setLiked(true);
     } else {
       setLiked(false);
     }
-  }, [like, userId]);
+  }, [like, user]);
   const handleLike = () => {
     if (liked) {
-      for (var i = 0; i < like.length; i++) {
-        if (like[i] === userId) {
-          like.splice(i, 1);
-          i--;
-        }
-      }
-      updateLikes(uid, userId, like);
-      ToastAndroid.show(
-        'The product was removed to your Wish List!',
-        ToastAndroid.SHORT,
-      );
-      setLiked(false);
+      removeLike(uid, user.uid);
+      Toas('The product was removed to your Wish List!');
     } else {
-      updateLikes(uid, userId, null);
-      ToastAndroid.show(
-        'The product was added to your Wish List!',
-        ToastAndroid.SHORT,
-      );
-      setLiked(true);
+      addLike(uid, user.uid);
+      Toas('The product was added to your Wish List!');
     }
+    setLiked(!liked);
   };
+  const Toas = MSG => ToastAndroid.show(MSG, ToastAndroid.SHORT);
+
   return (
     <SafeAreaView style={Styles.MainContainer}>
       <Header

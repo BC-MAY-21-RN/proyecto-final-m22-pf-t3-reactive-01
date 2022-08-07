@@ -77,15 +77,15 @@ export const subscriberMyWishList = (uidUser, setProducts, setEmpty) => {
     });
 };
 
-export const updateLikes = async (docID, userID, array) => {
-  let uidArrayUnion;
-  if (array) {
-    uidArrayUnion = array;
-  } else {
-    uidArrayUnion = firestore.FieldValue.arrayUnion(userID);
-  }
+export const addLike = async (uidDoc, uidUser) => {
   await firestore()
     .collection('Products')
-    .doc(docID)
-    .update({like: uidArrayUnion});
+    .doc(uidDoc)
+    .update({like: firestore.FieldValue.arrayUnion(uidUser)});
+};
+export const removeLike = async (uidDoc, uidUser) => {
+  await firestore()
+    .collection('Products')
+    .doc(uidDoc)
+    .update({like: firestore.FieldValue.arrayRemove(uidUser)});
 };
