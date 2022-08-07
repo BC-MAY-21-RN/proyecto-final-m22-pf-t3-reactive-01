@@ -5,7 +5,12 @@ import * as ImagePicker from 'react-native-image-picker';
 import pcikerStyles from './pickerStyles';
 
 const Picker = props => {
-  const {url, setUrl, setImage} = props;
+  const {
+    url,
+    setUrl = () => {},
+    setImage = () => {},
+    setPath = () => {},
+  } = props;
 
   const addImage = () => {
     let options = {
@@ -30,9 +35,10 @@ const Picker = props => {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        let respuesta = response.assets[0];
-        setImage(respuesta.fileName);
-        setUrl(respuesta.uri);
+        let {fileName, uri} = response.assets[0];
+        setImage(fileName);
+        setUrl(uri);
+        setPath({fileName, uri});
       }
     });
   };
