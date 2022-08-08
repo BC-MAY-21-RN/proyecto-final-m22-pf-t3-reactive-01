@@ -45,7 +45,7 @@ const Carrito = ({navigation}) => {
         renderItem={item =>
           renderItem({item: item.item, removeQuantity, addQuantity, removeItem})
         }
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.uid}
         ListFooterComponent={() => FooterTotal({items: cart})}
       />
       <FooterSticky items={cart} navigation={nav} />

@@ -1,30 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useCallback} from 'react';
 import {View} from 'react-native';
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
 import VerticalList from '../components/atoms/VerticalList';
 import Header from '../components/atoms/Header';
-import {useIsFocused} from '@react-navigation/native';
-
+import {getMyProducts} from '../auth/cloudFirestore';
+import {useUser} from '../utils/user';
+import {useFocusEffect} from '@react-navigation/native';
 const MyProducts = ({navigation}) => {
+  const user = useUser(state => state.user);
   const [products, setProducts] = useState([]);
-  const isFocused = useIsFocused();
-  useEffect(() => {
-    const current = auth().currentUser.uid;
-    firestore()
-      .collection('Products')
-      .where('uid', '==', current)
-      .get()
-      .then(querySnapshot => {
-        const productsAux = [];
-        querySnapshot.forEach(documentSnapshot => {
-          documentSnapshot.data().documentId = documentSnapshot.id;
-          productsAux.push(documentSnapshot.data());
-        });
-        isFocused && setProducts(productsAux);
-      })
-      .catch(error => console.log(error));
-  }, [isFocused]);
+  useFocusEffect(
+    useCallback(() => {
+      getMyProducts(user.uid, setProducts);
+    }, [user]),
+  );
   return (
     <View>
       <Header name="My products" BackBtn />

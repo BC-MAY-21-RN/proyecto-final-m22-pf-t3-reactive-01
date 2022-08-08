@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {AwesomeTextInput} from 'react-native-awesome-text-input';
 import {View} from 'react-native';
 import Style from './Style';
@@ -15,16 +15,29 @@ const Input = ({
   editable = true,
   styleInput,
   styleContainer,
+  styleMainContainer,
+  multiline,
 }) => {
   const [Secure, setSecure] = useState(secure);
+  const [focus, setFocus] = useState({borderColor: '#e3e3e3'});
+  const onFocus = useCallback(() => setFocus({borderColor: '#0388fc'}), []);
+  const onBlur = useCallback(
+    () => (error ? setFocus({borderColor: 'red'}) : setFocus({})),
+    [error],
+  );
+  useEffect(onBlur, [onBlur]);
+
   return (
-    <View style={Style.MainContainer}>
+    <View style={[Style.MainContainer, styleMainContainer]}>
       <AwesomeTextInput
         style={[Style.Value, styleValue]}
         editable={editable}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        multiline={multiline}
         label={title}
         customStyles={{
-          container: {...Style.Container, ...styleContainer},
+          container: {...Style.Container, ...styleContainer, ...focus},
           title: {...Style.Title, ...styleTitle},
           inputContainer: {...Style.Input, ...styleInput},
         }}

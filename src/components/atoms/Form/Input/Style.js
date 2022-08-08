@@ -7,6 +7,7 @@ const Style = StyleSheet.create({
   Container: {
     borderRadius: 5,
     backgroundColor: 'rgba(245, 245, 245, 0.85)',
+    borderWidth: 0.8,
   },
   Value: {
     color: 'black',

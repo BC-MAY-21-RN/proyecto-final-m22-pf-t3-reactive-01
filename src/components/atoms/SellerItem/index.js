@@ -1,36 +1,31 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {View, Text, Pressable, Image, Modal} from 'react-native';
 import IconButton from '../IconButtom';
 import SellerItemStyles from './SellerItemStyles';
-import {deleteProduct} from '../../../auth/authFirestore';
-import storage from '@react-native-firebase/storage';
-
-const SellerItem = props => {
-  const {
-    name,
-    price,
-    condition,
-    description,
-    id,
-    navigation,
-    category,
-    stock,
-    userId,
-    image,
-  } = props;
+import {deleteDocumentByUid} from '../../../auth/cloudFirestore';
+import {money} from '../../../utils/format';
+const SellerItem = ({
+  name,
+  price,
+  condition,
+  description,
+  uid,
+  uidUser,
+  like,
+  navigation,
+  category,
+  stock,
+  image,
+}) => {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [url, setUrl] = useState(null);
-  const getUri = async path => {
-    const consult = await storage().ref(path).getDownloadURL();
+  const DeleteDocument = async () => {
     try {
-      setUrl(consult);
-    } catch (e) {
-      setUrl(null);
+      await deleteDocumentByUid('Products', uid);
+      setModalVisible(!isModalVisible);
+    } catch (error) {
+      console.log(error);
     }
   };
-  useEffect(() => {
-    getUri(`Products/${userId}/${image}`);
-  }, [userId, image]);
 
   return (
     <Pressable
@@ -40,31 +35,32 @@ const SellerItem = props => {
       <View>
         <Image
           source={{
-            uri: url
-              ? url
-              : 'https://cdn.shopify.com/s/files/1/0070/7032/files/how-to-price-a-product.jpg?v=1611727768&width=1024',
+            uri: image,
           }}
           style={SellerItemStyles.image}
         />
       </View>
       <View style={SellerItemStyles.content}>
         <Text style={SellerItemStyles.title}>{name}</Text>
-        <Text>{description}</Text>
-        <Text style={SellerItemStyles.price}>${price}</Text>
+        <Text style={SellerItemStyles.description}>{description}</Text>
+        <Text style={SellerItemStyles.price}>{money(price)}</Text>
         <Text style={SellerItemStyles.condition}>{condition}</Text>
       </View>
       <View style={{marginTop: 10}}>
         <IconButton
           name="edit"
           onPress={() => {
-            navigation.navigate('Products', {
-              documentId: id,
-              name: name,
-              price: price,
-              condition: condition,
-              description: description,
-              category: category,
-              stock: stock,
+            navigation.jumpTo('Products', {
+              uid,
+              uidUser,
+              like,
+              name,
+              price,
+              condition,
+              description,
+              category,
+              stock,
+              image,
             });
           }}
           color="#50B838"
@@ -89,10 +85,7 @@ const SellerItem = props => {
           <View style={SellerItemStyles.contentModal}>
             <IconButton
               name="check"
-              onPress={() => {
-                deleteProduct('Products', id);
-                setModalVisible(!isModalVisible);
-              }}
+              onPress={DeleteDocument}
               color="#50B838"
               size={40}
             />

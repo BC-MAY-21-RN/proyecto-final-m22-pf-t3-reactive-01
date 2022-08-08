@@ -190,6 +190,7 @@ export const ProductsStyles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     fontSize: 20,
+    color: 'black',
   },
   textarea: {
     height: 150,
@@ -202,6 +203,7 @@ export const ProductsStyles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     fontSize: 20,
+    color: 'black',
   },
   switch: {
     width: 300,
@@ -362,11 +364,11 @@ export const ProductDetailsStyles = StyleSheet.create({
   Black: {color: 'black'},
   Condition: {color: colors.TXT_LIGHT_PRIMARY_COLOR},
   Name: {color: colors.TXT_PRIMARY_COLOR, fontSize: 16, fontWeight: '600'},
-  DescriptionTitle: {fontSize: 16},
+  DescriptionTitle: {fontSize: 18, paddingBottom: 5},
   Description: {
     color: colors.TXT_PRIMARY_COLOR,
     fontSize: 14,
-    paddingTop: 10,
+    paddingVertical: 10,
   },
   StockContainer: {
     flexDirection: 'row',
@@ -430,6 +432,7 @@ export const WishStyles = StyleSheet.create({
     marginTop: 30,
     maxWidth: 200,
     fontStyle: 'italic',
+    color: colors.TXT_PRIMARY_COLOR,
   },
   ImageBtn: {
     backgroundColor: colors.ICON_BACKGROUND_SECONDARY_COLOR,

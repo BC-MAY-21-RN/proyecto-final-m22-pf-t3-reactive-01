@@ -1,6 +1,5 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import storage from '@react-native-firebase/storage';
 import {setOneDocumentSync, getOneDocumenByUid} from './cloudFirestore';
 export const SignUp = async ({userName, suscribe, email, password}) => {
   try {
@@ -57,47 +56,6 @@ export const getUserInfo = async (currentUser, setUserInfo) => {
   }
 };
 
-export const addProduct = async (
-  name,
-  category,
-  price,
-  condition,
-  description,
-  stock,
-  uri,
-  image,
-) => {
-  const current = await auth().currentUser.uid;
-  await firestore()
-    .collection('Products')
-    .add({
-      name: name,
-      category: category,
-      price: parseFloat(price),
-      condition: condition,
-      description: description,
-      stock: parseInt(stock),
-      image: image,
-      uid: current,
-      like: [null],
-    })
-    .then(() => {
-      uploadImage(uri, current, image);
-    })
-    .catch();
-};
-
-const uploadImage = async (uri, uid, image) => {
-  const task = storage()
-    .ref('Products/' + uid + '/' + image)
-    .putFile(uri);
-  try {
-    await task;
-  } catch (e) {
-    alert('The image cannot be uploaded');
-  }
-};
-
 export const editProduct = async (
   id,
   name,
@@ -126,16 +84,6 @@ export const editProduct = async (
       navigation.navigate('Manage', {myParam: undefined});
     })
     .catch();
-};
-
-export const deleteProduct = async (collection, document) => {
-  await firestore()
-    .collection(collection)
-    .doc(document)
-    .delete()
-    .then(() => {
-      alert('Successful removal!');
-    });
 };
 
 export const addInfo = async (info, uID) => {
