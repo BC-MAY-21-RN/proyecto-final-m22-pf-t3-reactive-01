@@ -364,11 +364,11 @@ export const ProductDetailsStyles = StyleSheet.create({
   Black: {color: 'black'},
   Condition: {color: colors.TXT_LIGHT_PRIMARY_COLOR},
   Name: {color: colors.TXT_PRIMARY_COLOR, fontSize: 16, fontWeight: '600'},
-  DescriptionTitle: {fontSize: 16},
+  DescriptionTitle: {fontSize: 18, paddingBottom: 5},
   Description: {
     color: colors.TXT_PRIMARY_COLOR,
     fontSize: 14,
-    paddingTop: 10,
+    paddingVertical: 10,
   },
   StockContainer: {
     flexDirection: 'row',

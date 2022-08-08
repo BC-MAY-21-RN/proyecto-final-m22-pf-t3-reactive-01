@@ -17,7 +17,7 @@ import CustomButton from '../components/atoms/Form/CustomButton';
 import {useUser} from '../utils/user';
 import {ProductDetailsStyles as Styles} from './Styles';
 import {addLike, removeLike} from '../auth/cloudFirestore';
-
+import Input from '../components/atoms/Form/Input';
 const ProductDetails = ({route: {params}, navigation}) => {
   const user = useUser(state => state.user);
   const {uid, like, name, description, image, condition, stock, price} =
@@ -112,6 +112,15 @@ const ProductDetails = ({route: {params}, navigation}) => {
           styleText={[Styles.CartBtnText, Styles.AddToCartBtnText]}
           onPress={BuyItem}
           title={'Agregar al carrito'}
+        />
+        <Separator />
+        <Text style={[Styles.Description, Styles.DescriptionTitle]}>
+          Preguntas y Respuestas
+        </Text>
+        <Input
+          title="Escribe Tu Pregunta"
+          multiline
+          styleMainContainer={{paddingVertical: 10}}
         />
       </ScrollView>
     </SafeAreaView>
