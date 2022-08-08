@@ -1,19 +1,21 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useCallback} from 'react';
 import {View, Text} from 'react-native';
 import Header from '../components/atoms/Header';
 import VerticalList from '../components/atoms/VerticalList';
 import {WishStyles} from './Styles';
 import BtnIcon from '../components/atoms/btnIcon';
-import {subscriberMyWishList} from '../auth/cloudFirestore';
+import {getMyWishList} from '../auth/cloudFirestore';
 import {useUser} from '../utils/user';
+import {useFocusEffect} from '@react-navigation/native';
 const Favoritos = ({navigation}) => {
   const user = useUser(state => state.user);
   const [products, setProducts] = useState([]);
   const [isEmpty, setEmpty] = useState(true);
-  useEffect(() => {
-    const sub = subscriberMyWishList(user.uid, setProducts, setEmpty);
-    return sub;
-  }, [user]);
+  useFocusEffect(
+    useCallback(() => {
+      getMyWishList(user.uid, setProducts, setEmpty);
+    }, [user]),
+  );
   return (
     <View>
       <Header

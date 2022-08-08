@@ -1,17 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useCallback} from 'react';
 import {View} from 'react-native';
 import VerticalList from '../components/atoms/VerticalList';
 import Header from '../components/atoms/Header';
-import {subscriberMyProducts} from '../auth/cloudFirestore';
+import {getMyProducts} from '../auth/cloudFirestore';
 import {useUser} from '../utils/user';
+import {useFocusEffect} from '@react-navigation/native';
 const MyProducts = ({navigation}) => {
   const user = useUser(state => state.user);
   const [products, setProducts] = useState([]);
-  useEffect(() => {
-    const sub = subscriberMyProducts(user.uid, setProducts);
-    return sub;
-  }, [user.uid]);
-
+  useFocusEffect(
+    useCallback(() => {
+      getMyProducts(user.uid, setProducts);
+    }, [user]),
+  );
   return (
     <View>
       <Header name="My products" BackBtn />
