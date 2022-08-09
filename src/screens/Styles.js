@@ -447,3 +447,32 @@ export const WishStyles = StyleSheet.create({
     color: 'black',
   },
 });
+
+export const Purchase = StyleSheet.create({
+  MainContainer: {flex: 1},
+  ScrollContainer: {
+    flexDirection: 'column',
+    backgroundColor: colors.BACKGROUND_COLOR,
+    padding: 10,
+  },
+  Separator: {
+    height: 0.9,
+    backgroundColor: colors.DIVIDER_COLOR,
+  },
+  Button: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 10,
+    padding: 5,
+  },
+  Text: {
+    fontSize: 18,
+    fontStyle: 'italic',
+    color: 'black',
+  },
+  TextSelect: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: colors.HEADER_COLOR,
+  },
+});

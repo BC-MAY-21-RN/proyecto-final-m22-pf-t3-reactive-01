@@ -27,6 +27,13 @@ const ProductDetails = ({route: {params}, navigation}) => {
   const onDecrease = () => (quantity > 1 ? setquantity(quantity - 1) : null);
   const onIncrease = () => setquantity(quantity + 1);
   const BuyItem = () => addItem({...params.item, quantity});
+  const Purchase = () =>
+    navigation.navigate('Purchase', {
+      item: {
+        ...params.item,
+      },
+      cantidad: quantity,
+    });
   const [liked, setLiked] = useState();
   useEffect(() => {
     if (like.includes(user.uid)) {
@@ -104,7 +111,7 @@ const ProductDetails = ({route: {params}, navigation}) => {
         <CustomButton
           style={Styles.CartBtn}
           styleText={Styles.CartBtnText}
-          onPress={BuyItem}
+          onPress={Purchase}
           title={'Comprar ahora'}
         />
         <CustomButton

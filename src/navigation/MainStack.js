@@ -22,6 +22,7 @@ import Favoritos from '../screens/Favoritos';
 import MyProducts from '../screens/MyProducts';
 import ProductDetails from '../screens/ProductDetails';
 import Category from '../screens/Category';
+import Purchase from '../screens/Purchase';
 /* ----- components and styles ----- */
 import MenuStyles from './MenuStyles';
 import MenuButtom from '../components/atoms/MenuButtom';
@@ -53,6 +54,7 @@ const Drawer = () => {
         <DrawerStack.Screen name="WishList" component={Favoritos} />
         <DrawerStack.Screen name="ProductDetails" component={ProductDetails} />
         <DrawerStack.Screen name="Category" component={Category} />
+        <DrawerStack.Screen name="Purchase" component={Purchase} />
       </DrawerStack.Navigator>
     </NavigationContainer>
   );
