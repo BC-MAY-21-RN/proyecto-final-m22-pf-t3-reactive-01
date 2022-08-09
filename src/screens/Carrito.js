@@ -57,7 +57,7 @@ const renderItem = ({removeQuantity, addQuantity, removeItem, item}) => {
   return (
     <Pressable
       onPress={() => {
-        nav.navigate('ProductDetails', {item});
+        nav.push('ProductDetails', {item});
       }}>
       <View style={CarritoStyle.Item}>
         <Image style={CarritoStyle.ItemImage} source={{uri: image}} />

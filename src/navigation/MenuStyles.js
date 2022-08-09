@@ -1,8 +1,8 @@
 import {StyleSheet} from 'react-native';
-
+import colors from '../constants/colors';
 const MenuStyles = StyleSheet.create({
   container: {
-    backgroundColor: '#F8F0F0',
+    backgroundColor: colors.BACKGROUND_COLOR,
   },
   title: {
     fontSize: 20,
@@ -18,32 +18,26 @@ const MenuStyles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'center',
-    backgroundColor: '#4C5BF7',
-    marginBottom: 10,
-    paddingTop: 25,
+    backgroundColor: colors.HEADER_COLOR,
+    alignItems: 'center',
     height: 150,
     bottom: 5,
   },
   Image: {height: 100, width: 100, borderRadius: 50},
-  columna: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    paddingLeft: 15,
-    bottom: 15,
-  },
+  columna: {flexDirection: 'column', marginLeft: 15},
   otheroptions: {
-    borderTopColor: '#B4B4AC',
-    borderTopWidth: 1,
-    borderBottomColor: '#B4B4AC',
-    borderBottomWidth: 1,
-    padding: 10,
+    borderTopColor: colors.DIVIDER_COLOR,
+    borderTopWidth: 0.8,
+    borderBottomColor: colors.DIVIDER_COLOR,
+    borderBottomWidth: 0.8,
+    padding: 8,
   },
   division: {
     fontSize: 15,
     textAlign: 'center',
     fontStyle: 'italic',
     fontWeight: 'bold',
-    color: '#B4B4AC',
+    color: colors.DIVIDER_COLOR,
   },
 });
 
