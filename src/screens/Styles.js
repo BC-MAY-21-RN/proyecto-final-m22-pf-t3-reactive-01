@@ -459,6 +459,20 @@ export const Purchase = StyleSheet.create({
     height: 0.9,
     backgroundColor: colors.DIVIDER_COLOR,
   },
+  ShowMore: {
+    margin: 10,
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: colors.DIVIDER_COLOR,
+    borderRadius: 10,
+    padding: 10,
+  },
+  ShowMore2: {
+    padding: 20,
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
   Button: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -476,7 +490,7 @@ export const Purchase = StyleSheet.create({
     color: colors.HEADER_COLOR,
   },
   purchaseContainer: {
-    margin: 15,
+    margin: 20,
     padding: 10,
     width: '70%',
     alignSelf: 'center',
@@ -502,5 +516,38 @@ export const Purchase = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     margin: 10,
+  },
+  ImageBtn: {
+    borderRadius: 50,
+    position: 'relative',
+    padding: 10,
+    height: 45,
+    width: 45,
+    margin: 10,
+    borderColor: '#cccccc',
+    borderWidth: 1,
+    alignItems: 'center',
+  },
+  image: {
+    height: 150,
+    width: 110,
+  },
+  delivery: {
+    padding: 10,
+    maxWidth: 120,
+    height: '100%',
+    alignContent: 'center',
+    borderLeftWidth: 1,
+    borderLeftColor: colors.DIVIDER_COLOR,
+  },
+  infoContainer: {
+    alignItems: 'center',
+    padding: 5,
+  },
+  desc: {
+    fontSize: 14,
+    maxWidth: 120,
+    textAlign: 'center',
+    fontStyle: 'italic',
   },
 });

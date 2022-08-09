@@ -25,7 +25,8 @@ const ProductDetails = ({route: {params}, navigation}) => {
   const {addItem} = useCart(state => ({addItem: state.addItem}), shallow);
   const [quantity, setquantity] = useState(1);
   const onDecrease = () => (quantity > 1 ? setquantity(quantity - 1) : null);
-  const onIncrease = () => setquantity(quantity + 1);
+  const onIncrease = () =>
+    quantity < stock ? setquantity(quantity + 1) : null;
   const BuyItem = () => addItem({...params.item, quantity});
   const Purchase = () =>
     navigation.navigate('Purchase', {
