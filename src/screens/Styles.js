@@ -475,4 +475,32 @@ export const Purchase = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.HEADER_COLOR,
   },
+  purchaseContainer: {
+    margin: 15,
+    padding: 10,
+    width: '70%',
+    alignSelf: 'center',
+    borderWidth: 2,
+    borderColor: colors.DIVIDER_COLOR,
+    borderRadius: 10,
+  },
+  purchaseTitle: {
+    color: 'black',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 16,
+    margin: 10,
+  },
+  purchaseOrder: {
+    margin: 2,
+    padding: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  total: {
+    color: '#BC2828',
+    fontWeight: 'bold',
+    fontSize: 16,
+    margin: 10,
+  },
 });
