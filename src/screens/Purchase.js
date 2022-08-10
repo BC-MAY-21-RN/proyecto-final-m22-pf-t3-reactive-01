@@ -15,6 +15,7 @@ import {Purchase as Styles} from './Styles';
 import CustomButton from '../components/atoms/Form/CustomButton';
 import BtnIcon from '../components/atoms/btnIcon';
 import CounterInput from '../components/atoms/CounterInput';
+import PaymentModal from '../components/atoms/PaymentModal';
 const Purchase = ({route: {params}, navigation}) => {
   const user = useUser(state => state.user);
   const {uid, name, description, stock, image, price} = params.item;
@@ -29,6 +30,8 @@ const Purchase = ({route: {params}, navigation}) => {
   const [method, setMethod] = useState([]);
   const [ischeck, setIsCheck] = useState(false);
   const [deliveryMethod, setDeliveryMethod] = useState('regular');
+  const [modalPayment, setModalPayment] = useState(false);
+  const [card, setCard] = useState();
   let delivery = 0;
   if (cost >= 1000) delivery = 0;
   else delivery = 199;
@@ -73,7 +76,10 @@ const Purchase = ({route: {params}, navigation}) => {
                 size={20}
                 styleIcon={{color: 'black'}}
                 style2={Styles.ImageBtn}
-                onPress={() => console.log('Card')}
+                onPress={() => {
+                  setModalPayment(!modalPayment);
+                  setCard(true);
+                }}
               />
               <BtnIcon
                 iconName={'money'}
@@ -81,7 +87,10 @@ const Purchase = ({route: {params}, navigation}) => {
                 size={20}
                 styleIcon={{color: 'black'}}
                 style2={Styles.ImageBtn}
-                onPress={() => console.log('Money')}
+                onPress={() => {
+                  setModalPayment(!modalPayment);
+                  setCard(false);
+                }}
               />
             </View>
           </View>
@@ -113,6 +122,11 @@ const Purchase = ({route: {params}, navigation}) => {
               </View>
             </View>
             <View style={Styles.delivery}>
+              {deliveryMethod === 'regular' ? (
+                <Text style={Styles.estimated}>Estimated delivery: 7 days</Text>
+              ) : (
+                <Text style={Styles.estimated}>Estimated delivery: 2 days</Text>
+              )}
               <Text style={Styles.purchaseTitle}>Select a delivery method</Text>
               <Delivery
                 style={Styles.desc}
@@ -146,6 +160,11 @@ const Purchase = ({route: {params}, navigation}) => {
             title={'Finish order'}
           />
         </View>
+        <PaymentModal
+          isModalVisible={modalPayment}
+          setModalVisible={setModalPayment}
+          card={card}
+        />
       </ScrollView>
     </SafeAreaView>
   );

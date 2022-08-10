@@ -550,4 +550,11 @@ export const Purchase = StyleSheet.create({
     textAlign: 'center',
     fontStyle: 'italic',
   },
+  estimated: {
+    fontSize: 13,
+    marginTop: 5,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: 'green',
+  },
 });
