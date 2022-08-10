@@ -16,6 +16,7 @@ import CustomButton from '../components/atoms/Form/CustomButton';
 import BtnIcon from '../components/atoms/btnIcon';
 import CounterInput from '../components/atoms/CounterInput';
 import PaymentModal from '../components/atoms/PaymentModal';
+import { set } from 'react-native-reanimated';
 const Purchase = ({route: {params}, navigation}) => {
   const user = useUser(state => state.user);
   const {uid, name, description, stock, image, price} = params.item;
@@ -32,6 +33,7 @@ const Purchase = ({route: {params}, navigation}) => {
   const [deliveryMethod, setDeliveryMethod] = useState('regular');
   const [modalPayment, setModalPayment] = useState(false);
   const [card, setCard] = useState();
+  const [addAddress, setAddAddress] = useState(false);
   let delivery = 0;
   if (cost >= 1000) delivery = 0;
   else delivery = 199;
@@ -56,7 +58,10 @@ const Purchase = ({route: {params}, navigation}) => {
               size={20}
               styleIcon={{color: 'black'}}
               style2={Styles.ImageBtn}
-              onPress={() => console.log('Add')}
+              onPress={() => {
+                setModalPayment(!modalPayment);
+                setAddAddress(true);
+              }}
             />
           </View>
         ) : null}
@@ -164,6 +169,9 @@ const Purchase = ({route: {params}, navigation}) => {
           isModalVisible={modalPayment}
           setModalVisible={setModalPayment}
           card={card}
+          productID={uid}
+          adress={addAddress}
+          setAddAddress={setAddAddress}
         />
       </ScrollView>
     </SafeAreaView>
