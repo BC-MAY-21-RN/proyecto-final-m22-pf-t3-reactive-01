@@ -18,7 +18,7 @@ const Loader = props => {
 
     Animated.timing(animationScale, {
       toValue: 1,
-      duration: 4000,
+      duration: 3000,
       useNativeDriver: true,
     }).start();
     setTimeout(() => {
@@ -26,34 +26,23 @@ const Loader = props => {
     }, 400);
     setTimeout(() => {
       setText('..');
-    }, 800);
+    }, 700);
     setTimeout(() => {
       setText('...');
-    }, 1200);
+    }, 700);
     setTimeout(() => {
       setText('.');
-    }, 1600);
+    }, 1000);
     setTimeout(() => {
       setText('..');
+    }, 1000);
+    setTimeout(() => {
+      setText('...');
     }, 2000);
-    setTimeout(() => {
-      setText('...');
-    }, 2400);
-    setTimeout(() => {
-      setText('.');
-    }, 2800);
-    setTimeout(() => {
-      setText('..');
-    }, 3200);
-    setTimeout(() => {
-      setText('...');
-    }, 3600);
-    setTimeout(() => {
-      setText('');
-    }, 3800);
+   
     setTimeout(() => {
       stateEdit(false);
-    }, 4000);
+    }, 1000);
   }, [state]);
 
   return (

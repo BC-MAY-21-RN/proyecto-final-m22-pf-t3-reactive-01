@@ -140,7 +140,7 @@ export const deleteCamp = async (input, uID) => {
 
   if (inputName === 'Fullname') {
     await firestore().collection('Users').doc(uID).update({
-      fullname: '',
+      fullName: '',
     });
   } else if (inputName === 'Cel') {
     await firestore().collection('Users').doc(uID).update({

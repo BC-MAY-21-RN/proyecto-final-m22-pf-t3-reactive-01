@@ -313,7 +313,6 @@ const ModalInput = props => {
                     if (inputValue && input) {
                       validateSchema(input, inputValue)
                         .then(() => {
-                          console.log('to pass');
                           if (action == 'Add') {
                             setLoading(true);
                             addInfo(
