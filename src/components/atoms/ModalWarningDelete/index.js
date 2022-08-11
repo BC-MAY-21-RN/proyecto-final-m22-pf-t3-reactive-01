@@ -27,7 +27,7 @@ const ModalWarningDelete = props => {
               <Text style={ModalWarningDeleteStyle.textWarning}>
                 {' '}
                 {'  '}
-                Are you sure delete your account ?
+                Are you sure <Text style={ModalWarningDeleteStyle.textAd}>delete</Text> your account ?
               </Text>
               <View style={ModalWarningDeleteStyle.containerPressables}>
                 <Pressable

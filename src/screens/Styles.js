@@ -225,7 +225,12 @@ export const CuentaStyle = StyleSheet.create({
     fontSize: 30,
     textAlign: 'center',
   },
-  
+  containerSettings:{
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around', 
+  },
 
 
 
@@ -258,14 +263,34 @@ export const CuentaStyle = StyleSheet.create({
     textTransform: 'capitalize',
   },
   buttonDeleteAccount: {
-    backgroundColor: '#D40C1C',
-    color: '#ffff',
+    backgroundColor: '#ffff',
+    borderEndWidth: 3,
+    borderStartWidth: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 3,
+    
+    borderColor:'#D40C1C',
     padding: 10,
     borderRadius: 10,
     marginTop: 10,
-    marginHorizontal: 60,
+   paddingHorizontal:36,
     elevation: 3,
   },
+  buttonRestorePassword:{
+    backgroundColor: '#ffff',
+    borderEndWidth: 3,
+    borderStartWidth: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 3,
+    borderColor:'#047C74',
+   
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 10,
+    paddingHorizontal:36,
+    elevation: 3,
+  },
+  
   inputEditAndAdd: {
     color: '#3140C2',
     paddingVertical: 0,
@@ -274,6 +299,11 @@ export const CuentaStyle = StyleSheet.create({
   },
   textDeleteAccount: {
     textAlign: 'center',
+    color: '#D40C1C',
+  },
+  textRestorePassword:{
+    textAlign: 'center',
+    color: '#047C74',
   },
   iconDelete: {
     position: 'absolute',

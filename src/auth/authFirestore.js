@@ -1,6 +1,7 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {setOneDocumentSync, getOneDocumenByUid} from './cloudFirestore';
+
 export const SignUp = async ({userName, suscribe, email, password}) => {
   try {
     const Auth = await auth().createUserWithEmailAndPassword(email, password);
@@ -90,14 +91,25 @@ export const addInfo = async (info, uID) => {
   const inputName = info.input;
   const value = info.inputValue;
 
+
   if (inputName === 'User') {
     await firestore().collection('Users').doc(uID).update({
       userName: value,
     });
   } else if (inputName === 'Email') {
-    await firestore().collection('Users').doc(uID).update({
-      email: value,
-    });
+    
+    auth().currentUser.updateEmail(value)
+      .then(() => {
+       console.log("Email updated!") 
+       
+      }).catch((error) => {
+        console.log( `An error occurred ${error}`)
+       
+      });
+      await firestore().collection('Users').doc(uID).update({
+        email: value,
+      });
+   
   } else if (inputName === 'Usertype') {
     await firestore().collection('Users').doc(uID).update({
       userType: value,
@@ -157,4 +169,9 @@ export const deleteCamp = async (input, uID) => {
   } else {
     console.log('error action of delte camp ');
   }
+};
+
+export const restorePassword = async (email) => {
+  return await auth().sendPasswordResetEmail(email)
+    
 };

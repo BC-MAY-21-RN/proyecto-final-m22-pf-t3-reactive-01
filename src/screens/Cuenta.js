@@ -3,12 +3,13 @@ import {View, Text, Image, Pressable} from 'react-native';
 import Header from '../components/atoms/Header';
 import {CuentaStyle} from './Styles';
 import auth from '@react-native-firebase/auth';
-import { getUserInfo} from '../auth/authFirestore';
+import { getUserInfo, restorePassword} from '../auth/authFirestore';
 import ModalInput from '../components/atoms/ModalInput/index';
 import ModalWarningDelete from '../components/atoms/ModalWarningDelete';
 import Loader from '../components/atoms/Loader';
 import Input from '../components/atoms/InputCampAccount';
 import ImageAccount from '../components/atoms/ImageAccount';
+import ModalRestorePassword from '../components/atoms/ModalRestorePassword';
 
 
 const Cuenta = ({navigation}) => {
@@ -20,6 +21,7 @@ const Cuenta = ({navigation}) => {
   const [iconInput, setIconInput] = useState('sync-outline');
   const [uID, setUID] = useState();
   const [deleteAccount, setDeleteAccount] = useState(false);
+  const [restore, setRestore] = useState(false);
   const [loading, setLoading] = useState(false);
   
 
@@ -158,7 +160,7 @@ const Cuenta = ({navigation}) => {
                 />
               </View>
             </View>
-
+      <View style={CuentaStyle.containerSettings}>
             <ModalWarningDelete
               state={deleteAccount}
               stateEdit={setDeleteAccount}
@@ -171,6 +173,20 @@ const Cuenta = ({navigation}) => {
               }}>
               <Text style={CuentaStyle.textDeleteAccount}>Delete Account</Text>
             </Pressable>
+
+
+            <ModalRestorePassword
+            email={userInfo.email}
+            state={restore}
+            stateEdit={setRestore}
+            />
+            <Pressable  style={CuentaStyle.buttonRestorePassword}
+            onPress={() => {
+               setRestore(true)
+              }}>
+                <Text  style={CuentaStyle.textRestorePassword}>Restore pasword</Text>
+            </Pressable>
+            </View>
           </View>
         </>
       )}
