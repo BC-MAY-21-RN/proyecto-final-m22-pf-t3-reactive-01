@@ -569,4 +569,9 @@ export const Purchase = StyleSheet.create({
     margin: 5,
     padding: 5,
   },
+  title: {
+    fontSize: 14,
+    color: 'black',
+    fontWeight: 'bold',
+  },
 });

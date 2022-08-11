@@ -39,19 +39,22 @@ const Purchase = ({route: {params}, navigation}) => {
   const [modalPayment, setModalPayment] = useState(false);
   const [card, setCard] = useState();
   const [addAddress, setAddAddress] = useState(false);
-  const [selected, setSelected] = useState(null);
+  //Selected
+  const [selectedAddress, setSelectedAddress] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null);
   //Delivery
   let delivery = 0;
   if (cost >= 1000) delivery = 0;
   else delivery = 199;
   if (deliveryMethod === 'fast') delivery += 50;
   const total = cost + delivery;
-  //Get addresses
+  //Getting data
   useFocusEffect(
     useCallback(() => {
       getDocumentByField('uid', user.uid, 'Addresses', setAddress);
+      getDocumentByField('uid', user.uid, 'Payment', setMethod);
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user, addAddress]),
+    }, [user, addAddress, card]),
   );
   useEffect(() => setquantity(params.cantidad), [params.cantidad]);
   return (
@@ -77,8 +80,8 @@ const Purchase = ({route: {params}, navigation}) => {
                     code={item.code}
                     country={item.country}
                     phone={item.phone}
-                    onPress={() => setSelected(key)}
-                    selected={selected}
+                    onPress={() => setSelectedAddress(key)}
+                    selected={selectedAddress}
                   />
                 ))}
               </ScrollView>
@@ -106,7 +109,24 @@ const Purchase = ({route: {params}, navigation}) => {
         />
         {ismethod ? (
           <View style={Styles.ShowMore}>
-            {method.length >= 1 ? null : <Text>No payment methods found</Text>}
+            {method.length >= 1 ? (
+              <ScrollView style={{width: 350, height: 150}}>
+                {method.map((item, key) => (
+                  <ItemCard
+                    key={key}
+                    index={key}
+                    alias={item.alias}
+                    holder={item.holder}
+                    month={item.month}
+                    year={item.year}
+                    onPress={() => setSelectedCard(key)}
+                    selected={selectedCard}
+                  />
+                ))}
+              </ScrollView>
+            ) : (
+              <Text>No payment methods found</Text>
+            )}
             <View style={Styles.purchaseOrder}>
               <BtnIcon
                 iconName={'credit-card'}
@@ -256,6 +276,35 @@ const ItemAddress = props => {
         <Text>{code}, </Text>
         <Text>{country}, </Text>
         <Text>Phone number: {phone}</Text>
+      </View>
+    </RNBounceable>
+  );
+};
+
+const ItemCard = props => {
+  const {alias, holder, month, year, index, selected, onPress} = props;
+  const waitAnimationBounceable = () => setTimeout(onPress, 50);
+  return (
+    <RNBounceable
+      style={
+        selected === index
+          ? [
+              Styles.AddressContainer,
+              {
+                backgroundColor: 'rgba(65,137,230,.15)',
+              },
+            ]
+          : Styles.AddressContainer
+      }
+      onPress={waitAnimationBounceable}>
+      <View style={[Styles.row, {maxWidth: 300}]}>
+        <Text style={Styles.title}>{alias} ➣ </Text>
+        <Text>Holder: </Text>
+        <Text style={Styles.desc}>{holder}</Text>
+        <Text>| Expiration:</Text>
+        <Text style={Styles.desc}>
+          {month}/{year}
+        </Text>
       </View>
     </RNBounceable>
   );
