@@ -16,7 +16,7 @@ import CustomButton from '../components/atoms/Form/CustomButton';
 import BtnIcon from '../components/atoms/btnIcon';
 import CounterInput from '../components/atoms/CounterInput';
 import PaymentModal from '../components/atoms/PaymentModal';
-import { set } from 'react-native-reanimated';
+
 const Purchase = ({route: {params}, navigation}) => {
   const user = useUser(state => state.user);
   const {uid, name, description, stock, image, price} = params.item;

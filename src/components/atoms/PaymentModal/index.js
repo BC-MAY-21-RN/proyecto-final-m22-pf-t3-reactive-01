@@ -4,6 +4,8 @@ import Styles from './styles';
 import BtnIcon from '../btnIcon';
 import InputContainer from '../TextInput';
 import CustomButton from '../Form/CustomButton';
+import {addOneDocumentAsync} from '../../../auth/cloudFirestore';
+import {useUser} from '../../../utils/user';
 
 const PaymentModal = props => {
   const {
@@ -14,6 +16,19 @@ const PaymentModal = props => {
     adress,
     setAddAddress,
   } = props;
+  const user = useUser(state => state.user);
+  //Address info
+  const addressInfo = {
+    name: '',
+    country: '',
+    state: '',
+    code: null,
+    phone: null,
+    instruccions: '',
+    uid: user.uid,
+  };
+  const [addressForm, setAddressForm] = useState(addressInfo);
+  //Card info
   return (
     <Modal animationType="fade" visible={isModalVisible} transparent>
       <View style={Styles.containerModal}>
@@ -45,28 +60,43 @@ const PaymentModal = props => {
                 text="Recipient's name"
                 placeholder="A first and last name"
                 maxLength={30}
+                onChangeText={value =>
+                  setAddressForm({...addressForm, name: value})
+                }
               />
               <NewInputQuestion
                 text="Country"
                 placeholder="Enter your country"
                 maxLength={20}
+                onChangeText={value =>
+                  setAddressForm({...addressForm, country: value})
+                }
               />
               <NewInputQuestion
                 text="State/Municipality"
                 placeholder="State, Municipality"
                 maxLength={50}
+                onChangeText={value =>
+                  setAddressForm({...addressForm, state: value})
+                }
               />
               <NewInputQuestion
                 text="Postal code"
                 placeholder="For example, 28289"
                 numeric
                 maxLength={5}
+                onChangeText={value =>
+                  setAddressForm({...addressForm, code: value})
+                }
               />
               <NewInputQuestion
                 text="Phone Number"
                 placeholder="XXXXXXXXXX"
                 numeric
                 maxLength={10}
+                onChangeText={value =>
+                  setAddressForm({...addressForm, phone: value})
+                }
               />
               <Text style={[Styles.text, {textAlign: 'center', margin: 30}]}>
                 Any additional instructions on how to find your address?
@@ -75,6 +105,9 @@ const PaymentModal = props => {
                 text="Instruccions"
                 placeholder="Add brief instructions"
                 maxLength={50}
+                onChangeText={value =>
+                  setAddressForm({...addressForm, instruccions: value})
+                }
               />
             </View>
           ) : (
@@ -142,7 +175,12 @@ const PaymentModal = props => {
           )}
           {adress ? (
             <CustomButton
-              onPress={() => console.log('hola')}
+              onPress={() => {
+                addOneDocumentAsync(addressForm, 'Addresses');
+                alert('Address added!');
+                setModalVisible(!isModalVisible);
+                setAddAddress(false);
+              }}
               title="Add address"
             />
           ) : (
@@ -158,7 +196,7 @@ const PaymentModal = props => {
 };
 
 const NewInputQuestion = props => {
-  const {placeholder, numeric, maxLength, text} = props;
+  const {placeholder, numeric, maxLength, text, onChangeText} = props;
   return (
     <View style={Styles.row}>
       <Text style={Styles.text}>{text}</Text>
@@ -167,6 +205,7 @@ const NewInputQuestion = props => {
         styles={Styles.input}
         keyboardType={numeric ? 'numeric' : null}
         maxLength={maxLength}
+        onChangeText={onChangeText}
       />
     </View>
   );
