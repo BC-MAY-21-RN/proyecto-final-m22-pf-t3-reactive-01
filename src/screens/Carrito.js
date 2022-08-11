@@ -16,6 +16,7 @@ import BtnIcon from '../components/atoms/btnIcon';
 import CustomButton from '../components/atoms/Form/CustomButton';
 import {money, moneyUnid} from '../utils/format';
 import Header from '../components/atoms/Header';
+import useModalOptions from '../components/atoms/ModalOptions';
 let nav = null;
 
 const Carrito = ({navigation}) => {
@@ -29,16 +30,31 @@ const Carrito = ({navigation}) => {
     }),
     shallow,
   );
+  const {MVisible, ModalOptions} = useModalOptions();
   nav = navigation;
   const isEmpty = cart.length === 0;
-
   if (isEmpty) {
     return EmptyComponent();
   }
-
+  const Options = [
+    {
+      title: 'Borrar Carrito',
+      iconName: 'trash',
+      onPress: () => {
+        clearCart();
+        MVisible(false);
+      },
+    },
+  ];
   return (
     <SafeAreaView style={CarritoStyle.Maincontainer}>
-      <Header name="Carrito" icon={'ellipsis-vertical'} BackBtn />
+      <Header
+        name="Carrito"
+        icon={'ellipsis-vertical'}
+        onPress={() => MVisible(true)}
+        BackBtn
+      />
+      <ModalOptions Options={Options} />
       <FlatList
         data={cart}
         ItemSeparatorComponent={Separator}
@@ -53,7 +69,7 @@ const Carrito = ({navigation}) => {
   );
 };
 const renderItem = ({removeQuantity, addQuantity, removeItem, item}) => {
-  const {id, name, price, image, quantity} = item;
+  const {uid, name, price, image, quantity} = item;
   return (
     <Pressable
       onPress={() => {
@@ -65,8 +81,8 @@ const renderItem = ({removeQuantity, addQuantity, removeItem, item}) => {
           <Text style={CarritoStyle.ItemName}>{name}</Text>
           <View style={CarritoStyle.ItemContainerRow}>
             <CounterInput
-              onDecrease={() => removeQuantity(id)}
-              onIncrease={() => addQuantity(id)}
+              onDecrease={() => removeQuantity(uid)}
+              onIncrease={() => addQuantity(uid)}
               quantity={quantity}
             />
             <View style={CarritoStyle.ItemContainerPrice}>
@@ -79,7 +95,7 @@ const renderItem = ({removeQuantity, addQuantity, removeItem, item}) => {
               iconName={'trash-o'}
               size={20}
               styleIcon={CarritoStyle.Gray}
-              onPress={() => removeItem(id)}
+              onPress={() => removeItem(uid)}
             />
           </View>
         </View>
