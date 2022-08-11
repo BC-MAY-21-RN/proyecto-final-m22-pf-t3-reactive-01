@@ -61,25 +61,18 @@ export const LogInSchema = yup.object().shape({
 
 export const validateSchema = (inputname, inputValue) => {
   if (inputname === 'User') {
-    console.log(`validate ${inputname}`);
     return schemaUserName.validate(inputValue);
   } else if (inputname === 'Email') {
-    console.log(`validate ${inputname}`);
     return schemaEmail.validate(inputValue);
   } else if (inputname === 'Usertype') {
-    console.log(`validate ${inputname}`);
     return schemaUserType.validate(inputValue);
   } else if (inputname === 'Fullname') {
-    console.log(`validate ${inputname}`);
     return schemaFullname.validate(inputValue);
   } else if (inputname === 'Cel') {
-    console.log(`validate${inputname}`);
     return schemaCel.validate(inputValue);
   } else if (inputname === 'Dni') {
-    console.log(`validate ${inputname}`);
     return schemaDni.validate(inputValue);
   } else if (inputname === 'Image') {
-    console.log(`validate ${inputname}`);
     return schemaImage.validate(inputValue);
   } else {
     console.log('no se pudo validar');
