@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   Text,
@@ -16,15 +16,20 @@ import CustomButton from '../components/atoms/Form/CustomButton';
 import BtnIcon from '../components/atoms/btnIcon';
 import CounterInput from '../components/atoms/CounterInput';
 import PaymentModal from '../components/atoms/PaymentModal';
+import {useFocusEffect} from '@react-navigation/native';
+import {getDocumentByField} from '../auth/cloudFirestore';
+import RNBounceable from '@freakycoder/react-native-bounceable';
 
 const Purchase = ({route: {params}, navigation}) => {
   const user = useUser(state => state.user);
   const {uid, name, description, stock, image, price} = params.item;
+  //Quantity
   const [quantity, setquantity] = useState(1);
   const onDecrease = () => (quantity > 1 ? setquantity(quantity - 1) : null);
   const onIncrease = () =>
     quantity < stock ? setquantity(quantity + 1) : null;
   const cost = price * quantity;
+  //Hooks
   const [isaddress, setIsAddress] = useState(false);
   const [adress, setAddress] = useState([]);
   const [ismethod, setIsMethod] = useState(false);
@@ -34,11 +39,20 @@ const Purchase = ({route: {params}, navigation}) => {
   const [modalPayment, setModalPayment] = useState(false);
   const [card, setCard] = useState();
   const [addAddress, setAddAddress] = useState(false);
+  const [selected, setSelected] = useState(null);
+  //Delivery
   let delivery = 0;
   if (cost >= 1000) delivery = 0;
   else delivery = 199;
   if (deliveryMethod === 'fast') delivery += 50;
   const total = cost + delivery;
+  //Get addresses
+  useFocusEffect(
+    useCallback(() => {
+      getDocumentByField('uid', user.uid, 'Addresses', setAddress);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user, addAddress]),
+  );
   useEffect(() => setquantity(params.cantidad), [params.cantidad]);
   return (
     <SafeAreaView style={Styles.MainContainer}>
@@ -51,7 +65,26 @@ const Purchase = ({route: {params}, navigation}) => {
         />
         {isaddress ? (
           <View style={Styles.ShowMore}>
-            {adress.length >= 1 ? null : <Text>No addresses found</Text>}
+            {adress.length >= 1 ? (
+              <ScrollView style={{width: 350, height: 150}}>
+                {adress.map((item, key) => (
+                  <ItemAddress
+                    key={key}
+                    index={key}
+                    name={item.name}
+                    street={item.street}
+                    state={item.state}
+                    code={item.code}
+                    country={item.country}
+                    phone={item.phone}
+                    onPress={() => setSelected(key)}
+                    selected={selected}
+                  />
+                ))}
+              </ScrollView>
+            ) : (
+              <Text>No addresses found</Text>
+            )}
             <BtnIcon
               iconName={'navigation'}
               directory={'Feather'}
@@ -195,6 +228,37 @@ const ButtonSelect = props => {
 
 const Separator = () => {
   return <View style={Styles.Separator} />;
+};
+
+const ItemAddress = props => {
+  const {name, index, street, state, code, country, phone, selected, onPress} =
+    props;
+  const waitAnimationBounceable = () => setTimeout(onPress, 50);
+  return (
+    <RNBounceable
+      style={
+        selected === index
+          ? [
+              Styles.AddressContainer,
+              {
+                backgroundColor: 'rgba(65,137,230,.15)',
+              },
+            ]
+          : Styles.AddressContainer
+      }
+      onPress={waitAnimationBounceable}>
+      <View style={[Styles.row, {maxWidth: 300}]}>
+        <Text>{name}</Text>
+        <Text>{street}, </Text>
+        <Text>{state}, </Text>
+      </View>
+      <View style={[Styles.row, {maxWidth: 300}]}>
+        <Text>{code}, </Text>
+        <Text>{country}, </Text>
+        <Text>Phone number: {phone}</Text>
+      </View>
+    </RNBounceable>
+  );
 };
 
 const Delivery = props => {

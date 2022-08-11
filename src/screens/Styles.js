@@ -557,4 +557,16 @@ export const Purchase = StyleSheet.create({
     fontWeight: 'bold',
     color: 'green',
   },
+  row: {
+    flexDirection: 'row',
+    padding: 5,
+  },
+  AddressContainer: {
+    backgroundColor: 'transparent',
+    borderColor: colors.BTN_LIGHT_PRIMARY_COLOR,
+    borderWidth: 2,
+    borderRadius: 5,
+    margin: 5,
+    padding: 5,
+  },
 });

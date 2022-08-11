@@ -22,6 +22,7 @@ const PaymentModal = props => {
     name: '',
     country: '',
     state: '',
+    street: '',
     code: null,
     phone: null,
     instruccions: '',
@@ -73,11 +74,19 @@ const PaymentModal = props => {
                 }
               />
               <NewInputQuestion
-                text="State/Municipality"
-                placeholder="State, Municipality"
+                text="Municipality/State"
+                placeholder="Municipality, State"
                 maxLength={50}
                 onChangeText={value =>
                   setAddressForm({...addressForm, state: value})
+                }
+              />
+              <NewInputQuestion
+                text="Street"
+                placeholder="Street and number"
+                maxLength={50}
+                onChangeText={value =>
+                  setAddressForm({...addressForm, street: value})
                 }
               />
               <NewInputQuestion
