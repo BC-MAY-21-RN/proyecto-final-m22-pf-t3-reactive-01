@@ -30,6 +30,16 @@ const PaymentModal = props => {
   };
   const [addressForm, setAddressForm] = useState(addressInfo);
   //Card info
+  const cardInfo = {
+    alias: '',
+    cvc: null,
+    holder: '',
+    month: null,
+    number: null,
+    uid: user.uid,
+    year: null,
+  };
+  const [cardForm, setCardForm] = useState(cardInfo);
   return (
     <Modal animationType="fade" visible={isModalVisible} transparent>
       <View style={Styles.containerModal}>
@@ -127,23 +137,35 @@ const PaymentModal = props => {
                     text="Alias"
                     placeholder="Enter an alias"
                     maxLength={30}
+                    onChangeText={value =>
+                      setCardForm({...cardForm, alias: value})
+                    }
                   />
                   <NewInputQuestion
                     text="Number of card"
                     placeholder="0000-0000-0000-0000"
                     numeric
                     maxLength={16}
+                    onChangeText={value =>
+                      setCardForm({...cardForm, number: value})
+                    }
                   />
                   <NewInputQuestion
                     text="Cardholder"
                     placeholder="Enter the full name"
                     maxLength={50}
+                    onChangeText={value =>
+                      setCardForm({...cardForm, holder: value})
+                    }
                   />
                   <NewInputQuestion
                     text="CVC"
                     placeholder="XXX"
                     numeric
                     maxLength={3}
+                    onChangeText={value =>
+                      setCardForm({...cardForm, cvc: value})
+                    }
                   />
                   <Text
                     style={[Styles.text, {textAlign: 'center', margin: 30}]}>
@@ -154,12 +176,18 @@ const PaymentModal = props => {
                     placeholder="MM"
                     numeric
                     maxLength={2}
+                    onChangeText={value =>
+                      setCardForm({...cardForm, month: value})
+                    }
                   />
                   <NewInputQuestion
                     text="Year"
                     placeholder="YYYY"
                     numeric
                     maxLength={4}
+                    onChangeText={value =>
+                      setCardForm({...cardForm, year: value})
+                    }
                   />
                 </View>
               ) : (
@@ -194,7 +222,12 @@ const PaymentModal = props => {
             />
           ) : (
             <CustomButton
-              onPress={() => console.log('hola')}
+              onPress={() => {
+                card
+                  ? addOneDocumentAsync(cardForm, 'Payment')
+                  : alert('Proceed with the deposit');
+                setModalVisible(!isModalVisible);
+              }}
               title={card ? 'Add card' : 'Proceed with the deposit'}
             />
           )}
