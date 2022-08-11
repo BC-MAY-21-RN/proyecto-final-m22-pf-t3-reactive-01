@@ -85,7 +85,7 @@ const ModalPassStyle = StyleSheet.create({
         elevation: 3,
     marginTop:20,
         borderRadius: 10,
-        paddingStart:50
+        paddingStart:70
       },
       textPressableGoBackError: {
         color: '#FC6404',

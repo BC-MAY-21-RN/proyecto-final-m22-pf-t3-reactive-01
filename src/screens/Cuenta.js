@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image, Pressable} from 'react-native';
+import {View, Text, Pressable} from 'react-native';
 import Header from '../components/atoms/Header';
 import {CuentaStyle} from './Styles';
 import auth from '@react-native-firebase/auth';
-import { getUserInfo, restorePassword} from '../auth/authFirestore';
+import {getUserInfo} from '../auth/authFirestore';
 import ModalInput from '../components/atoms/ModalInput/index';
 import ModalWarningDelete from '../components/atoms/ModalWarningDelete';
 import Loader from '../components/atoms/Loader';
@@ -11,11 +11,10 @@ import Input from '../components/atoms/InputCampAccount';
 import ImageAccount from '../components/atoms/ImageAccount';
 import ModalRestorePassword from '../components/atoms/ModalRestorePassword';
 
-
 const Cuenta = ({navigation}) => {
   const current = auth().currentUser;
   const [userInfo, setUserInfo] = useState('');
-  const [action ,setAction] = useState('')
+  const [action, setAction] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [inputSelect, setInputSelect] = useState('');
   const [iconInput, setIconInput] = useState('sync-outline');
@@ -23,7 +22,6 @@ const Cuenta = ({navigation}) => {
   const [deleteAccount, setDeleteAccount] = useState(false);
   const [restore, setRestore] = useState(false);
   const [loading, setLoading] = useState(false);
-  
 
   useEffect(() => {
     if (current) {
@@ -36,7 +34,7 @@ const Cuenta = ({navigation}) => {
     if (current) {
       getUserInfo(current, setUserInfo);
     }
-  }, [current,modalVisible]);
+  }, [current, modalVisible]);
   return (
     <>
       <Header name="Account" navigation={navigation} BackBtn />
@@ -44,20 +42,21 @@ const Cuenta = ({navigation}) => {
         <Loader state={loading} text={'loading..'} stateEdit={setLoading} />
       ) : (
         <>
-          {loading  && (
+          {loading && (
             <Loader state={loading} text={'loading..'} stateEdit={setLoading} />
           )}
           <View style={CuentaStyle.container}>
-            <ImageAccount 
-            userInfo={userInfo}
-             setAction={setAction}
+            <ImageAccount
+              userInfo={userInfo}
+              setAction={setAction}
               setModalVisible={setModalVisible}
-               setInputSelect={setInputSelect}
-                setIconInput={setIconInput}/>
-          
+              setInputSelect={setInputSelect}
+              setIconInput={setIconInput}
+            />
+
             <View>
-              <Text style={CuentaStyle.titleDataContainer}>Account data</Text>
-             
+              <View style={CuentaStyle.DataContainer}>
+                <Text style={CuentaStyle.titleDataContainer}>Account data</Text>
                 <ModalInput
                   statusImage={userInfo.image}
                   action={'Change'}
@@ -72,50 +71,51 @@ const Cuenta = ({navigation}) => {
                       : 'https://cdn-icons-png.flaticon.com/512/3237/3237472.png'
                   }
                 />
-                    <Input
-                userInfo={userInfo.userName}
-                campName={'User'}
-                iconName={'person-outline'}
-                action={action}
-                required={true}
-                setModalVisible={setModalVisible}
-                setInputSelect={setInputSelect}
-                setIconInput={setIconInput}
-                setAction={setAction}
-                setLoading={setLoading}
-                uID={uID}
-              />
-            
-              <Input
-                userInfo={userInfo.email}
-                campName={'Email'}
-                iconName={'mail-outline'}
-                action={action}
-                required={true}
-                setModalVisible={setModalVisible}
-                setInputSelect={setInputSelect}
-                setIconInput={setIconInput}
-                setAction={setAction}
-                setLoading={setLoading}
-                uID={uID}
-              />
+                <Input
+                  userInfo={userInfo.userName}
+                  campName={'User'}
+                  iconName={'person-outline'}
+                  action={action}
+                  required={true}
+                  setModalVisible={setModalVisible}
+                  setInputSelect={setInputSelect}
+                  setIconInput={setIconInput}
+                  setAction={setAction}
+                  setLoading={setLoading}
+                  uID={uID}
+                />
 
-              <Input
-                userInfo={userInfo.userType}
-                campName={'Usertype'}
-                iconName={'finger-print-outline'}
-                action={action}
-                required={true}
-                setModalVisible={setModalVisible}
-                setInputSelect={setInputSelect}
-                setIconInput={setIconInput}
-                setAction={setAction}
-                setLoading={setLoading}
-                uID={uID}
-              />
+                <Input
+                  userInfo={userInfo.email}
+                  campName={'Email'}
+                  iconName={'mail-outline'}
+                  action={action}
+                  required={true}
+                  setModalVisible={setModalVisible}
+                  setInputSelect={setInputSelect}
+                  setIconInput={setIconInput}
+                  setAction={setAction}
+                  setLoading={setLoading}
+                  uID={uID}
+                />
 
-              <Text style={CuentaStyle.titleDataContainer}>User data</Text>
-              <View>
+                <Input
+                  userInfo={userInfo.userType}
+                  campName={'Usertype'}
+                  iconName={'finger-print-outline'}
+                  action={action}
+                  required={true}
+                  setModalVisible={setModalVisible}
+                  setInputSelect={setInputSelect}
+                  setIconInput={setIconInput}
+                  setAction={setAction}
+                  setLoading={setLoading}
+                  uID={uID}
+                />
+              </View>
+
+              <View style={CuentaStyle.DataContainer}>
+                <Text style={CuentaStyle.titleDataContainer}>User data</Text>
                 <Input
                   userInfo={userInfo.fullName}
                   campName={'Fullname'}
@@ -127,7 +127,6 @@ const Cuenta = ({navigation}) => {
                   setLoading={setLoading}
                   setAction={setAction}
                   action={action}
-     
                   uID={uID}
                 />
                 <Input
@@ -141,7 +140,6 @@ const Cuenta = ({navigation}) => {
                   setLoading={setLoading}
                   setAction={setAction}
                   action={action}
-        
                   uID={uID}
                 />
                 <Input
@@ -156,36 +154,39 @@ const Cuenta = ({navigation}) => {
                   action={action}
                   setAction={setAction}
                   uID={uID}
-            
                 />
               </View>
             </View>
-      <View style={CuentaStyle.containerSettings}>
-            <ModalWarningDelete
-              state={deleteAccount}
-              stateEdit={setDeleteAccount}
-              uID={uID}
-            />
-            <Pressable
-              style={CuentaStyle.buttonDeleteAccount}
-              onPress={() => {
-                setDeleteAccount(true);
-              }}>
-              <Text style={CuentaStyle.textDeleteAccount}>Delete Account</Text>
-            </Pressable>
+            <View style={CuentaStyle.containerSettings}>
+              <ModalWarningDelete
+                state={deleteAccount}
+                stateEdit={setDeleteAccount}
+                uID={uID}
+              />
+              <Pressable
+                style={CuentaStyle.buttonDeleteAccount}
+                onPress={() => {
+                  setDeleteAccount(true);
+                }}>
+                <Text style={CuentaStyle.textDeleteAccount}>
+                  Delete Account
+                </Text>
+              </Pressable>
 
-
-            <ModalRestorePassword
-            email={userInfo.email}
-            state={restore}
-            stateEdit={setRestore}
-            />
-            <Pressable  style={CuentaStyle.buttonRestorePassword}
-            onPress={() => {
-               setRestore(true)
-              }}>
-                <Text  style={CuentaStyle.textRestorePassword}>Restore pasword</Text>
-            </Pressable>
+              <ModalRestorePassword
+                email={userInfo.email}
+                state={restore}
+                stateEdit={setRestore}
+              />
+              <Pressable
+                style={CuentaStyle.buttonRestorePassword}
+                onPress={() => {
+                  setRestore(true);
+                }}>
+                <Text style={CuentaStyle.textRestorePassword}>
+                  Change pasword
+                </Text>
+              </Pressable>
             </View>
           </View>
         </>

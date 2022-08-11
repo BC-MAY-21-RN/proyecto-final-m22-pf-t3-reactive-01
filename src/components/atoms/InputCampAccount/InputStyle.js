@@ -7,10 +7,10 @@ const InputStyle = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         margin: 10,
-        backgroundColor: '#F4F4F4',
+        backgroundColor: '#ffff',
         padding: 10,
         borderRadius: 10,
-        elevation: 2,
+        elevation: 0.5,
       },
       labelInfo: {
         color: 'black',
@@ -25,7 +25,7 @@ const InputStyle = StyleSheet.create({
       },
       iconEdit: {
         position: 'absolute',
-        left: 280,
+        left: 260,
       
 }})
 

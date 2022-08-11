@@ -34,7 +34,7 @@ const ModalWarningDelete = props => {
                   style={ModalWarningDeleteStyle.pressableDeleteAccount}
                   onPress={() => {
                     setLoading(true)
-                    setTimeout(()=>{ deleteAccount(uID)},3998)
+                    setTimeout(()=>{ deleteAccount(uID)},600)
                     
                     
                    

@@ -21,7 +21,7 @@ const ImageAccount = props => {
           style={ImageAccountStyle.iconChangeImage}
           name={'sync-outline'}
           size={16}
-          color="#3140C2"
+          color="#ffff"
           onPress={() => {
           
             setModalVisible(true);
@@ -29,7 +29,7 @@ const ImageAccount = props => {
             setIconInput('image-outline');
           }}
         />
-        <View>
+        <View style={ImageAccountStyle.containerLabels}>
           <Text style={ImageAccountStyle.labelName}>{userInfo.userName}</Text>
           <Text style={ImageAccountStyle.labelUserType}>{userInfo.userType}</Text>
         </View>
