@@ -20,7 +20,6 @@ import {useFocusEffect} from '@react-navigation/native';
 import {getDocumentByField} from '../auth/cloudFirestore';
 import RNBounceable from '@freakycoder/react-native-bounceable';
 import {addOneDocumentSync} from '../auth/cloudFirestore';
-import useBusyIndicator from '../components/atoms/Form/BusyIndicator';
 
 const Purchase = ({route: {params}, navigation}) => {
   const [successfully, setSuccessfully] = useState(false);
@@ -38,7 +37,10 @@ const Purchase = ({route: {params}, navigation}) => {
             size={50}
             styleIcon={Styles.Black}
             style={Styles.ImageBtn2}
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => {
+              setSuccessfully(false);
+              navigation.navigate('Home');
+            }}
           />
           <Text style={Styles.text2}>
             Browse now and discover new products (⁀ᗢ⁀)
@@ -148,7 +150,6 @@ const PurchaseForm = props => {
   const {params, setSuccessfully} = props;
   const user = useUser(state => state.user);
   const {uid, name, description, stock, image, price} = params.item;
-  const {BIVisible, BusyIndicator} = useBusyIndicator();
   //Quantity
   const [quantity, setquantity] = useState(1);
   const onDecrease = () => (quantity > 1 ? setquantity(quantity - 1) : null);
@@ -178,12 +179,7 @@ const PurchaseForm = props => {
   const purchaseInfo = {
     address: {},
     payment: {},
-    order: {
-      productID: uid,
-      quantity: quantity,
-      deliveryMethod: deliveryMethod,
-      total: total,
-    },
+    order: {},
     uid: user.uid,
   };
   const [pruchaseForm, setPurchaseForm] = useState(purchaseInfo);
@@ -196,10 +192,9 @@ const PurchaseForm = props => {
     }, [user, modalPayment]),
   );
   useEffect(() => setquantity(params.cantidad), [params.cantidad]);
-  //Upload All Info
-  const uploadInfo = () => {
-    BIVisible(true);
-    setPurchaseForm({
+
+  const validateInfo = async () => {
+    await setPurchaseForm({
       ...pruchaseForm,
       order: {
         productID: uid,
@@ -208,9 +203,16 @@ const PurchaseForm = props => {
         total: total,
       },
     });
-    addOneDocumentSync(pruchaseForm, 'Purchase');
-    BIVisible(false);
-    setSuccessfully(true);
+    if (Object.keys(pruchaseForm.address).length < 1)
+      alert('Please select an address!');
+    else if (Object.keys(pruchaseForm.payment).length < 1)
+      alert('Please select a pyment method');
+    else if (Object.keys(pruchaseForm.order).length < 1)
+      alert('Please check your order');
+    else {
+      return true;
+    }
+    return false;
   };
   return (
     <ScrollView style={Styles.ScrollContainer}>
@@ -374,7 +376,17 @@ const PurchaseForm = props => {
         </View>
         <Separator />
         <Text style={Styles.total}>Total: ${total}</Text>
-        <CustomButton onPress={uploadInfo} title={'Finish order'} />
+        <CustomButton
+          onPress={async () => {
+            const validation = validateInfo();
+            await validation;
+            if (validation) {
+              addOneDocumentSync(pruchaseForm, 'Purchase');
+              setSuccessfully(true);
+            }
+          }}
+          title={'Finish order'}
+        />
       </View>
       <PaymentModal
         isModalVisible={modalPayment}
@@ -384,7 +396,6 @@ const PurchaseForm = props => {
         adress={addAddress}
         setAddAddress={setAddAddress}
       />
-      <BusyIndicator />
     </ScrollView>
   );
 };
