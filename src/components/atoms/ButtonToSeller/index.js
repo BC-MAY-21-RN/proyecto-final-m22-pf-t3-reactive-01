@@ -2,7 +2,6 @@ import {useEffect, useState} from 'react';
 import {Text, View, Pressable, Image} from 'react-native';
 import ButtonToSellerStyle from './ButtonToSellerStyles';
 
-
 const ButtonToSeller = props => {
   const {sellerData, loading, navigation} = props;
   const [userInfo, setUserInfo] = useState('');

@@ -1,9 +1,7 @@
 import {Text, View, Image} from 'react-native';
 import Header from '../components/atoms/Header';
 import {ProductsSellerStyle} from './Styles';
-
 import {useEffect, useState} from 'react';
-
 import ContainerProducts from '../components/atoms/ContainerProducts';
 import Loader from '../components/atoms/Loader';
 import {getMyProducts, getOneDocumenByUid} from '../auth/cloudFirestore';
@@ -12,7 +10,6 @@ const ProductsSeller = ({route: {params}, navigation}) => {
   const [userInfo, setUserInfo] = useState('');
   const [products, setProducts] = useState('');
   const [loading, setLoading] = useState('');
-  const ll = false;
   const {uid} = params;
   useEffect(() => {
     setLoading(true);

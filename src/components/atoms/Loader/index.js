@@ -6,8 +6,8 @@ import LoaderStyle from './LoaderStyle';
 const Loader = props => {
   const {state, stateEdit, colorBack, iconLoad} = props;
   const [text, setText] = useState('');
-  const animationFade = useRef(new Animated.Value(0)).current
-  const animationScale = useRef(new Animated.Value(0)).current
+  const animationFade = useRef(new Animated.Value(0)).current;
+  const animationScale = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.timing(animationFade, {
@@ -39,33 +39,38 @@ const Loader = props => {
     setTimeout(() => {
       setText('...');
     }, 2000);
-   
-     setTimeout(() => {
-       stateEdit(false);
-     }, 1000);
+
+    setTimeout(() => {
+      stateEdit(false);
+    }, 1000);
   }, [state]);
 
   return (
     <Modal visible={state} transparent={true}>
-      <View style={colorBack? {backgroundColor: colorBack, height: 800}:{backgroundColor: '#0000099e', height: 800}}>
+      <View
+        style={
+          colorBack
+            ? {backgroundColor: colorBack, height: 800}
+            : {backgroundColor: '#0000099e', height: 800}
+        }>
         <Animated.View
           style={[LoaderStyle.background, {opacity: animationFade}]}>
           <Icon
             color="#F4F4F4"
             size={60}
-            name={iconLoad?iconLoad:'person'}
+            name={iconLoad ? iconLoad : 'person'}
             style={LoaderStyle.iconReloadCenter}
           />
           <Icon
             color="#0000999e"
             size={66}
-            name={iconLoad?iconLoad:'person'}
+            name={iconLoad ? iconLoad : 'person'}
             style={LoaderStyle.iconReloadCenter2}
           />
           <Icon
             color="#0000999e"
             size={66}
-            name={iconLoad?iconLoad:'person'}
+            name={iconLoad ? iconLoad : 'person'}
             style={LoaderStyle.iconReloadCenter3}
           />
           <Animated.View

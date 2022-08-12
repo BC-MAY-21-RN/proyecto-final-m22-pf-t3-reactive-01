@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text, Pressable, Image} from 'react-native';
-
 import {money} from '../../../utils/format';
 import ListStyles from './ListStyles';
 const ListItemProducts = ({
