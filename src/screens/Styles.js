@@ -408,6 +408,162 @@ export const WishStyles = StyleSheet.create({
   },
 });
 
+export const Purchase = StyleSheet.create({
+  MainContainer: {flex: 1},
+  ScrollContainer: {
+    flexDirection: 'column',
+    backgroundColor: colors.BACKGROUND_COLOR,
+    padding: 10,
+  },
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  Separator: {
+    height: 0.9,
+    backgroundColor: colors.DIVIDER_COLOR,
+  },
+  ShowMore: {
+    margin: 10,
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: colors.DIVIDER_COLOR,
+    borderRadius: 10,
+    padding: 10,
+  },
+  ShowMore2: {
+    padding: 20,
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  Button: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 10,
+    padding: 5,
+  },
+  Text: {
+    fontSize: 18,
+    fontStyle: 'italic',
+    color: 'black',
+  },
+  TextSelect: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: colors.HEADER_COLOR,
+  },
+  purchaseContainer: {
+    margin: 20,
+    padding: 10,
+    width: '70%',
+    alignSelf: 'center',
+    borderWidth: 2,
+    borderColor: colors.DIVIDER_COLOR,
+    borderRadius: 10,
+  },
+  purchaseTitle: {
+    color: 'black',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 16,
+    margin: 10,
+  },
+  purchaseOrder: {
+    margin: 2,
+    padding: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  total: {
+    color: '#BC2828',
+    fontWeight: 'bold',
+    fontSize: 16,
+    margin: 10,
+  },
+  ImageBtn: {
+    borderRadius: 50,
+    position: 'relative',
+    padding: 10,
+    height: 45,
+    width: 45,
+    margin: 10,
+    borderColor: '#cccccc',
+    borderWidth: 1,
+    alignItems: 'center',
+  },
+  ImageBtn2: {
+    backgroundColor: colors.ICON_BACKGROUND_SECONDARY_COLOR,
+    borderRadius: 50,
+    padding: 5,
+    width: 70,
+    height: 70,
+    top: 20,
+    right: '40%',
+  },
+  image: {
+    height: 150,
+    width: 110,
+  },
+  delivery: {
+    padding: 10,
+    maxWidth: 120,
+    height: '100%',
+    alignContent: 'center',
+    borderLeftWidth: 1,
+    borderLeftColor: colors.DIVIDER_COLOR,
+  },
+  infoContainer: {
+    alignItems: 'center',
+    padding: 5,
+  },
+  desc: {
+    fontSize: 14,
+    maxWidth: 120,
+    textAlign: 'center',
+    fontStyle: 'italic',
+  },
+  estimated: {
+    fontSize: 13,
+    marginTop: 5,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: 'green',
+  },
+  row: {
+    flexDirection: 'row',
+    padding: 5,
+  },
+  AddressContainer: {
+    backgroundColor: 'transparent',
+    borderColor: colors.BTN_LIGHT_PRIMARY_COLOR,
+    borderWidth: 2,
+    borderRadius: 5,
+    margin: 5,
+    padding: 5,
+  },
+  title: {
+    fontSize: 14,
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  title2: {
+    fontSize: 20,
+    color: '#36A655',
+    fontWeight: 'bold',
+  },
+  text2: {
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: '400',
+    marginTop: 30,
+    maxWidth: 200,
+    fontStyle: 'italic',
+    color: colors.TXT_PRIMARY_COLOR,
+  },
+});
 
 
 export const ProductsSellerStyle = StyleSheet.create({

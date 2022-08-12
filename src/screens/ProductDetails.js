@@ -29,8 +29,21 @@ const ProductDetails = ({route: {params}, navigation}) => {
   const {addItem} = useCart(state => ({addItem: state.addItem}), shallow);
   const [quantity, setquantity] = useState(1);
   const onDecrease = () => (quantity > 1 ? setquantity(quantity - 1) : null);
-  const onIncrease = () => setquantity(quantity + 1);
+  const onIncrease = () =>
+    quantity < stock ? setquantity(quantity + 1) : null;
   const BuyItem = () => addItem({...params.item, quantity});
+  const Purchase = () => {
+    if (stock > 0) {
+      navigation.navigate('Purchase', {
+        item: {
+          ...params.item,
+        },
+        cantidad: quantity,
+      });
+    } else {
+      alert('This product is not currently available');
+    }
+  };
   const [liked, setLiked] = useState();
   const [sellerData, setSellerData] = useState();
   const [loading, setLoading] = useState('');
@@ -134,7 +147,7 @@ const ProductDetails = ({route: {params}, navigation}) => {
         <CustomButton
           style={Styles.CartBtn}
           styleText={Styles.CartBtnText}
-          onPress={BuyItem}
+          onPress={Purchase}
           title={'Comprar ahora'}
         />
         <CustomButton

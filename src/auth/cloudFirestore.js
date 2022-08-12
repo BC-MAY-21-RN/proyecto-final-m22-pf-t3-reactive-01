@@ -136,3 +136,24 @@ export const removeLike = async (uidDoc, uidUser) => {
     like: firestore.FieldValue.arrayRemove(uidUser),
   });
 };
+
+export const getDocumentByField = (field, FieldValue, documnet, setInfo) => {
+  return firestore()
+    .collection(documnet)
+    .where(field, '==', FieldValue)
+    .get()
+    .then(querySnapshot => {
+      const array = [];
+      querySnapshot.forEach(documentSnapshot => {
+        array.push({uid: documentSnapshot.id, ...documentSnapshot.data()});
+      });
+      setInfo(array);
+    });
+};
+
+export const addPurchase = async (uidDoc, uidUser, quantity) => {
+  await updateOneDocumentByUid(uidDoc, 'Products', {
+    purchases: firestore.FieldValue.arrayUnion(uidUser),
+    stock: quantity,
+  });
+};
