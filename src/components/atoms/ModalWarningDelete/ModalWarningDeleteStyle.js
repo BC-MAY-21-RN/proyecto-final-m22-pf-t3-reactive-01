@@ -66,5 +66,8 @@ const ModalWarningDeleteStyle = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 10,
   },
+  textAd:{
+    color:"#D40C1C"
+  }
 });
 export default ModalWarningDeleteStyle;

@@ -18,6 +18,10 @@ import {useUser} from '../utils/user';
 import {ProductDetailsStyles as Styles} from './Styles';
 import {addLike, removeLike} from '../auth/cloudFirestore';
 import Input from '../components/atoms/Form/Input';
+import ButtonToSeller from '../components/atoms/ButtonToSeller';
+import {getDataBySeller} from '../auth/authFirestore';
+import Loader from '../components/atoms/Loader';
+
 const ProductDetails = ({route: {params}, navigation}) => {
   const user = useUser(state => state.user);
   const {uid, like, name, description, image, condition, stock, price} =
@@ -41,6 +45,14 @@ const ProductDetails = ({route: {params}, navigation}) => {
     }
   };
   const [liked, setLiked] = useState();
+  const [sellerData, setSellerData] = useState();
+  const [loading, setLoading] = useState('');
+
+  useEffect(() => {
+    getDataBySeller(uid, setSellerData);
+    setLoading(true);
+  }, [params.item]);
+
   useEffect(() => {
     if (like.includes(user.uid)) {
       setLiked(true);
@@ -68,6 +80,18 @@ const ProductDetails = ({route: {params}, navigation}) => {
         onPress={() => navigation.navigate('Cart')}
         BackBtn
       />
+      {loading ? (
+        <>
+          <Loader
+            state={loading}
+            text={'loading..'}
+            stateEdit={setLoading}
+            iconLoad={'document-text'}
+          />
+        </>
+      ) : (
+        <></>
+      )}
       <ScrollView style={Styles.ScrollContainer}>
         <View style={Styles.ImageContainer}>
           <Image style={Styles.Image} source={{uri: image}} />
@@ -112,6 +136,12 @@ const ProductDetails = ({route: {params}, navigation}) => {
             />
           </View>
         </View>
+        <Separator />
+        <ButtonToSeller
+          sellerData={sellerData}
+          loading={loading}
+          navigation={navigation}
+        />
         <Separator />
         <Text style={Styles.Price}>{money(price)}</Text>
         <CustomButton

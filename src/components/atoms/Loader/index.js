@@ -4,10 +4,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import LoaderStyle from './LoaderStyle';
 
 const Loader = props => {
-  const {state, stateEdit} = props;
+  const {state, stateEdit, colorBack, iconLoad} = props;
   const [text, setText] = useState('');
-  const animationFade = useRef(new Animated.Value(0)).current
-  const animationScale = useRef(new Animated.Value(0)).current
+  const animationFade = useRef(new Animated.Value(0)).current;
+  const animationScale = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.timing(animationFade, {
@@ -18,7 +18,7 @@ const Loader = props => {
 
     Animated.timing(animationScale, {
       toValue: 1,
-      duration: 4000,
+      duration: 3000,
       useNativeDriver: true,
     }).start();
     setTimeout(() => {
@@ -26,57 +26,51 @@ const Loader = props => {
     }, 400);
     setTimeout(() => {
       setText('..');
-    }, 800);
+    }, 700);
     setTimeout(() => {
       setText('...');
-    }, 1200);
+    }, 700);
     setTimeout(() => {
       setText('.');
-    }, 1600);
+    }, 1000);
     setTimeout(() => {
       setText('..');
+    }, 1000);
+    setTimeout(() => {
+      setText('...');
     }, 2000);
-    setTimeout(() => {
-      setText('...');
-    }, 2400);
-    setTimeout(() => {
-      setText('.');
-    }, 2800);
-    setTimeout(() => {
-      setText('..');
-    }, 3200);
-    setTimeout(() => {
-      setText('...');
-    }, 3600);
-    setTimeout(() => {
-      setText('');
-    }, 3800);
+
     setTimeout(() => {
       stateEdit(false);
-    }, 4000);
+    }, 1000);
   }, [state]);
 
   return (
     <Modal visible={state} transparent={true}>
-      <View style={LoaderStyle.container}>
+      <View
+        style={
+          colorBack
+            ? {backgroundColor: colorBack, height: 800}
+            : {backgroundColor: '#0000099e', height: 800}
+        }>
         <Animated.View
           style={[LoaderStyle.background, {opacity: animationFade}]}>
           <Icon
             color="#F4F4F4"
             size={60}
-            name={'person'}
+            name={iconLoad ? iconLoad : 'person'}
             style={LoaderStyle.iconReloadCenter}
           />
           <Icon
             color="#0000999e"
             size={66}
-            name={'person'}
+            name={iconLoad ? iconLoad : 'person'}
             style={LoaderStyle.iconReloadCenter2}
           />
           <Icon
             color="#0000999e"
             size={66}
-            name={'person'}
+            name={iconLoad ? iconLoad : 'person'}
             style={LoaderStyle.iconReloadCenter3}
           />
           <Animated.View

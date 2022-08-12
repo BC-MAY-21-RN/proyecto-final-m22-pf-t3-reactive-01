@@ -1,6 +1,7 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {setOneDocumentSync, getOneDocumenByUid} from './cloudFirestore';
+
 export const SignUp = async ({userName, suscribe, email, password}) => {
   try {
     const Auth = await auth().createUserWithEmailAndPassword(email, password);
@@ -95,6 +96,14 @@ export const addInfo = async (info, uID) => {
       userName: value,
     });
   } else if (inputName === 'Email') {
+    auth()
+      .currentUser.updateEmail(value)
+      .then(() => {
+        console.log('Email updated!');
+      })
+      .catch(error => {
+        console.log(`An error occurred ${error}`);
+      });
     await firestore().collection('Users').doc(uID).update({
       email: value,
     });
@@ -140,7 +149,7 @@ export const deleteCamp = async (input, uID) => {
 
   if (inputName === 'Fullname') {
     await firestore().collection('Users').doc(uID).update({
-      fullname: '',
+      fullName: '',
     });
   } else if (inputName === 'Cel') {
     await firestore().collection('Users').doc(uID).update({
@@ -157,4 +166,27 @@ export const deleteCamp = async (input, uID) => {
   } else {
     console.log('error action of delte camp ');
   }
+};
+
+export const restorePassword = async email => {
+  return await auth().sendPasswordResetEmail(email);
+};
+
+export const getDataBySeller = (productUid, setData) => {
+  getOneDocumenByUid('Products', productUid)
+    .then(doc => {
+      const uidUser = doc.uidUser;
+
+      getOneDocumenByUid('Users', uidUser)
+        .then(doc => {
+          console.log('::::::', doc);
+          setData(doc);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };

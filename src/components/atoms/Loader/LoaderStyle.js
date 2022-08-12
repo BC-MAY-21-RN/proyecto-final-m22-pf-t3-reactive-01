@@ -1,7 +1,6 @@
 import {StyleSheet} from 'react-native';
 
 const LoaderStyle = StyleSheet.create({
-  container: {backgroundColor: '#0000099e', height: 800},
   background: {
     backgroundColor: '#F4F4F4',
     position: 'absolute',
