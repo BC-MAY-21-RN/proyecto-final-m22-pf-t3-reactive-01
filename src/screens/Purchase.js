@@ -19,7 +19,7 @@ import PaymentModal from '../components/atoms/PaymentModal';
 import {useFocusEffect} from '@react-navigation/native';
 import {getDocumentByField} from '../auth/cloudFirestore';
 import RNBounceable from '@freakycoder/react-native-bounceable';
-import {addOneDocumentSync} from '../auth/cloudFirestore';
+import {addOneDocumentSync, addPurchase} from '../auth/cloudFirestore';
 
 const Purchase = ({route: {params}, navigation}) => {
   const [successfully, setSuccessfully] = useState(false);
@@ -193,26 +193,28 @@ const PurchaseForm = props => {
   );
   useEffect(() => setquantity(params.cantidad), [params.cantidad]);
 
-  const validateInfo = async () => {
-    await setPurchaseForm({
-      ...pruchaseForm,
-      order: {
-        productID: uid,
-        quantity: quantity,
-        deliveryMethod: deliveryMethod,
-        total: total,
-      },
-    });
-    if (Object.keys(pruchaseForm.address).length < 1)
+  const validateInfo = () => {
+    console.log(pruchaseForm);
+    if (Object.keys(pruchaseForm.address).length < 1) {
       alert('Please select an address!');
-    else if (Object.keys(pruchaseForm.payment).length < 1)
+      return false;
+    } else if (Object.keys(pruchaseForm.payment).length < 1) {
       alert('Please select a pyment method');
-    else if (Object.keys(pruchaseForm.order).length < 1)
-      alert('Please check your order');
-    else {
+      return false;
+    } else if (Object.keys(pruchaseForm.order).length < 1) {
+      setPurchaseForm({
+        ...pruchaseForm,
+        order: {
+          productID: uid,
+          quantity: quantity,
+          deliveryMethod: deliveryMethod,
+          total: total,
+        },
+      });
+      return false;
+    } else {
       return true;
     }
-    return false;
   };
   return (
     <ScrollView style={Styles.ScrollContainer}>
@@ -382,6 +384,8 @@ const PurchaseForm = props => {
             await validation;
             if (validation) {
               addOneDocumentSync(pruchaseForm, 'Purchase');
+              addPurchase(uid, user.uid);
+              setPurchaseForm(purchaseInfo);
               setSuccessfully(true);
             }
           }}
