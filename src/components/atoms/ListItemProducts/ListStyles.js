@@ -10,6 +10,16 @@ const ListStyles = StyleSheet.create({
     elevation: 3,
     marginEnd:28
   },
+  
+  containerLoad:{
+    maxWidth: 160,
+    marginTop:20,
+      borderRadius: 10,
+      marginBottom: 10,
+      backgroundColor: '#E4E4E4',
+      elevation: 2,
+      marginEnd:28
+  },
   content: {
     paddingTop: 0,
     width: 150,

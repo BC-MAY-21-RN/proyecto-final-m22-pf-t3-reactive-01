@@ -15,10 +15,11 @@ const ListItemProducts = ({
   stock,
   uidUser,
   image,
+  loaded
 }) => {
   return (
     <Pressable
-      style={ListStyles.container}
+      style={loaded? ListStyles.containerLoad:ListStyles.container}
       onPress={() => {
         navigation.navigate('ProductDetails', {
           item: {
@@ -35,17 +36,22 @@ const ListItemProducts = ({
         });
       }}>
       
-      <View style={ListStyles.content}>
-      <Image
+      <View style={loaded? ListStyles.content:ListStyles.content}>
+      {loaded? (<View  style={ ListStyles.image}
+        >
+        <Text></Text>
+
+        </View>):
+      (<Image
           source={{
             uri: image,
           }}
           style={ListStyles.image}
-        />
-        <Text style={ListStyles.title}>{name}</Text>
-        <Text style={ListStyles.description}>{description}</Text>
-        <Text style={ListStyles.price}>{money(price)}</Text>
-        <Text style={ListStyles.condition}>{condition}</Text>
+        />)}
+        <Text style={ListStyles.title}>{loaded? '':name}</Text>
+        <Text style={ListStyles.description}>{loaded? '':description}</Text>
+        <Text style={ListStyles.price}>{loaded? '':money(price)}</Text>
+        <Text style={ListStyles.condition}>{loaded? '':condition}</Text>
       </View>
     </Pressable>
   );

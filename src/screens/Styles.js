@@ -408,34 +408,42 @@ export const WishStyles = StyleSheet.create({
   },
 });
 
-export const SellerDetailStyle = StyleSheet.create({
-  container: {
-    backgroundColor: 'black',
-    flex: 1,
-  },
-  container1: {
-    backgroundColor: 'red',
-  },
-  container2: {
-    backgroundColor: 'green',
-  },
-  container3: {
-    backgroundColor: 'blue',
-  },
-});
+
 
 export const ProductsSellerStyle = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     flex: 1,
-    
   },
+  containerLoad: {
+  
+  },
+  imageLoadContainer:{
+    backgroundColor: '#3140C2',
+  
+    position: 'absolute',
+    width: 505,
+    height: 105,
 
+    top: 0,
+    left: 0,
+    elevation:5
+  },
+  imageLoad: {
+    backgroundColor: '#E4E4E4',
+    color: '#E4E4E4',
+    position: 'absolute',
+    width: 85,
+    height: 85,
+    borderRadius: 100,
+    top: 10,
+    left: 45,
+    elevation:5
+  },
   containerTop: {
     backgroundColor: '#3140C2',
-   
-  elevation:75,
-   
+
+    elevation: 75,
   },
   containerImageAndName: {
     display: 'flex',
@@ -443,11 +451,10 @@ export const ProductsSellerStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     marginVertical: 7,
-    marginHorizontal:20,
+    marginHorizontal: 20,
     padding: 5,
     marginTop: 7,
     borderRadius: 20,
-    
   },
   image: {
     width: 85,
@@ -456,12 +463,11 @@ export const ProductsSellerStyle = StyleSheet.create({
     elevation: 45,
     zIndex: 5,
     marginLeft: 5,
-    
   },
 
   containerLabels: {
     marginLeft: 20,
-    
+
     width: 315,
     paddingStart: 80,
     paddingVertical: 20,
@@ -469,7 +475,7 @@ export const ProductsSellerStyle = StyleSheet.create({
     left: -14,
     top: 1,
     zIndex: 0,
-   
+
     borderRadius: 100,
   },
   labelName: {

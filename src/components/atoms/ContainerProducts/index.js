@@ -4,7 +4,7 @@ import ListItemProducts from '../ListItemProducts';
 import ContainerProductsStyles from './ContainerProductsStyles';
 
 
-const ContainerProducts = ({data,  navigation}) => {
+const ContainerProducts = ({data,  navigation,loaded}) => {
   const renderItem = ({item, index}) => (
     <ListItemProducts
       uid={item.uid}
@@ -18,12 +18,13 @@ const ContainerProducts = ({data,  navigation}) => {
       category={item.category}
       stock={item.stock}
       image={item.image}
+      loaded={loaded}
     />
   );
 
  
   return (
-    <View style={ContainerProductsStyles.container}>
+    <View style={loaded? ContainerProductsStyles.containerLoad :ContainerProductsStyles.container}>
       <FlatList data={data} numColumns={2} renderItem={renderItem} />
     </View>
   );
