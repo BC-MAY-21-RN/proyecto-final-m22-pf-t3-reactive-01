@@ -151,8 +151,9 @@ export const getDocumentByField = (field, FieldValue, documnet, setInfo) => {
     });
 };
 
-export const addPurchase = async (uidDoc, uidUser) => {
+export const addPurchase = async (uidDoc, uidUser, quantity) => {
   await updateOneDocumentByUid(uidDoc, 'Products', {
     purchases: firestore.FieldValue.arrayUnion(uidUser),
+    stock: quantity,
   });
 };

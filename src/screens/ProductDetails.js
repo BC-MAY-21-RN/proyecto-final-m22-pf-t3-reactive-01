@@ -28,13 +28,18 @@ const ProductDetails = ({route: {params}, navigation}) => {
   const onIncrease = () =>
     quantity < stock ? setquantity(quantity + 1) : null;
   const BuyItem = () => addItem({...params.item, quantity});
-  const Purchase = () =>
-    navigation.navigate('Purchase', {
-      item: {
-        ...params.item,
-      },
-      cantidad: quantity,
-    });
+  const Purchase = () => {
+    if (stock > 0) {
+      navigation.navigate('Purchase', {
+        item: {
+          ...params.item,
+        },
+        cantidad: quantity,
+      });
+    } else {
+      alert('This product is not currently available');
+    }
+  };
   const [liked, setLiked] = useState();
   useEffect(() => {
     if (like.includes(user.uid)) {

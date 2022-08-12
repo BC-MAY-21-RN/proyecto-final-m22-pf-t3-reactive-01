@@ -384,7 +384,7 @@ const PurchaseForm = props => {
             await validation;
             if (validation) {
               addOneDocumentSync(pruchaseForm, 'Purchase');
-              addPurchase(uid, user.uid);
+              addPurchase(uid, user.uid, stock - quantity);
               setPurchaseForm(purchaseInfo);
               setSuccessfully(true);
             }
