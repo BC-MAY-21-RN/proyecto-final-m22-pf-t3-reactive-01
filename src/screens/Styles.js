@@ -455,6 +455,12 @@ export const Purchase = StyleSheet.create({
     backgroundColor: colors.BACKGROUND_COLOR,
     padding: 10,
   },
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   Separator: {
     height: 0.9,
     backgroundColor: colors.DIVIDER_COLOR,
@@ -528,6 +534,15 @@ export const Purchase = StyleSheet.create({
     borderWidth: 1,
     alignItems: 'center',
   },
+  ImageBtn2: {
+    backgroundColor: colors.ICON_BACKGROUND_SECONDARY_COLOR,
+    borderRadius: 50,
+    padding: 5,
+    width: 70,
+    height: 70,
+    top: 20,
+    right: '40%',
+  },
   image: {
     height: 150,
     width: 110,
@@ -573,5 +588,19 @@ export const Purchase = StyleSheet.create({
     fontSize: 14,
     color: 'black',
     fontWeight: 'bold',
+  },
+  title2: {
+    fontSize: 20,
+    color: '#36A655',
+    fontWeight: 'bold',
+  },
+  text2: {
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: '400',
+    marginTop: 30,
+    maxWidth: 200,
+    fontStyle: 'italic',
+    color: colors.TXT_PRIMARY_COLOR,
   },
 });
