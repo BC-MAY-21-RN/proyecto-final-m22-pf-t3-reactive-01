@@ -220,7 +220,7 @@ export const ProductsStyles = StyleSheet.create({
 export const CuentaStyle = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:'#ffff'
+    backgroundColor: '#ffff',
   },
 
   containerSettings: {
@@ -230,21 +230,18 @@ export const CuentaStyle = StyleSheet.create({
     justifyContent: 'space-around',
     marginTop: 10,
   },
-  DataContainer:{
-    
+  DataContainer: {
     backgroundColor: '#ffff',
-    elevation:5,
-    borderRadius:20,
-    marginBottom:20,
- marginHorizontal:10
+    elevation: 5,
+    borderRadius: 20,
+    marginBottom: 20,
+    marginHorizontal: 10,
   },
   titleDataContainer: {
     color: '#3140C2',
     fontSize: 20,
     marginLeft: 15,
     marginTop: 10,
-   
-   
   },
 
   buttonDeleteAccount: {
@@ -408,5 +405,83 @@ export const WishStyles = StyleSheet.create({
   },
   Black: {
     color: 'black',
+  },
+});
+
+export const SellerDetailStyle = StyleSheet.create({
+  container: {
+    backgroundColor: 'black',
+    flex: 1,
+  },
+  container1: {
+    backgroundColor: 'red',
+  },
+  container2: {
+    backgroundColor: 'green',
+  },
+  container3: {
+    backgroundColor: 'blue',
+  },
+});
+
+export const ProductsSellerStyle = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff',
+    flex: 1,
+    
+  },
+
+  containerTop: {
+    backgroundColor: '#3140C2',
+   
+  elevation:75,
+   
+  },
+  containerImageAndName: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginVertical: 7,
+    marginHorizontal:20,
+    padding: 5,
+    marginTop: 7,
+    borderRadius: 20,
+    
+  },
+  image: {
+    width: 85,
+    height: 85,
+    borderRadius: 100,
+    elevation: 45,
+    zIndex: 5,
+    marginLeft: 5,
+    
+  },
+
+  containerLabels: {
+    marginLeft: 20,
+    
+    width: 315,
+    paddingStart: 80,
+    paddingVertical: 20,
+    position: 'absolute',
+    left: -14,
+    top: 1,
+    zIndex: 0,
+   
+    borderRadius: 100,
+  },
+  labelName: {
+    color: '#fff',
+    marginLeft: 60,
+    fontSize: 25,
+    textTransform: 'capitalize',
+  },
+  labelUserType: {
+    color: '#fff',
+    marginLeft: 60,
+    fontSize: 20,
+    textTransform: 'capitalize',
   },
 });

@@ -25,6 +25,8 @@ import Category from '../screens/Category';
 /* ----- components and styles ----- */
 import MenuStyles from './MenuStyles';
 import MenuButtom from '../components/atoms/MenuButtom';
+import SellerDetail from '../screens/SellerDetail';
+import ProductsSeller from '../screens/ProductsSeller';
 
 const MainStack = () => {
   const [user, setUser] = useState();
@@ -53,6 +55,8 @@ const Drawer = () => {
         <DrawerStack.Screen name="WishList" component={Favoritos} />
         <DrawerStack.Screen name="ProductDetails" component={ProductDetails} />
         <DrawerStack.Screen name="Category" component={Category} />
+        <DrawerStack.Screen name="SellerDetails" component={SellerDetail} />
+        <DrawerStack.Screen name="ProductsSeller" component={ProductsSeller} />
       </DrawerStack.Navigator>
     </NavigationContainer>
   );
@@ -123,6 +127,17 @@ const MenuItems = ({navigation}) => {
           name="shopping-cart"
           onPress={() => navigation.navigate('Cart')}
         />
+          <MenuButtom
+          text="SellerDetails"
+          name="address-card"
+          onPress={() => navigation.navigate('SellerDetails')}
+        />
+         <MenuButtom
+          text="ProductsSeller"
+          name="tasks"
+          onPress={() => navigation.navigate('ProductsSeller')}
+        />
+        
         {userType === 'Seller' && (
           <>
             <View style={MenuStyles.otheroptions}>
