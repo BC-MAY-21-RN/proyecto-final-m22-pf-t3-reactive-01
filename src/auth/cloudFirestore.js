@@ -28,7 +28,7 @@ export const getOneDocumenByUid = async (Collection, uid) => {
   }
 };
 export const updateOneDocumentByUid = async (uidDoc, collection, updateObj) => {
-  await firestore().collection('Products').doc(uidDoc).update(updateObj);
+  await firestore().collection(collection).doc(uidDoc).update(updateObj);
 };
 
 export const uploadImage = async (Path, uri) => {
@@ -82,6 +82,17 @@ export const subscriberMyWishList = (uidUser, setProducts, setEmpty) => {
       }
     });
 };
+
+export const subscriberComments = (uidProduct, setCommets) => {
+  return firestore()
+    .collection('Comments')
+    .where('uidProducts', '==', uidProduct)
+    .onSnapshot(querySnapshot => {
+      querySnapshot.forEach(documentSnapshot => {
+        setCommets({uid: documentSnapshot.id, ...documentSnapshot.data()});
+      });
+    });
+};
 // -----------------------------------------------------//
 //                  Metodos No Genericos                //
 //------------------------------------------------------//
@@ -93,6 +104,18 @@ export const addProductAsync = async Document => {
   batch.set(Ref2, {uidProducts: Ref.id, comments: []});
   await batch.commit();
 };
+export const addCommentSync = async (uidComments, uidUser, commentText) => {
+  const Comment = {
+    uidUser,
+    question: commentText,
+    answer: '',
+    dateQuestion: new Date(),
+  };
+  await updateOneDocumentByUid(uidComments, 'Comments', {
+    comments: firestore.FieldValue.arrayUnion(Comment),
+  });
+};
+
 export const getMyWishList = (uidUser, setProducts, setEmpty) => {
   return firestore()
     .collection('Products')
