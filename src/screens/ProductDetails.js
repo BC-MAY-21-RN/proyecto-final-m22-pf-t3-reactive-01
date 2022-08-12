@@ -10,6 +10,9 @@ import CustomButton from '../components/atoms/Form/CustomButton';
 import {useUser} from '../utils/user';
 import {ProductDetailsStyles as Styles} from './Styles';
 import Input from '../components/atoms/Form/Input';
+import ButtonToSeller from '../components/atoms/ButtonToSeller';
+import {getDataBySeller} from '../auth/authFirestore';
+import Loader from '../components/atoms/Loader';
 import BtnLike from '../components/atoms/BtnLike';
 import {subscriberComments, addCommentSync} from '../auth/cloudFirestore';
 const ProductDetails = ({route: {params}, navigation}) => {
@@ -19,10 +22,31 @@ const ProductDetails = ({route: {params}, navigation}) => {
   const {addItem} = useCart(state => ({addItem: state.addItem}), shallow);
   const [quantity, setquantity] = useState(1);
   const onDecrease = () => (quantity > 1 ? setquantity(quantity - 1) : null);
-  const onIncrease = () => setquantity(quantity + 1);
+  const onIncrease = () =>
+    quantity < stock ? setquantity(quantity + 1) : null;
   const BuyItem = () => addItem({...params.item, quantity});
+  const Purchase = () => {
+    if (stock > 0) {
+      navigation.navigate('Purchase', {
+        item: {
+          ...params.item,
+        },
+        cantidad: quantity,
+      });
+    } else {
+      alert('This product is not currently available');
+    }
+  };
   const [textComment, setextComment] = useState('');
   const [commets, setCommets] = useState();
+  const [sellerData, setSellerData] = useState();
+  const [loading, setLoading] = useState('');
+
+  useEffect(() => {
+    getDataBySeller(uid, setSellerData);
+    setLoading(true);
+  }, [params.item]);
+
   useEffect(() => {
     const comments = subscriberComments(uid, setCommets);
     return () => comments;
@@ -36,6 +60,18 @@ const ProductDetails = ({route: {params}, navigation}) => {
         onPress={() => navigation.navigate('Cart')}
         BackBtn
       />
+      {loading ? (
+        <>
+          <Loader
+            state={loading}
+            text={'loading..'}
+            stateEdit={setLoading}
+            iconLoad={'document-text'}
+          />
+        </>
+      ) : (
+        <></>
+      )}
       <ScrollView style={Styles.ScrollContainer}>
         <View style={Styles.ImageContainer}>
           <Image style={Styles.Image} source={{uri: image}} />
@@ -75,11 +111,17 @@ const ProductDetails = ({route: {params}, navigation}) => {
           </View>
         </View>
         <Separator />
+        <ButtonToSeller
+          sellerData={sellerData}
+          loading={loading}
+          navigation={navigation}
+        />
+        <Separator />
         <Text style={Styles.Price}>{money(price)}</Text>
         <CustomButton
           style={Styles.CartBtn}
           styleText={Styles.CartBtnText}
-          onPress={BuyItem}
+          onPress={Purchase}
           title={'Comprar ahora'}
         />
         <CustomButton

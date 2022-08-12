@@ -91,25 +91,22 @@ export const addInfo = async (info, uID) => {
   const inputName = info.input;
   const value = info.inputValue;
 
-
   if (inputName === 'User') {
     await firestore().collection('Users').doc(uID).update({
       userName: value,
     });
   } else if (inputName === 'Email') {
-    
-    auth().currentUser.updateEmail(value)
+    auth()
+      .currentUser.updateEmail(value)
       .then(() => {
-       console.log("Email updated!") 
-       
-      }).catch((error) => {
-        console.log( `An error occurred ${error}`)
-       
+        console.log('Email updated!');
+      })
+      .catch(error => {
+        console.log(`An error occurred ${error}`);
       });
-      await firestore().collection('Users').doc(uID).update({
-        email: value,
-      });
-   
+    await firestore().collection('Users').doc(uID).update({
+      email: value,
+    });
   } else if (inputName === 'Usertype') {
     await firestore().collection('Users').doc(uID).update({
       userType: value,
@@ -171,7 +168,25 @@ export const deleteCamp = async (input, uID) => {
   }
 };
 
-export const restorePassword = async (email) => {
-  return await auth().sendPasswordResetEmail(email)
-    
+export const restorePassword = async email => {
+  return await auth().sendPasswordResetEmail(email);
+};
+
+export const getDataBySeller = (productUid, setData) => {
+  getOneDocumenByUid('Products', productUid)
+    .then(doc => {
+      const uidUser = doc.uidUser;
+
+      getOneDocumenByUid('Users', uidUser)
+        .then(doc => {
+          console.log('::::::', doc);
+          setData(doc);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };

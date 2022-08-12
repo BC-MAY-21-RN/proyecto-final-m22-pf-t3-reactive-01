@@ -9,7 +9,9 @@ import Carrito from '../screens/Carrito';
 import Products from '../screens/Products';
 import Register from '../screens/Register';
 import ProductDetails from '../screens/ProductDetails';
-//https://reactnavigation.org/docs/nesting-navigators
+import Purchase from '../screens/Purchase';
+import ProductsSeller from '../screens/ProductsSeller';
+
 const MainStack = () => {
   const [user, setUser] = useState();
   const onAuthStateChanged = userStateChanged => setUser(userStateChanged);
@@ -40,6 +42,8 @@ const App = () => {
         <AppStack.Screen name="ProductDetails" component={ProductDetails} />
         <AppStack.Screen name="Cart" component={Carrito} />
         <AppStack.Screen name="Products" component={Products} />
+        <AppStack.Screen name="Purchase" component={Purchase} />
+        <AppStack.Screen name="ProductsSeller" component={ProductsSeller} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

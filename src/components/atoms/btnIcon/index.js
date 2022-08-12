@@ -15,11 +15,19 @@ const Style = StyleSheet.create({
   },
 });
 
-const BtnIcon = ({onPress, style, directory, iconName, size, styleIcon}) => {
+const BtnIcon = ({
+  onPress,
+  style,
+  style2,
+  directory,
+  iconName,
+  size,
+  styleIcon,
+}) => {
   const waitAnimationBounceable = () => setTimeout(onPress, 50);
   return (
     <RNBounceable
-      style={[Style.container, style]}
+      style={style2 ? style2 : [Style.container, style]}
       onPress={waitAnimationBounceable}
       bounceFriction={2}
       bounceEffect={1.2}>

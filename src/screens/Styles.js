@@ -220,7 +220,7 @@ export const ProductsStyles = StyleSheet.create({
 export const CuentaStyle = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:'#ffff'
+    backgroundColor: '#ffff',
   },
 
   containerSettings: {
@@ -230,21 +230,18 @@ export const CuentaStyle = StyleSheet.create({
     justifyContent: 'space-around',
     marginTop: 10,
   },
-  DataContainer:{
-    
+  DataContainer: {
     backgroundColor: '#ffff',
-    elevation:5,
-    borderRadius:20,
-    marginBottom:20,
- marginHorizontal:10
+    elevation: 5,
+    borderRadius: 20,
+    marginBottom: 20,
+    marginHorizontal: 10,
   },
   titleDataContainer: {
     color: '#3140C2',
     fontSize: 20,
     marginLeft: 15,
     marginTop: 10,
-   
-   
   },
 
   buttonDeleteAccount: {
@@ -421,5 +418,245 @@ export const WishStyles = StyleSheet.create({
   },
   Black: {
     color: 'black',
+  },
+});
+
+export const Purchase = StyleSheet.create({
+  MainContainer: {flex: 1},
+  ScrollContainer: {
+    flexDirection: 'column',
+    backgroundColor: colors.BACKGROUND_COLOR,
+    padding: 10,
+  },
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  Separator: {
+    height: 0.9,
+    backgroundColor: colors.DIVIDER_COLOR,
+  },
+  ShowMore: {
+    margin: 10,
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: colors.DIVIDER_COLOR,
+    borderRadius: 10,
+    padding: 10,
+  },
+  ShowMore2: {
+    padding: 20,
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  Button: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 10,
+    padding: 5,
+  },
+  Text: {
+    fontSize: 18,
+    fontStyle: 'italic',
+    color: 'black',
+  },
+  TextSelect: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: colors.HEADER_COLOR,
+  },
+  purchaseContainer: {
+    margin: 20,
+    padding: 10,
+    width: '70%',
+    alignSelf: 'center',
+    borderWidth: 2,
+    borderColor: colors.DIVIDER_COLOR,
+    borderRadius: 10,
+  },
+  purchaseTitle: {
+    color: 'black',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 16,
+    margin: 10,
+  },
+  purchaseOrder: {
+    margin: 2,
+    padding: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  total: {
+    color: '#BC2828',
+    fontWeight: 'bold',
+    fontSize: 16,
+    margin: 10,
+  },
+  ImageBtn: {
+    borderRadius: 50,
+    position: 'relative',
+    padding: 10,
+    height: 45,
+    width: 45,
+    margin: 10,
+    borderColor: '#cccccc',
+    borderWidth: 1,
+    alignItems: 'center',
+  },
+  ImageBtn2: {
+    backgroundColor: colors.ICON_BACKGROUND_SECONDARY_COLOR,
+    borderRadius: 50,
+    padding: 5,
+    width: 70,
+    height: 70,
+    top: 20,
+    right: '40%',
+  },
+  image: {
+    height: 150,
+    width: 110,
+  },
+  delivery: {
+    padding: 10,
+    maxWidth: 120,
+    height: '100%',
+    alignContent: 'center',
+    borderLeftWidth: 1,
+    borderLeftColor: colors.DIVIDER_COLOR,
+  },
+  infoContainer: {
+    alignItems: 'center',
+    padding: 5,
+  },
+  desc: {
+    fontSize: 14,
+    maxWidth: 120,
+    textAlign: 'center',
+    fontStyle: 'italic',
+  },
+  estimated: {
+    fontSize: 13,
+    marginTop: 5,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: 'green',
+  },
+  row: {
+    flexDirection: 'row',
+    padding: 5,
+  },
+  AddressContainer: {
+    backgroundColor: 'transparent',
+    borderColor: colors.BTN_LIGHT_PRIMARY_COLOR,
+    borderWidth: 2,
+    borderRadius: 5,
+    margin: 5,
+    padding: 5,
+  },
+  title: {
+    fontSize: 14,
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  title2: {
+    fontSize: 20,
+    color: '#36A655',
+    fontWeight: 'bold',
+  },
+  text2: {
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: '400',
+    marginTop: 30,
+    maxWidth: 200,
+    fontStyle: 'italic',
+    color: colors.TXT_PRIMARY_COLOR,
+  },
+});
+
+
+export const ProductsSellerStyle = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff',
+    flex: 1,
+  },
+  containerLoad: {
+  
+  },
+  imageLoadContainer:{
+    backgroundColor: '#3140C2',
+  
+    position: 'absolute',
+    width: 505,
+    height: 105,
+
+    top: 0,
+    left: 0,
+    elevation:5
+  },
+  imageLoad: {
+    backgroundColor: '#E4E4E4',
+    color: '#E4E4E4',
+    position: 'absolute',
+    width: 85,
+    height: 85,
+    borderRadius: 100,
+    top: 10,
+    left: 45,
+    elevation:5
+  },
+  containerTop: {
+    backgroundColor: '#3140C2',
+
+    elevation: 75,
+  },
+  containerImageAndName: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginVertical: 7,
+    marginHorizontal: 20,
+    padding: 5,
+    marginTop: 7,
+    borderRadius: 20,
+  },
+  image: {
+    width: 85,
+    height: 85,
+    borderRadius: 100,
+    elevation: 45,
+    zIndex: 5,
+    marginLeft: 5,
+  },
+
+  containerLabels: {
+    marginLeft: 20,
+
+    width: 315,
+    paddingStart: 80,
+    paddingVertical: 20,
+    position: 'absolute',
+    left: -14,
+    top: 1,
+    zIndex: 0,
+
+    borderRadius: 100,
+  },
+  labelName: {
+    color: '#fff',
+    marginLeft: 60,
+    fontSize: 25,
+    textTransform: 'capitalize',
+  },
+  labelUserType: {
+    color: '#fff',
+    marginLeft: 60,
+    fontSize: 20,
+    textTransform: 'capitalize',
   },
 });

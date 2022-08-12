@@ -21,7 +21,6 @@ const InputContainer = ({
         name={name}
         style={styles ? styles : defaultS.input}
         placeholder={placeholder}
-        placeholderTextColor="#3140C2"
         secureTextEntry={secure}
         onChange={onChange}
         onChangeText={onChangeText}
