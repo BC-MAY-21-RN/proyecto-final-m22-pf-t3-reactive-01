@@ -1,12 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  SafeAreaView,
-  ScrollView,
-  ToastAndroid,
-} from 'react-native';
+import {View, Text, Image, SafeAreaView, ScrollView} from 'react-native';
 import {money} from '../utils/format';
 import {useCart} from '../utils/cart';
 import shallow from 'zustand/shallow';
@@ -16,12 +9,12 @@ import CounterInput from '../components/atoms/CounterInput';
 import CustomButton from '../components/atoms/Form/CustomButton';
 import {useUser} from '../utils/user';
 import {ProductDetailsStyles as Styles} from './Styles';
-import {addLike, removeLike} from '../auth/cloudFirestore';
 import Input from '../components/atoms/Form/Input';
 import ButtonToSeller from '../components/atoms/ButtonToSeller';
 import {getDataBySeller} from '../auth/authFirestore';
 import Loader from '../components/atoms/Loader';
-
+import BtnLike from '../components/atoms/BtnLike';
+import {subscriberComments, addCommentSync} from '../auth/cloudFirestore';
 const ProductDetails = ({route: {params}, navigation}) => {
   const user = useUser(state => state.user);
   const {uid, like, name, description, image, condition, stock, price} =
@@ -44,7 +37,8 @@ const ProductDetails = ({route: {params}, navigation}) => {
       alert('This product is not currently available');
     }
   };
-  const [liked, setLiked] = useState();
+  const [textComment, setextComment] = useState('');
+  const [commets, setCommets] = useState();
   const [sellerData, setSellerData] = useState();
   const [loading, setLoading] = useState('');
 
@@ -54,23 +48,9 @@ const ProductDetails = ({route: {params}, navigation}) => {
   }, [params.item]);
 
   useEffect(() => {
-    if (like.includes(user.uid)) {
-      setLiked(true);
-    } else {
-      setLiked(false);
-    }
-  }, [like, user]);
-  const handleLike = () => {
-    if (liked) {
-      removeLike(uid, user.uid);
-      Toas('The product was removed to your Wish List!');
-    } else {
-      addLike(uid, user.uid);
-      Toas('The product was added to your Wish List!');
-    }
-    setLiked(!liked);
-  };
-  const Toas = MSG => ToastAndroid.show(MSG, ToastAndroid.SHORT);
+    const comments = subscriberComments(uid, setCommets);
+    return () => comments;
+  }, [uid]);
 
   return (
     <SafeAreaView style={Styles.MainContainer}>
@@ -97,13 +77,7 @@ const ProductDetails = ({route: {params}, navigation}) => {
           <Image style={Styles.Image} source={{uri: image}} />
           <Text style={Styles.ImageIndicator}>1 / 8</Text>
           <View style={Styles.ImageSocialContainer}>
-            <BtnIcon
-              iconName={'heart'}
-              size={20}
-              style={Styles.ImageBtn}
-              styleIcon={liked ? Styles.Red : Styles.Black}
-              onPress={handleLike}
-            />
+            <BtnLike ArrayLikes={like} uidUser={user.uid} uidDoc={uid} />
             <BtnIcon
               iconName={'share-social-outline'}
               directory={'Ionicons'}
@@ -161,10 +135,37 @@ const ProductDetails = ({route: {params}, navigation}) => {
           Preguntas y Respuestas
         </Text>
         <Input
-          title="Escribe Tu Pregunta"
+          placeholder="Escribe Tu Pregunta"
           multiline
-          styleMainContainer={{paddingVertical: 10}}
+          onChangeText={text => setextComment(text)}
+          styleValue={Styles.InputAskValue}
+          styleMainContainer={Styles.InputAskMainContainer}
         />
+        <CustomButton
+          style={Styles.CartBtn}
+          styleText={Styles.CartBtnText}
+          onPress={() => {
+            if (textComment && textComment.length > 5) {
+              addCommentSync(commets.uid, user.uid, textComment);
+            }
+          }}
+          title="Preguntar"
+        />
+        <View style={Styles.CommentsMainContainer}>
+          {commets &&
+            commets.comments.length > 0 &&
+            commets.comments.map((item, index) => (
+              <View key={index}>
+                <Text style={Styles.Black}>{item.question}</Text>
+                {item.answer !== '' && (
+                  <View style={Styles.CommentsContainer}>
+                    <View style={Styles.CommentsBox} />
+                    <Text style={Styles.CommentsAnswer}>{item.answer}</Text>
+                  </View>
+                )}
+              </View>
+            ))}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

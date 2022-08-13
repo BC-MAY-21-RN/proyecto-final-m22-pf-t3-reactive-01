@@ -50,7 +50,7 @@ const SellerItem = ({
         <IconButton
           name="edit"
           onPress={() => {
-            navigation.jumpTo('Products', {
+            navigation.navigate('Products', {
               uid,
               uidUser,
               like,

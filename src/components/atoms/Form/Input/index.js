@@ -4,6 +4,7 @@ import {View} from 'react-native';
 import Style from './Style';
 import ErrorMessage from '../ErrorMessage';
 import CustomButton from '../CustomButton';
+import colors from '../../../../constants/colors';
 const Input = ({
   title,
   styleTitle,
@@ -17,6 +18,7 @@ const Input = ({
   styleContainer,
   styleMainContainer,
   multiline,
+  placeholder,
 }) => {
   const [Secure, setSecure] = useState(secure);
   const [focus, setFocus] = useState({borderColor: '#e3e3e3'});
@@ -32,8 +34,10 @@ const Input = ({
       <AwesomeTextInput
         style={[Style.Value, styleValue]}
         editable={editable}
+        placeholder={placeholder}
         onBlur={onBlur}
         onFocus={onFocus}
+        placeholderTextColor={colors.TXT_PRIMARY_COLOR}
         multiline={multiline}
         label={title}
         customStyles={{

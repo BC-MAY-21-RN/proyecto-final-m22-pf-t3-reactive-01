@@ -27,7 +27,7 @@ export const useCart = create(
           const cart = [...state.cart];
           let include = false;
           cart.forEach(item => {
-            if (item.id === product.id) {
+            if (item.uid === product.uid) {
               item.quantity += product.quantity;
               include = true;
             }
@@ -38,21 +38,21 @@ export const useCart = create(
           return {cart};
         });
       },
-      removeItem: id => {
+      removeItem: uid => {
         set(state => {
           const cart = state.cart.filter(item => {
-            if (item.id !== id) {
+            if (item.uid !== uid) {
               return item;
             }
           });
           return {cart};
         });
       },
-      addQuantity: id => {
+      addQuantity: uid => {
         set(state => {
           const cart = [...state.cart];
           cart.forEach(item => {
-            if (item.id === id) {
+            if (item.uid === uid) {
               item.quantity += 1;
               return {cart};
             }
@@ -60,11 +60,11 @@ export const useCart = create(
           return {cart};
         });
       },
-      removeQuantity: id => {
+      removeQuantity: uid => {
         set(state => {
           const cart = [...state.cart];
           cart.forEach(item => {
-            if (item.id === id) {
+            if (item.uid === uid) {
               const newQuantity = item.quantity - 1;
               if (newQuantity >= 1) {
                 item.quantity = newQuantity;
@@ -75,7 +75,7 @@ export const useCart = create(
           return {cart};
         });
       },
-      clearCart: () => set(() => ({cart: {}})),
+      clearCart: () => set(() => ({cart: []})),
     }),
     {
       name: 'cart',

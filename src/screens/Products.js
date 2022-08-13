@@ -63,7 +63,6 @@ const Products = ({route: {params}, navigation}) => {
       alert('The product has not be added successfully');
     }
   };
-
   return (
     <ScrollView>
       <Header
