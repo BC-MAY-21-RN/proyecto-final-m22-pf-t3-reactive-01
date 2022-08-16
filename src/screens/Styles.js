@@ -578,25 +578,22 @@ export const Purchase = StyleSheet.create({
   },
 });
 
-
 export const ProductsSellerStyle = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     flex: 1,
   },
-  containerLoad: {
-  
-  },
-  imageLoadContainer:{
+  containerLoad: {},
+  imageLoadContainer: {
     backgroundColor: '#3140C2',
-  
+
     position: 'absolute',
     width: 505,
     height: 105,
 
     top: 0,
     left: 0,
-    elevation:5
+    elevation: 5,
   },
   imageLoad: {
     backgroundColor: '#E4E4E4',
@@ -607,7 +604,7 @@ export const ProductsSellerStyle = StyleSheet.create({
     borderRadius: 100,
     top: 10,
     left: 45,
-    elevation:5
+    elevation: 5,
   },
   containerTop: {
     backgroundColor: '#3140C2',
