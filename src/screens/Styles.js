@@ -549,14 +549,6 @@ export const Purchase = StyleSheet.create({
     flexDirection: 'row',
     padding: 5,
   },
-  AddressContainer: {
-    backgroundColor: 'transparent',
-    borderColor: colors.BTN_LIGHT_PRIMARY_COLOR,
-    borderWidth: 2,
-    borderRadius: 5,
-    margin: 5,
-    padding: 5,
-  },
   title: {
     fontSize: 14,
     color: 'black',
@@ -672,6 +664,10 @@ export const Shopping = StyleSheet.create({
     borderColor: colors.DIVIDER_COLOR,
     justifyContent: 'space-around',
   },
+  ScrollContainer: {
+    height: 700,
+    margin: 10,
+  },
   ImageBtn: {
     borderColor: 'transparent',
     borderRadius: 20,
@@ -688,8 +684,23 @@ export const Shopping = StyleSheet.create({
     textAlign: 'center',
     top: 30,
   },
+  title2: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'black',
+    textAlign: 'center',
+    margin: 10,
+  },
   btnContainer: {
     justifyContent: 'center',
     padding: 5,
+  },
+  ShowMore: {
+    margin: 10,
+    padding: 10,
+    justifyContent: 'center',
+    borderRadius: 10,
+    borderColor: colors.BTN_LIGHT_PRIMARY_COLOR,
+    borderWidth: 2,
   },
 });

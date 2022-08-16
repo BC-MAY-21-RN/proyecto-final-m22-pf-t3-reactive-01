@@ -6,6 +6,9 @@ import BtnIcon from '../components/atoms/btnIcon';
 import {getMyPruchases, getOneDocumenByUid} from '../auth/cloudFirestore';
 import {useUser} from '../utils/user';
 import {useFocusEffect} from '@react-navigation/native';
+import ItemAddress from '../components/atoms/ItemAddress';
+import ItemCard from '../components/atoms/ItemCard';
+
 const Compras = ({navigation}) => {
   const user = useUser(state => state.user);
   const [products, setProducts] = useState([]);
@@ -17,13 +20,7 @@ const Compras = ({navigation}) => {
   );
   return (
     <View>
-      <Header
-        name="Shopping bag"
-        icon="cart"
-        directory={'Ionicons'}
-        onPress={() => navigation.navigate('Cart')}
-        BackBtn
-      />
+      <Header name="Shopping bag" BackBtn />
       {isEmpty ? (
         <View style={WishStyles.container}>
           <Text style={WishStyles.text}>You don't have any purchase...</Text>
@@ -40,7 +37,7 @@ const Compras = ({navigation}) => {
           </Text>
         </View>
       ) : (
-        <ScrollView>
+        <ScrollView style={Shopping.ScrollContainer}>
           {products.map((item, key) => (
             <ItemShopping key={key} index={key} item={item} />
           ))}
@@ -67,6 +64,7 @@ const ItemShopping = props => {
       {product ? (
         <Item product={product} selected={selected} setSelected={setSelected} />
       ) : null}
+      {selected ? <ShowMore address={address} payment={payment} /> : null}
     </View>
   );
 };
@@ -95,6 +93,36 @@ const Item = props => {
               : Shopping.ImageBtn
           }
           onPress={() => setSelected(!selected)}
+        />
+      </View>
+    </View>
+  );
+};
+
+const ShowMore = props => {
+  const {address, payment} = props;
+  return (
+    <View style={Shopping.ShowMore}>
+      <View>
+        <Text style={Shopping.title2}>Address information</Text>
+        <ItemAddress
+          name={address.name}
+          street={address.street}
+          state={address.state}
+          code={address.code}
+          country={address.country}
+          phone={address.phone}
+          disable
+        />
+      </View>
+      <View>
+        <Text style={Shopping.title2}>Payment method</Text>
+        <ItemCard
+          alias={payment.alias}
+          holder={payment.holder}
+          month={payment.month}
+          year={payment.year}
+          disable
         />
       </View>
     </View>
