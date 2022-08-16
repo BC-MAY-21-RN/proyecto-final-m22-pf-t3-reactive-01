@@ -1,9 +1,9 @@
-import React, {useState, useCallback} from 'react';
-import {View, Text} from 'react-native';
+import React, {useState, useCallback, useEffect} from 'react';
+import {View, Text, ScrollView} from 'react-native';
 import Header from '../components/atoms/Header';
 import {WishStyles} from './Styles';
 import BtnIcon from '../components/atoms/btnIcon';
-import {getMyPruchases} from '../auth/cloudFirestore';
+import {getMyPruchases, getOneDocumenByUid} from '../auth/cloudFirestore';
 import {useUser} from '../utils/user';
 import {useFocusEffect} from '@react-navigation/native';
 const Compras = ({navigation}) => {
@@ -39,7 +39,32 @@ const Compras = ({navigation}) => {
             Browse now and discover new products (⁀ᗢ⁀)
           </Text>
         </View>
-      ) : null}
+      ) : (
+        <ScrollView style={{width: 350, height: 150}}>
+          {products.map((item, key) => (
+            <ItemShopping key={key} index={key} item={item} />
+          ))}
+        </ScrollView>
+      )}
+    </View>
+  );
+};
+
+const ItemShopping = props => {
+  const {index, item} = props;
+  const address = item.address;
+  const payment = item.payment;
+  const order = item.order;
+  const [product, setProduct] = useState();
+  useEffect(() => {
+    getOneDocumenByUid('Products', order.productID).then(doc => {
+      setProduct(doc);
+    });
+  }, [order.productID]);
+  console.log(product);
+  return (
+    <View>
+      <Text>{index}</Text>
     </View>
   );
 };

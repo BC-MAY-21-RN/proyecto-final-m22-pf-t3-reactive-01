@@ -143,7 +143,7 @@ export const getMyPruchases = (uidUser, setProducts, setEmpty) => {
     .then(querySnapshot => {
       const array = [];
       querySnapshot.forEach(documentSnapshot => {
-        array.push({uid: documentSnapshot.id, ...documentSnapshot.data()});
+        array.push(documentSnapshot.data());
       });
       setProducts(array);
       if (array.length !== 0) {
