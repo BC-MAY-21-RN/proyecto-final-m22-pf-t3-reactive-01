@@ -1,7 +1,7 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, Image, Pressable} from 'react-native';
 import Header from '../components/atoms/Header';
-import {WishStyles} from './Styles';
+import {WishStyles, Shopping} from './Styles';
 import BtnIcon from '../components/atoms/btnIcon';
 import {getMyPruchases, getOneDocumenByUid} from '../auth/cloudFirestore';
 import {useUser} from '../utils/user';
@@ -40,7 +40,7 @@ const Compras = ({navigation}) => {
           </Text>
         </View>
       ) : (
-        <ScrollView style={{width: 350, height: 150}}>
+        <ScrollView>
           {products.map((item, key) => (
             <ItemShopping key={key} index={key} item={item} />
           ))}
@@ -56,15 +56,47 @@ const ItemShopping = props => {
   const payment = item.payment;
   const order = item.order;
   const [product, setProduct] = useState();
+  const [selected, setSelected] = useState(false);
   useEffect(() => {
     getOneDocumenByUid('Products', order.productID).then(doc => {
       setProduct(doc);
     });
   }, [order.productID]);
-  console.log(product);
   return (
     <View>
-      <Text>{index}</Text>
+      {product ? (
+        <Item product={product} selected={selected} setSelected={setSelected} />
+      ) : null}
+    </View>
+  );
+};
+
+const Item = props => {
+  const {product, selected, setSelected} = props;
+  const {name, image} = product;
+  return (
+    <View style={Shopping.itemContainer}>
+      <Image
+        source={{
+          uri: image,
+        }}
+        style={Shopping.image}
+      />
+      <Text style={Shopping.title}>{name}</Text>
+      <View style={Shopping.btnContainer}>
+        <BtnIcon
+          iconName={selected ? 'keyboard-arrow-down' : 'keyboard-arrow-right'}
+          directory={'MaterialIcons'}
+          size={30}
+          styleIcon={WishStyles.Black}
+          style={
+            selected
+              ? [Shopping.ImageBtn, {borderColor: 'rgba(65,137,230,.15)'}]
+              : Shopping.ImageBtn
+          }
+          onPress={() => setSelected(!selected)}
+        />
+      </View>
     </View>
   );
 };
