@@ -64,7 +64,7 @@ const MenuItems = ({navigation}) => {
         <MenuButtom
           text="Shopping"
           name="shopping-bag"
-          onPress={() => navigation.push('Shopping')}
+          onPress={() => navigation.navigate('Shopping')}
         />
         <MenuButtom
           text="WishList"
