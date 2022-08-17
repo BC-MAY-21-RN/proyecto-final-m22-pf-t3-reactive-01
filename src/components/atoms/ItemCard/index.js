@@ -22,7 +22,6 @@ const ItemCard = props => {
       onPress={waitAnimationBounceable}>
       <View style={[Styles.row, {maxWidth: 300}]}>
         <Text style={Styles.title}>{alias} ➣ </Text>
-        <Text>Holder: </Text>
         <Text style={Styles.desc}>{holder}</Text>
         <Text>| Expiration:</Text>
         <Text style={Styles.desc}>

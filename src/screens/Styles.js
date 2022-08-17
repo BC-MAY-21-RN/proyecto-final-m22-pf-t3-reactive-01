@@ -438,14 +438,6 @@ export const Purchase = StyleSheet.create({
     height: 0.9,
     backgroundColor: colors.DIVIDER_COLOR,
   },
-  ShowMore: {
-    margin: 10,
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: colors.DIVIDER_COLOR,
-    borderRadius: 10,
-    padding: 10,
-  },
   ShowMore2: {
     padding: 20,
     alignItems: 'flex-start',
@@ -554,11 +546,6 @@ export const Purchase = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
   },
-  title2: {
-    fontSize: 20,
-    color: '#36A655',
-    fontWeight: 'bold',
-  },
   text2: {
     textAlign: 'center',
     fontSize: 16,
@@ -651,38 +638,9 @@ export const ProductsSellerStyle = StyleSheet.create({
 });
 
 export const Shopping = StyleSheet.create({
-  image: {
-    width: 130,
-    height: 130,
-  },
-  itemContainer: {
-    flexDirection: 'row',
-    padding: 7,
-    margin: 10,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: colors.DIVIDER_COLOR,
-    justifyContent: 'space-around',
-  },
   ScrollContainer: {
     height: 700,
     margin: 10,
-  },
-  ImageBtn: {
-    borderColor: 'transparent',
-    borderRadius: 20,
-    marginRight: 5,
-    borderWidth: 2,
-    width: 45,
-    height: 45,
-  },
-  title: {
-    fontSize: 18,
-    maxWidth: 100,
-    fontWeight: 'bold',
-    color: 'black',
-    textAlign: 'center',
-    top: 30,
   },
   title2: {
     fontSize: 18,
@@ -690,10 +648,6 @@ export const Shopping = StyleSheet.create({
     color: 'black',
     textAlign: 'center',
     margin: 10,
-  },
-  btnContainer: {
-    justifyContent: 'center',
-    padding: 5,
   },
   ShowMore: {
     margin: 10,
