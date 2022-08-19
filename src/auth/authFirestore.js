@@ -57,16 +57,9 @@ export const getUserInfo = async (currentUser, setUserInfo) => {
   }
 };
 
-export const editProduct = async (
-  id,
-  name,
-  category,
-  price,
-  condition,
-  description,
-  stock,
-  navigation,
-) => {
+export const editProduct = async (product, navigation) => {
+  const {id, name, price, condition, description, category, stock, image} =
+    product;
   const current = auth().currentUser.uid;
   await firestore()
     .collection('Products')
@@ -79,11 +72,9 @@ export const editProduct = async (
       description: description,
       stock: parseInt(stock),
       uid: current,
+      image: image,
     })
-    .then(() => {
-      alert('The product has been updated successfully!');
-      navigation.navigate('Manage', {myParam: undefined});
-    })
+    .then(() => {})
     .catch();
 };
 

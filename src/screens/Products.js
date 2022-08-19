@@ -46,6 +46,23 @@ const Products = ({route: {params}, navigation}) => {
       setformData(formSkeleton);
     }
   }, [params]);
+  const edit = async () => {
+    try {
+      const {uri, categoriesInitial, conditionsInitial, ...document} = formData;
+      if (uri) {
+        const Path = `Products/${user.uid}/${formData.image}`;
+        const Url = await uploadImage(Path, uri);
+        document.image = Url;
+        editProduct(document, navigation);
+      } else {
+        editProduct(document, navigation);
+      }
+      alert('The product has been updated successfully!');
+      navigation.navigate('Manage', {myParam: undefined});
+    } catch {
+      alert('The product has not been updated successfully!');
+    }
+  };
   const newProduct = async () => {
     try {
       BIVisible(true);
@@ -132,6 +149,7 @@ const Products = ({route: {params}, navigation}) => {
           value={`${formData.stock}`}
         />
         <Picker
+          oldImage={params ? formData.oldImage : null}
           url={formData.uri}
           setPath={({fileName, uri}) => {
             setformData({...formData, image: fileName, uri});
@@ -140,11 +158,7 @@ const Products = ({route: {params}, navigation}) => {
         <CustomButton
           title={params ? 'Edit Product' : 'Add Product'}
           onPress={() => {
-            params
-              ? {
-                  /*editProduct(formData, navigation)*/
-                }
-              : newProduct();
+            params ? edit() : newProduct();
           }}
         />
       </View>

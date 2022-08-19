@@ -6,12 +6,12 @@ import pcikerStyles from './pickerStyles';
 
 const Picker = props => {
   const {
+    oldImage,
     url,
     setUrl = () => {},
     setImage = () => {},
     setPath = () => {},
   } = props;
-
   const addImage = () => {
     let options = {
       title: 'Select Image',
@@ -44,13 +44,21 @@ const Picker = props => {
   };
   return (
     <View style={pcikerStyles.container}>
-      {url && (
+      {url ? (
         <Image source={{uri: url}} style={{width: '100%', height: 200}} />
-      )}
-      {url ? null : (
-        <View style={pcikerStyles.textContainer}>
-          <Text style={pcikerStyles.text}>No file chosen</Text>
-          <Icon name="camera" size={35} color="#67679E" />
+      ) : (
+        <View>
+          {oldImage ? (
+            <Image
+              source={{uri: oldImage}}
+              style={{width: '100%', height: 200}}
+            />
+          ) : (
+            <View style={pcikerStyles.textContainer}>
+              <Text style={pcikerStyles.text}>No file chosen</Text>
+              <Icon name="camera" size={35} color="#67679E" />
+            </View>
+          )}
         </View>
       )}
       <TouchableOpacity
