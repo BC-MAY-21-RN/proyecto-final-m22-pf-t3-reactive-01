@@ -179,7 +179,6 @@ export const getDataBySeller = (productUid, setData) => {
 
       getOneDocumenByUid('Users', uidUser)
         .then(doc => {
-          console.log('::::::', doc);
           setData(doc);
         })
         .catch(err => {

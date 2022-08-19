@@ -438,14 +438,6 @@ export const Purchase = StyleSheet.create({
     height: 0.9,
     backgroundColor: colors.DIVIDER_COLOR,
   },
-  ShowMore: {
-    margin: 10,
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: colors.DIVIDER_COLOR,
-    borderRadius: 10,
-    padding: 10,
-  },
   ShowMore2: {
     padding: 20,
     alignItems: 'flex-start',
@@ -549,22 +541,9 @@ export const Purchase = StyleSheet.create({
     flexDirection: 'row',
     padding: 5,
   },
-  AddressContainer: {
-    backgroundColor: 'transparent',
-    borderColor: colors.BTN_LIGHT_PRIMARY_COLOR,
-    borderWidth: 2,
-    borderRadius: 5,
-    margin: 5,
-    padding: 5,
-  },
   title: {
     fontSize: 14,
     color: 'black',
-    fontWeight: 'bold',
-  },
-  title2: {
-    fontSize: 20,
-    color: '#36A655',
     fontWeight: 'bold',
   },
   text2: {
@@ -578,25 +557,22 @@ export const Purchase = StyleSheet.create({
   },
 });
 
-
 export const ProductsSellerStyle = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     flex: 1,
   },
-  containerLoad: {
-  
-  },
-  imageLoadContainer:{
+  containerLoad: {},
+  imageLoadContainer: {
     backgroundColor: '#3140C2',
-  
+
     position: 'absolute',
     width: 505,
     height: 105,
 
     top: 0,
     left: 0,
-    elevation:5
+    elevation: 5,
   },
   imageLoad: {
     backgroundColor: '#E4E4E4',
@@ -607,7 +583,7 @@ export const ProductsSellerStyle = StyleSheet.create({
     borderRadius: 100,
     top: 10,
     left: 45,
-    elevation:5
+    elevation: 5,
   },
   containerTop: {
     backgroundColor: '#3140C2',
@@ -658,5 +634,27 @@ export const ProductsSellerStyle = StyleSheet.create({
     marginLeft: 60,
     fontSize: 20,
     textTransform: 'capitalize',
+  },
+});
+
+export const Shopping = StyleSheet.create({
+  ScrollContainer: {
+    height: 700,
+    margin: 10,
+  },
+  title2: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'black',
+    textAlign: 'center',
+    margin: 10,
+  },
+  ShowMore: {
+    margin: 10,
+    padding: 10,
+    justifyContent: 'center',
+    borderRadius: 10,
+    borderColor: colors.BTN_LIGHT_PRIMARY_COLOR,
+    borderWidth: 2,
   },
 });

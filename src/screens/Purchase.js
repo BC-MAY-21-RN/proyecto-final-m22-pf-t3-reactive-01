@@ -20,6 +20,8 @@ import {useFocusEffect} from '@react-navigation/native';
 import {getDocumentByField} from '../auth/cloudFirestore';
 import RNBounceable from '@freakycoder/react-native-bounceable';
 import {addOneDocumentSync, addPurchase} from '../auth/cloudFirestore';
+import ItemAddress from '../components/atoms/ItemAddress';
+import ItemCard from '../components/atoms/ItemCard';
 
 const Purchase = ({route: {params}, navigation}) => {
   const [successfully, setSuccessfully] = useState(false);
@@ -72,65 +74,6 @@ const Separator = () => {
   return <View style={Styles.Separator} />;
 };
 
-const ItemAddress = props => {
-  const {name, index, street, state, code, country, phone, selected, onPress} =
-    props;
-  const waitAnimationBounceable = () => setTimeout(onPress, 50);
-  return (
-    <RNBounceable
-      style={
-        selected === index
-          ? [
-              Styles.AddressContainer,
-              {
-                backgroundColor: 'rgba(65,137,230,.15)',
-              },
-            ]
-          : Styles.AddressContainer
-      }
-      onPress={waitAnimationBounceable}>
-      <View style={[Styles.row, {maxWidth: 300}]}>
-        <Text>{name}</Text>
-        <Text>{street}, </Text>
-        <Text>{state}, </Text>
-      </View>
-      <View style={[Styles.row, {maxWidth: 300}]}>
-        <Text>{code}, </Text>
-        <Text>{country}, </Text>
-        <Text>Phone number: {phone}</Text>
-      </View>
-    </RNBounceable>
-  );
-};
-
-const ItemCard = props => {
-  const {alias, holder, month, year, index, selected, onPress} = props;
-  const waitAnimationBounceable = () => setTimeout(onPress, 50);
-  return (
-    <RNBounceable
-      style={
-        selected === index
-          ? [
-              Styles.AddressContainer,
-              {
-                backgroundColor: 'rgba(65,137,230,.15)',
-              },
-            ]
-          : Styles.AddressContainer
-      }
-      onPress={waitAnimationBounceable}>
-      <View style={[Styles.row, {maxWidth: 300}]}>
-        <Text style={Styles.title}>{alias} ➣ </Text>
-        <Text>Holder: </Text>
-        <Text style={Styles.desc}>{holder}</Text>
-        <Text>| Expiration:</Text>
-        <Text style={Styles.desc}>
-          {month}/{year}
-        </Text>
-      </View>
-    </RNBounceable>
-  );
-};
 const Delivery = props => {
   return (
     <Pressable onPress={props.onPress}>

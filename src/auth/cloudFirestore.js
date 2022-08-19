@@ -135,6 +135,25 @@ export const getMyWishList = (uidUser, setProducts, setEmpty) => {
     });
 };
 
+export const getMyPruchases = (uidUser, setProducts, setEmpty) => {
+  return firestore()
+    .collection('Purchase')
+    .where('uid', '==', uidUser)
+    .get()
+    .then(querySnapshot => {
+      const array = [];
+      querySnapshot.forEach(documentSnapshot => {
+        array.push(documentSnapshot.data());
+      });
+      setProducts(array);
+      if (array.length !== 0) {
+        setEmpty(false);
+      } else {
+        setEmpty(true);
+      }
+    });
+};
+
 export const getMyProducts = (uidUser, setProducts) => {
   return firestore()
     .collection('Products')
