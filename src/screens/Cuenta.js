@@ -1,4 +1,3 @@
-import React, {useEffect, useState} from 'react';
 import {View, ScrollView, Text, Pressable} from 'react-native';
 import Header from '../components/atoms/Header';
 import {CuentaStyle} from './Styles';
@@ -86,7 +85,6 @@ const Cuenta = ({navigation}) => {
                   iconName={'navigate-circle-outline'}
                   required={false}
                 />
-               
               </View>
             </View>
             <View style={CuentaStyle.containerSettings}>

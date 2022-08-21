@@ -1,4 +1,3 @@
-import React, {useState} from 'react';
 import {Text, View, Modal, Pressable} from 'react-native';
 import ModalWarningDeleteStyle from './ModalWarningDeleteStyle';
 import Icon from 'react-native-vector-icons/Ionicons';

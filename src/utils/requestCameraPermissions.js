@@ -1,5 +1,7 @@
 import {PermissionsAndroid} from 'react-native';
+import {ToastAndroid} from 'react-native';
 
+const Toast = MSG => ToastAndroid.show(MSG, ToastAndroid.SHORT);
 const requestCameraPermission = async () => {
   try {
     const granted = await PermissionsAndroid.request(
@@ -12,7 +14,11 @@ const requestCameraPermission = async () => {
         buttonPositive: 'OK',
       },
     );
-    
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      Toast('Camera permission given');
+    } else {
+      Toast('Camera permission denied');
+    }
   } catch (err) {
     console.warn(err);
   }

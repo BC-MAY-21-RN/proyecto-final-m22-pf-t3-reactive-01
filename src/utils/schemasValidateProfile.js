@@ -33,13 +33,13 @@ export const schemaAddress = yup
   .max(24, 'The number must be at least 24 digits')
   .required();
 
-  export const schemaCountry = yup
+export const schemaCountry = yup
   .string()
   .min(5, 'The number must be at least 5 digits')
   .max(18, 'The number must be at least 18 digits')
   .required();
 
-  export const schemaState = yup
+export const schemaState = yup
   .string()
   .min(5, 'The number must be at least 5 digits')
   .max(30, 'The number must be at least 30 digits')
@@ -86,9 +86,9 @@ export const validateSchema = (inputname, inputValue) => {
     return schemaAddress.validate(inputValue);
   } else if (inputname === 'Image') {
     return schemaImage.validate(inputValue);
-  }else if (inputname === 'Country') {
+  } else if (inputname === 'Country') {
     return schemaCountry.validate(inputValue);
-  }else if (inputname === 'State') {
+  } else if (inputname === 'State') {
     return schemaState.validate(inputValue);
   } else {
     console.log('no se pudo validar');
