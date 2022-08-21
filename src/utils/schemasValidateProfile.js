@@ -21,7 +21,7 @@ export const schemaFullname = yup
   .matches(/^[aA-zZ\s]+$/, 'Full name can only have letters')
   .required();
 
-export const schemaCel = yup
+export const schemaPhone = yup
   .string()
   .min(10, 'The number must be at least 10 digits')
   .max(12, 'The number must not exceed 12 digits.')
@@ -30,19 +30,19 @@ export const schemaCel = yup
 export const schemaAddress = yup
   .string()
   .min(8, 'The number must be at least 8 digits')
-  .max(24, 'The number must be at least 8 digits')
+  .max(24, 'The number must be at least 24 digits')
   .required();
 
   export const schemaCountry = yup
   .string()
-  .min(5, 'The number must be at least 8 digits')
-  .max(18, 'The number must be at least 8 digits')
+  .min(5, 'The number must be at least 5 digits')
+  .max(18, 'The number must be at least 18 digits')
   .required();
 
   export const schemaState = yup
   .string()
-  .min(5, 'The number must be at least 8 digits')
-  .max(30, 'The number must be at least 8 digits')
+  .min(5, 'The number must be at least 5 digits')
+  .max(30, 'The number must be at least 30 digits')
   .required();
 
 export const schemaImage = yup.string().required();
@@ -80,8 +80,8 @@ export const validateSchema = (inputname, inputValue) => {
     return schemaUserType.validate(inputValue);
   } else if (inputname === 'Fullname') {
     return schemaFullname.validate(inputValue);
-  } else if (inputname === 'Cel') {
-    return schemaCel.validate(inputValue);
+  } else if (inputname === 'Phone') {
+    return schemaPhone.validate(inputValue);
   } else if (inputname === 'Address') {
     return schemaAddress.validate(inputValue);
   } else if (inputname === 'Image') {

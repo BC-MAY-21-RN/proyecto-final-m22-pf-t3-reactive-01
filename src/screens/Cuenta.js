@@ -63,8 +63,8 @@ const Cuenta = ({navigation}) => {
                   required={false}
                 />
                 <Input
-                  userInfo={userInfo.cel}
-                  campName={'Cel'}
+                  userInfo={userInfo.phone}
+                  campName={'Phone'}
                   iconName={'call-outline'}
                   required={false}
                 />

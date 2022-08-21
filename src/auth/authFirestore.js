@@ -113,7 +113,7 @@ export const addInfo = async (info, uID) => {
         email: value,
       })
       .then(() => {
-        Toas(`${inputName.toLowerCase()} is changed`);
+        Toas(`The ${inputName.toLowerCase()} has been changed`);
       })
       .catch(err => {
         Toas(err);
@@ -126,7 +126,7 @@ export const addInfo = async (info, uID) => {
         userType: value,
       })
       .then(() => {
-        Toas(`${inputName.toLowerCase()} is changed`);
+        Toas(`The ${inputName.toLowerCase()} has been changed`);
       })
       .catch(err => {
         Toas(err);
@@ -139,20 +139,20 @@ export const addInfo = async (info, uID) => {
         fullName: value,
       })
       .then(() => {
-        Toas(`${inputName.toLowerCase()} is changed`);
+        Toas(`The ${inputName.toLowerCase()} has been changed`);
       })
       .catch(err => {
         Toas(err);
       });
-  } else if (inputName === 'Cel') {
+  } else if (inputName === 'Phone') {
     await firestore()
       .collection('Users')
       .doc(uID)
       .update({
-        cel: value,
+        phone: value,
       })
       .then(() => {
-        Toas(`${inputName.toLowerCase()} is changed`);
+        Toas(`The ${inputName.toLowerCase()} has been changed`);
       })
       .catch(err => {
         Toas(err);
@@ -165,7 +165,7 @@ export const addInfo = async (info, uID) => {
         address: value,
       })
       .then(() => {
-        Toas(`${inputName.toLowerCase()} is changed`);
+        Toas(`The ${inputName.toLowerCase()} has been changed`);
       })
       .catch(err => {
         Toas(err);
@@ -178,7 +178,7 @@ export const addInfo = async (info, uID) => {
         country: value,
       })
       .then(() => {
-        Toas(`${inputName.toLowerCase()} is changed`);
+        Toas(`The ${inputName.toLowerCase()} has been changed`);
       })
       .catch(err => {
         Toas(err);
@@ -191,7 +191,7 @@ export const addInfo = async (info, uID) => {
         state: value,
       })
       .then(() => {
-        Toas(`${inputName.toLowerCase()} is changed`);
+        Toas(`The ${inputName.toLowerCase()} has been changed`);
       })
       .catch(err => {
         Toas(err);
@@ -204,7 +204,7 @@ export const addInfo = async (info, uID) => {
         image: value,
       })
       .then(() => {
-        Toas(`${inputName.toLowerCase()} is changed`);
+        Toas(`The ${inputName.toLowerCase()} has been changed`);
       })
       .catch(err => {
         Toas(err);
@@ -245,20 +245,20 @@ export const deleteCamp = async (input, uID) => {
         fullName: '',
       })
       .then(() => {
-        Toas(`${inputName.toLowerCase()} is deleted`);
+        Toas(`The ${inputName.toLowerCase()} has been delete`);
       })
       .catch(err => {
         Toas(err);
       });
-  } else if (inputName === 'Cel') {
+  } else if (inputName === 'Phone') {
     await firestore()
       .collection('Users')
       .doc(uID)
       .update({
-        cel: '',
+        phone: '',
       })
       .then(() => {
-        Toas(`${inputName.toLowerCase()} is deleted`);
+        Toas(`The ${inputName.toLowerCase()} has been delete`);
       })
       .catch(err => {
         Toas(err);
@@ -271,7 +271,7 @@ export const deleteCamp = async (input, uID) => {
         address: '',
       })
       .then(() => {
-        Toas(`${inputName.toLowerCase()} is deleted`);
+        Toas(`The ${inputName.toLowerCase()} has been delete`);
       })
       .catch(err => {
         Toas(err);
@@ -284,7 +284,7 @@ export const deleteCamp = async (input, uID) => {
         country: '',
       })
       .then(() => {
-        Toas(`${inputName.toLowerCase()} is deleted`);
+        Toas(`The ${inputName.toLowerCase()} has been delete`);
       })
       .catch(err => {
         Toas(err);
@@ -297,7 +297,7 @@ export const deleteCamp = async (input, uID) => {
         state: '',
       })
       .then(() => {
-        Toas(`${inputName.toLowerCase()} is deleted`);
+        Toas(`The ${inputName.toLowerCase()} has been delete`);
       })
       .catch(err => {
         Toas(err);
@@ -310,7 +310,7 @@ export const deleteCamp = async (input, uID) => {
         image: '',
       })
       .then(() => {
-        Toas(`${inputName.toLowerCase()} is deleted`);
+        Toas(`The ${inputName.toLowerCase()} has been delete`);
       })
       .catch(err => {
         Toas(err);

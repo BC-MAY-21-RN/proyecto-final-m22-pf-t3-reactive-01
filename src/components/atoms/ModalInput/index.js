@@ -59,9 +59,9 @@ const ModalInput = props => {
     }
   }, [modalVisible]);
   useEffect(() => {
-    if (input === 'Cel') {
+    if (input === 'Phone') {
       setNumericInput(true);
-    } else if (input !== 'Cel') {
+    } else if (input !== 'Phone') {
       setNumericInput(false);
     }
   }, [modalVisible]);
