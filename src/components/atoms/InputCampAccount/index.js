@@ -2,20 +2,17 @@ import {View, Text} from 'react-native';
 import InputStyle from './InputStyle';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {deleteCamp} from '../../../auth/authFirestore';
+import {accountStore} from '../../../utils/account';
+import {useUser} from '../../../utils/user';
 
 const InputCampAccount = props => {
-  const {
-    userInfo,
-    campName,
-    iconName,
-    setModalVisible,
-    setInputSelect,
-    setIconInput,
-    setAction,
-    required,
-    setLoading,
-    uID,
-  } = props;
+  const setModalVisible = accountStore(state => state.setModalVisible);
+  const setInputSelect = accountStore(state => state.setInputSelect);
+  const setIconInput = accountStore(state => state.setIconInput);
+  const setAction = accountStore(state => state.setAction);
+  const uID = useUser(state => state.user.uid);
+  const setLoading = accountStore(state => state.setLoading);
+  const {userInfo, campName, iconName, required} = props;
   return (
     <>
       {required ? (

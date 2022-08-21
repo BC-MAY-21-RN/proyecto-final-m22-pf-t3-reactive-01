@@ -3,7 +3,6 @@ import {FlatList,View} from 'react-native';
 import ListItemProducts from '../ListItemProducts';
 import ContainerProductsStyles from './ContainerProductsStyles';
 
-
 const ContainerProducts = ({data,  navigation,loaded}) => {
   const renderItem = ({item, index}) => (
     <ListItemProducts

@@ -1,11 +1,19 @@
 import {View, Text, Image} from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import { accountStore } from '../../../utils/account';
+import { useUser } from '../../../utils/user';
 import ImageAccountStyle from './ImageAccountStyle';
 
 
 const ImageAccount = props => {
-  const {userInfo, setModalVisible, setInputSelect, setIconInput} = props;
+
+  const setModalVisible = accountStore(state => state.setModalVisible);
+  const setInputSelect = accountStore(state => state.setInputSelect);
+  const setIconInput = accountStore(state => state.setIconInput);
+  const userInfo = useUser(state => state.user);
+
+
   return (
     
       <View style={ImageAccountStyle.containerImageAndName}>

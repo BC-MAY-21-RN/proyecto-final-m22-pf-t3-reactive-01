@@ -256,6 +256,7 @@ export const CuentaStyle = StyleSheet.create({
     marginTop: -10,
     paddingHorizontal: 36,
     elevation: 3,
+    marginBottom:20
   },
   buttonRestorePassword: {
     backgroundColor: '#ffff',
@@ -269,6 +270,7 @@ export const CuentaStyle = StyleSheet.create({
     marginTop: -10,
     paddingHorizontal: 36,
     elevation: 3,
+    marginBottom:20
   },
 
   textDeleteAccount: {

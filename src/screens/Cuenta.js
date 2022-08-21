@@ -1,40 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Pressable} from 'react-native';
+import {View, ScrollView, Text, Pressable} from 'react-native';
 import Header from '../components/atoms/Header';
 import {CuentaStyle} from './Styles';
-import auth from '@react-native-firebase/auth';
-import {getUserInfo} from '../auth/authFirestore';
 import ModalInput from '../components/atoms/ModalInput/index';
 import ModalWarningDelete from '../components/atoms/ModalWarningDelete';
 import Loader from '../components/atoms/Loader';
 import Input from '../components/atoms/InputCampAccount';
 import ImageAccount from '../components/atoms/ImageAccount';
 import ModalRestorePassword from '../components/atoms/ModalRestorePassword';
+import {useUser} from '../utils/user';
+import {accountStore} from '../utils/account';
 
 const Cuenta = ({navigation}) => {
-  const current = auth().currentUser;
-  const [userInfo, setUserInfo] = useState('');
-  const [action, setAction] = useState('');
-  const [modalVisible, setModalVisible] = useState(false);
-  const [inputSelect, setInputSelect] = useState('');
-  const [iconInput, setIconInput] = useState('sync-outline');
-  const [uID, setUID] = useState();
-  const [deleteAccount, setDeleteAccount] = useState(false);
-  const [restore, setRestore] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (current) {
-      setUID(current.uid);
-      setLoading(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (current) {
-      getUserInfo(current, setUserInfo);
-    }
-  }, [current, modalVisible]);
+  const userInfo = useUser(state => state.user);
+  const setDeleteAccount = accountStore(state => state.setDeleteAccount);
+  const setRestore = accountStore(state => state.setRestore);
+  const loading = accountStore(state => state.loading);
+  const setLoading = accountStore(state => state.setLoading);
   return (
     <>
       <Header name="Account" navigation={navigation} BackBtn />
@@ -45,72 +27,30 @@ const Cuenta = ({navigation}) => {
           {loading && (
             <Loader state={loading} text={'loading..'} stateEdit={setLoading} />
           )}
-          <View style={CuentaStyle.container}>
-            <ImageAccount
-              userInfo={userInfo}
-              setAction={setAction}
-              setModalVisible={setModalVisible}
-              setInputSelect={setInputSelect}
-              setIconInput={setIconInput}
-            />
+          <ScrollView style={CuentaStyle.container}>
+            <ImageAccount />
 
             <View>
               <View style={CuentaStyle.DataContainer}>
                 <Text style={CuentaStyle.titleDataContainer}>Account data</Text>
-                <ModalInput
-                  statusImage={userInfo.image}
-                  action={'Change'}
-                  uID={uID}
-                  input={inputSelect}
-                  state={modalVisible}
-                  stateEdit={setModalVisible}
-                  iconInput={iconInput}
-                  imageProfile={
-                    userInfo.image
-                      ? userInfo.image
-                      : 'https://cdn-icons-png.flaticon.com/512/3237/3237472.png'
-                  }
-                />
+                <ModalInput />
                 <Input
                   userInfo={userInfo.userName}
                   campName={'User'}
                   iconName={'person-outline'}
-                  action={action}
                   required={true}
-                  setModalVisible={setModalVisible}
-                  setInputSelect={setInputSelect}
-                  setIconInput={setIconInput}
-                  setAction={setAction}
-                  setLoading={setLoading}
-                  uID={uID}
                 />
-
                 <Input
                   userInfo={userInfo.email}
                   campName={'Email'}
                   iconName={'mail-outline'}
-                  action={action}
                   required={true}
-                  setModalVisible={setModalVisible}
-                  setInputSelect={setInputSelect}
-                  setIconInput={setIconInput}
-                  setAction={setAction}
-                  setLoading={setLoading}
-                  uID={uID}
                 />
-
                 <Input
                   userInfo={userInfo.userType}
                   campName={'Usertype'}
                   iconName={'finger-print-outline'}
-                  action={action}
                   required={true}
-                  setModalVisible={setModalVisible}
-                  setInputSelect={setInputSelect}
-                  setIconInput={setIconInput}
-                  setAction={setAction}
-                  setLoading={setLoading}
-                  uID={uID}
                 />
               </View>
 
@@ -121,48 +61,36 @@ const Cuenta = ({navigation}) => {
                   campName={'Fullname'}
                   iconName={'reader-outline'}
                   required={false}
-                  setModalVisible={setModalVisible}
-                  setInputSelect={setInputSelect}
-                  setIconInput={setIconInput}
-                  setLoading={setLoading}
-                  setAction={setAction}
-                  action={action}
-                  uID={uID}
                 />
                 <Input
                   userInfo={userInfo.cel}
                   campName={'Cel'}
                   iconName={'call-outline'}
                   required={false}
-                  setModalVisible={setModalVisible}
-                  setInputSelect={setInputSelect}
-                  setIconInput={setIconInput}
-                  setLoading={setLoading}
-                  setAction={setAction}
-                  action={action}
-                  uID={uID}
                 />
                 <Input
-                  userInfo={userInfo.dni}
-                  campName={'Dni'}
-                  iconName={'card-outline'}
+                  userInfo={userInfo.country}
+                  campName={'Country'}
+                  iconName={'map-outline'}
                   required={false}
-                  setModalVisible={setModalVisible}
-                  setInputSelect={setInputSelect}
-                  setIconInput={setIconInput}
-                  setLoading={setLoading}
-                  action={action}
-                  setAction={setAction}
-                  uID={uID}
                 />
+                <Input
+                  userInfo={userInfo.state}
+                  campName={'State'}
+                  iconName={'navigate-outline'}
+                  required={false}
+                />
+                <Input
+                  userInfo={userInfo.address}
+                  campName={'Address'}
+                  iconName={'navigate-circle-outline'}
+                  required={false}
+                />
+               
               </View>
             </View>
             <View style={CuentaStyle.containerSettings}>
-              <ModalWarningDelete
-                state={deleteAccount}
-                stateEdit={setDeleteAccount}
-                uID={uID}
-              />
+              <ModalWarningDelete />
               <Pressable
                 style={CuentaStyle.buttonDeleteAccount}
                 onPress={() => {
@@ -173,11 +101,7 @@ const Cuenta = ({navigation}) => {
                 </Text>
               </Pressable>
 
-              <ModalRestorePassword
-                email={userInfo.email}
-                state={restore}
-                stateEdit={setRestore}
-              />
+              <ModalRestorePassword />
               <Pressable
                 style={CuentaStyle.buttonRestorePassword}
                 onPress={() => {
@@ -188,11 +112,10 @@ const Cuenta = ({navigation}) => {
                 </Text>
               </Pressable>
             </View>
-          </View>
+          </ScrollView>
         </>
       )}
     </>
   );
 };
-
 export default Cuenta;

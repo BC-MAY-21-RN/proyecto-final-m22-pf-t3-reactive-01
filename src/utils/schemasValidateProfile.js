@@ -27,10 +27,22 @@ export const schemaCel = yup
   .max(12, 'The number must not exceed 12 digits.')
   .required();
 
-export const schemaDni = yup
+export const schemaAddress = yup
   .string()
   .min(8, 'The number must be at least 8 digits')
-  .max(8, 'The number must be at least 8 digits')
+  .max(24, 'The number must be at least 8 digits')
+  .required();
+
+  export const schemaCountry = yup
+  .string()
+  .min(5, 'The number must be at least 8 digits')
+  .max(18, 'The number must be at least 8 digits')
+  .required();
+
+  export const schemaState = yup
+  .string()
+  .min(5, 'The number must be at least 8 digits')
+  .max(30, 'The number must be at least 8 digits')
   .required();
 
 export const schemaImage = yup.string().required();
@@ -70,10 +82,14 @@ export const validateSchema = (inputname, inputValue) => {
     return schemaFullname.validate(inputValue);
   } else if (inputname === 'Cel') {
     return schemaCel.validate(inputValue);
-  } else if (inputname === 'Dni') {
-    return schemaDni.validate(inputValue);
+  } else if (inputname === 'Address') {
+    return schemaAddress.validate(inputValue);
   } else if (inputname === 'Image') {
     return schemaImage.validate(inputValue);
+  }else if (inputname === 'Country') {
+    return schemaCountry.validate(inputValue);
+  }else if (inputname === 'State') {
+    return schemaState.validate(inputValue);
   } else {
     console.log('no se pudo validar');
   }
