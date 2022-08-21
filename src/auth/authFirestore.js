@@ -1,7 +1,9 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import {ToastAndroid} from 'react-native';
 import {setOneDocumentSync, getOneDocumenByUid} from './cloudFirestore';
 
+const Toas = MSG => ToastAndroid.show(MSG, ToastAndroid.SHORT);
 export const SignUp = async ({userName, suscribe, email, password}) => {
   try {
     const Auth = await auth().createUserWithEmailAndPassword(email, password);
@@ -104,31 +106,111 @@ export const addInfo = async (info, uID) => {
       .catch(error => {
         console.log(`An error occurred ${error}`);
       });
-    await firestore().collection('Users').doc(uID).update({
-      email: value,
-    });
+    await firestore()
+      .collection('Users')
+      .doc(uID)
+      .update({
+        email: value,
+      })
+      .then(() => {
+        Toas(`The ${inputName.toLowerCase()} has been changed`);
+      })
+      .catch(err => {
+        Toas(err);
+      });
   } else if (inputName === 'Usertype') {
-    await firestore().collection('Users').doc(uID).update({
-      userType: value,
-    });
+    await firestore()
+      .collection('Users')
+      .doc(uID)
+      .update({
+        userType: value,
+      })
+      .then(() => {
+        Toas(`The ${inputName.toLowerCase()} has been changed`);
+      })
+      .catch(err => {
+        Toas(err);
+      });
   } else if (inputName === 'Fullname') {
-    await firestore().collection('Users').doc(uID).update({
-      fullName: value,
-    });
-  } else if (inputName === 'Cel') {
-    await firestore().collection('Users').doc(uID).update({
-      cel: value,
-    });
-  } else if (inputName === 'Dni') {
-    await firestore().collection('Users').doc(uID).update({
-      dni: value,
-    });
+    await firestore()
+      .collection('Users')
+      .doc(uID)
+      .update({
+        fullName: value,
+      })
+      .then(() => {
+        Toas(`The ${inputName.toLowerCase()} has been changed`);
+      })
+      .catch(err => {
+        Toas(err);
+      });
+  } else if (inputName === 'Phone') {
+    await firestore()
+      .collection('Users')
+      .doc(uID)
+      .update({
+        phone: value,
+      })
+      .then(() => {
+        Toas(`The ${inputName.toLowerCase()} has been changed`);
+      })
+      .catch(err => {
+        Toas(err);
+      });
+  } else if (inputName === 'Address') {
+    await firestore()
+      .collection('Users')
+      .doc(uID)
+      .update({
+        address: value,
+      })
+      .then(() => {
+        Toas(`The ${inputName.toLowerCase()} has been changed`);
+      })
+      .catch(err => {
+        Toas(err);
+      });
+  } else if (inputName === 'Country') {
+    await firestore()
+      .collection('Users')
+      .doc(uID)
+      .update({
+        country: value,
+      })
+      .then(() => {
+        Toas(`The ${inputName.toLowerCase()} has been changed`);
+      })
+      .catch(err => {
+        Toas(err);
+      });
+  } else if (inputName === 'State') {
+    await firestore()
+      .collection('Users')
+      .doc(uID)
+      .update({
+        state: value,
+      })
+      .then(() => {
+        Toas(`The ${inputName.toLowerCase()} has been changed`);
+      })
+      .catch(err => {
+        Toas(err);
+      });
   } else if (inputName === 'Image') {
-    await firestore().collection('Users').doc(uID).update({
-      image: value,
-    });
+    await firestore()
+      .collection('Users')
+      .doc(uID)
+      .update({
+        image: value,
+      })
+      .then(() => {
+        Toas(`The ${inputName.toLowerCase()} has been changed`);
+      })
+      .catch(err => {
+        Toas(err);
+      });
   } else {
-    console.log('error input or input value ');
+    Toas('error input or input value ');
   }
 };
 
@@ -138,37 +220,108 @@ export const deleteAccount = async uID => {
     .doc(uID)
     .delete()
     .then(() => {
-      logout();
+      auth()
+        .currentUser.delete()
+        .then(() => {
+          Toas('Delete account');
+          logout();
+        })
+        .catch(err => {
+          Toas(err);
+        });
     })
     .catch(err => {
-      console.log(err);
+      Toas(err);
     });
 };
 export const deleteCamp = async (input, uID) => {
   const inputName = input;
 
   if (inputName === 'Fullname') {
-    await firestore().collection('Users').doc(uID).update({
-      fullName: '',
-    });
-  } else if (inputName === 'Cel') {
-    await firestore().collection('Users').doc(uID).update({
-      cel: '',
-    });
-  } else if (inputName === 'Dni') {
-    await firestore().collection('Users').doc(uID).update({
-      dni: '',
-    });
+    await firestore()
+      .collection('Users')
+      .doc(uID)
+      .update({
+        fullName: '',
+      })
+      .then(() => {
+        Toas(`The ${inputName.toLowerCase()} has been delete`);
+      })
+      .catch(err => {
+        Toas(err);
+      });
+  } else if (inputName === 'Phone') {
+    await firestore()
+      .collection('Users')
+      .doc(uID)
+      .update({
+        phone: '',
+      })
+      .then(() => {
+        Toas(`The ${inputName.toLowerCase()} has been delete`);
+      })
+      .catch(err => {
+        Toas(err);
+      });
+  } else if (inputName === 'Address') {
+    await firestore()
+      .collection('Users')
+      .doc(uID)
+      .update({
+        address: '',
+      })
+      .then(() => {
+        Toas(`The ${inputName.toLowerCase()} has been delete`);
+      })
+      .catch(err => {
+        Toas(err);
+      });
+  } else if (inputName === 'Country') {
+    await firestore()
+      .collection('Users')
+      .doc(uID)
+      .update({
+        country: '',
+      })
+      .then(() => {
+        Toas(`The ${inputName.toLowerCase()} has been delete`);
+      })
+      .catch(err => {
+        Toas(err);
+      });
+  } else if (inputName === 'State') {
+    await firestore()
+      .collection('Users')
+      .doc(uID)
+      .update({
+        state: '',
+      })
+      .then(() => {
+        Toas(`The ${inputName.toLowerCase()} has been delete`);
+      })
+      .catch(err => {
+        Toas(err);
+      });
   } else if (inputName === 'Image') {
-    await firestore().collection('Users').doc(uID).update({
-      image: '',
-    });
+    await firestore()
+      .collection('Users')
+      .doc(uID)
+      .update({
+        image: '',
+      })
+      .then(() => {
+        Toas(`The ${inputName.toLowerCase()} has been delete`);
+      })
+      .catch(err => {
+        Toas(err);
+      });
   } else {
-    console.log('error action of delte camp ');
+    Toas('error action of delte camp ');
   }
 };
 
 export const restorePassword = async email => {
+  Toas(`link sent to ${email}`);
   return await auth().sendPasswordResetEmail(email);
 };
 
@@ -182,10 +335,10 @@ export const getDataBySeller = (productUid, setData) => {
           setData(doc);
         })
         .catch(err => {
-          console.log(err);
+          Toas(err);
         });
     })
     .catch(err => {
-      console.log(err);
+      Toas(err);
     });
 };

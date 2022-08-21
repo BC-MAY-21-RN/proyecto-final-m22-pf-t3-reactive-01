@@ -35,11 +35,10 @@ const MenuItems = ({navigation}) => {
   const user = useUser(state => state.user);
   const storeUser = useUser(state => state.storeUser);
   let {image, userName, userType, uid} = user;
-  let ImageUser =
-    'https://www.freeiconspng.com/thumbs/retail-store-icon/retail-store-icon-6.png';
-  if (image) {
-    ImageUser = image;
-  }
+  let ImageUser = image
+    ? image
+    : 'https://www.freeiconspng.com/thumbs/retail-store-icon/retail-store-icon-6.png';
+
   useEffect(() => {
     const subscriber = subscriberUserId(uid, storeUser);
     return () => subscriber();

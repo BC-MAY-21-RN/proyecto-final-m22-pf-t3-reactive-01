@@ -1,18 +1,22 @@
-import React, {useState} from 'react';
 import {Text, View, Modal, Pressable} from 'react-native';
 import ModalWarningDeleteStyle from './ModalWarningDeleteStyle';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {deleteAccount} from '../../../auth/authFirestore';
 import Loader from '../Loader';
+import {accountStore} from '../../../utils/account';
+import {useUser} from '../../../utils/user';
 
 const ModalWarningDelete = props => {
-  const {state, stateEdit, uID} = props;
-  const [loading, setLoading] = useState(false);
+  const uID = useUser(state => state.user.uid);
+  const state = accountStore(state => state.deleteAccount);
+  const stateEdit = accountStore(state => state.setDeleteAccount);
+  const loading = accountStore(state => state.loading);
+  const setLoading = accountStore(state => state.setLoading);
   return (
     <>
       {loading ? (
         <>
-          <Loader state={loading} text={'loading..'} stateEdit={setLoading}/>
+          <Loader state={loading} text={'loading..'} stateEdit={setLoading} />
         </>
       ) : (
         <Modal
@@ -27,17 +31,19 @@ const ModalWarningDelete = props => {
               <Text style={ModalWarningDeleteStyle.textWarning}>
                 {' '}
                 {'  '}
-                Are you sure <Text style={ModalWarningDeleteStyle.textAd}>delete</Text> your account ?
+                Are you sure{' '}
+                <Text style={ModalWarningDeleteStyle.textAd}>delete</Text> your
+                account ?
               </Text>
               <View style={ModalWarningDeleteStyle.containerPressables}>
                 <Pressable
                   style={ModalWarningDeleteStyle.pressableDeleteAccount}
                   onPress={() => {
-                    setLoading(true)
-                    setTimeout(()=>{ deleteAccount(uID)},600)
-                    
-                    
-                   
+                    setLoading(true);
+                    setTimeout(() => {
+                      deleteAccount(uID);
+                    }, 600);
+                    stateEdit(false);
                   }}>
                   <Text
                     style={ModalWarningDeleteStyle.textPressableDeleteAccount}>
@@ -53,7 +59,6 @@ const ModalWarningDelete = props => {
                   style={ModalWarningDeleteStyle.pressableGoBack}
                   onPress={() => {
                     stateEdit(false);
-                    
                   }}>
                   <Text style={ModalWarningDeleteStyle.textPressableGoBack}>
                     <Icon

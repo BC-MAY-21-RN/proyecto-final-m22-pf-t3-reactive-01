@@ -48,7 +48,6 @@ const ButtonToSeller = props => {
                   navigation.navigate('ProductsSeller', {
                     uid: userInfo.uid,
                   });
-                  console.log('sfdsaddasdsa');
                 }}>
                 <Text style={ButtonToSellerStyle.textInfo}>
                   Informacion del vendedor
@@ -68,7 +67,7 @@ const ButtonToSeller = props => {
                       {userInfo.userName}
                     </Text>
                     <Text style={ButtonToSellerStyle.labelUserType}>
-                      {userInfo.userType}
+                    {userInfo.state} {userInfo.country}
                     </Text>
                   </View>
                 </View>

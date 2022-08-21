@@ -62,7 +62,7 @@ const ProductsSeller = ({route: {params}, navigation}) => {
                     {userInfo.userName}
                   </Text>
                   <Text style={ProductsSellerStyle.labelUserType}>
-                    {userInfo.userType}
+                  {userInfo.state} {userInfo.country}
                   </Text>
                 </View>
               </View>
