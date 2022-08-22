@@ -20,7 +20,7 @@ const ModalWarningDelete = props => {
         </>
       ) : (
         <Modal
-          animationType="slide"
+          animationType="fade"
           transparent={true}
           visible={state}
           onRequestClose={() => {

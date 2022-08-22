@@ -46,7 +46,7 @@ const Loader = props => {
   }, [state]);
 
   return (
-    <Modal visible={state} transparent={true}>
+    <Modal visible={state} transparent={true}  animationType="fade">
       <View
         style={
           colorBack

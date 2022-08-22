@@ -166,6 +166,7 @@ const FooterSubText = ({text, text2, style}) => (
   </View>
 );
 const FooterSticky = ({items}) => {
+  const item = {...items[0]}
   return (
     <View style={CarritoStyle.FooterStickycontainerRow}>
       <View style={CarritoStyle.FooterStickycontainerColumn}>
@@ -177,7 +178,7 @@ const FooterSticky = ({items}) => {
       <CustomButton
         style={CarritoStyle.FooterStickyBtn}
         styleText={CarritoStyle.FooterStickyBtnText}
-        onPress={() => {}}
+        onPress={() => { nav.navigate('Purchase',{item:item,cantidad:item.quantity})}}
         title={'Proceed with the purchase'}
       />
     </View>
