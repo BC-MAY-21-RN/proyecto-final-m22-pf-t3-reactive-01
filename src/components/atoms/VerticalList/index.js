@@ -22,7 +22,7 @@ const VerticalList = ({data, seller, navigation}) => {
   );
   const renderItem2 = ({item, index}) => (
     <SellerItem
-      uid={item.uid}
+      id={item.id}
       uidUser={item.uidUser}
       like={item.like}
       navigation={navigation}

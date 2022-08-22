@@ -9,7 +9,7 @@ const SellerItem = ({
   price,
   condition,
   description,
-  uid,
+  id,
   uidUser,
   like,
   navigation,
@@ -20,13 +20,12 @@ const SellerItem = ({
   const [isModalVisible, setModalVisible] = useState(false);
   const DeleteDocument = async () => {
     try {
-      await deleteDocumentByUid('Products', uid);
+      await deleteDocumentByUid('Products', id);
       setModalVisible(!isModalVisible);
     } catch (error) {
       console.log(error);
     }
   };
-
   return (
     <Pressable
       style={SellerItemStyles.container}
@@ -51,7 +50,7 @@ const SellerItem = ({
           name="edit"
           onPress={() => {
             navigation.navigate('Products', {
-              uid,
+              id,
               uidUser,
               like,
               name,
@@ -61,6 +60,7 @@ const SellerItem = ({
               category,
               stock,
               image,
+              oldImage: image,
             });
           }}
           color="#50B838"
