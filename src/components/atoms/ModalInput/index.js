@@ -91,7 +91,7 @@ const ModalInput = props => {
       ) : (
         <>
           <Modal
-            animationType="slide"
+            animationType="fade"
             transparent={true}
             visible={modalVisible}
             onRequestClose={() => {
@@ -150,7 +150,7 @@ const ModalInput = props => {
 
                 <Text style={ModalInputStyle.text}>
                   <Icon name={iconAction} size={15} color={'#3140C2'} />{' '}
-                  {action} your {input}
+                  {`${action} your ${input}`}
                 </Text>
 
                 {usertypeSelect ? (
@@ -218,11 +218,14 @@ const ModalInput = props => {
                           <Pressable
                             style={ModalInputStyle.pressableImagePicker}
                             onPress={() => {
-                              requestCameraPermission(),
-                                launchCamera(optionImage, response => {
-                                  setImage(response.assets[0].uri);
-                                  setInputValue(response.assets[0].uri);
-                                });
+                              requestCameraPermission()
+                                .then(() => {
+                                  launchCamera(optionImage, response => {
+                                    setImage(response.assets[0].uri);
+                                    setInputValue(response.assets[0].uri);
+                                  });
+                                })
+                                .catch(err => console.log(err));
                             }}>
                             <Icon
                               name={'camera-outline'}

@@ -92,17 +92,17 @@ const ProductDetails = ({route: {params}, navigation}) => {
         <Text style={Styles.Name}>{name}</Text>
         <Separator />
         <Text style={[Styles.Description, Styles.DescriptionTitle]}>
-          Acerca de este artículo
+        About this article
         </Text>
         <Text style={Styles.Description}>{description}</Text>
         <Separator />
         <View style={Styles.StockContainer}>
           <View style={Styles.StockItem}>
-            <Text style={Styles.StockText}>Disponibles: </Text>
+            <Text style={Styles.StockText}>Available: </Text>
             <Text style={Styles.StockText}>{stock}</Text>
           </View>
           <View style={Styles.StockItem}>
-            <Text style={Styles.StockText}>Cantidad</Text>
+            <Text style={Styles.StockText}>Quantity</Text>
             <CounterInput
               onDecrease={onDecrease}
               onIncrease={onIncrease}
@@ -122,20 +122,20 @@ const ProductDetails = ({route: {params}, navigation}) => {
           style={Styles.CartBtn}
           styleText={Styles.CartBtnText}
           onPress={Purchase}
-          title={'Comprar ahora'}
+          title={'Buy now'}
         />
         <CustomButton
           style={[Styles.CartBtn, Styles.AddToCartBtn]}
           styleText={[Styles.CartBtnText, Styles.AddToCartBtnText]}
           onPress={BuyItem}
-          title={'Agregar al carrito'}
+          title={'Add to cart'}
         />
         <Separator />
         <Text style={[Styles.Description, Styles.DescriptionTitle]}>
-          Preguntas y Respuestas
+        Questions and Answers
         </Text>
         <Input
-          placeholder="Escribe Tu Pregunta"
+          placeholder="Write Your Question"
           multiline
           onChangeText={text => setextComment(text)}
           styleValue={Styles.InputAskValue}
@@ -149,7 +149,7 @@ const ProductDetails = ({route: {params}, navigation}) => {
               addCommentSync(commets.uid, user.uid, textComment);
             }
           }}
-          title="Preguntar"
+          title="Ask"
         />
         <View style={Styles.CommentsMainContainer}>
           {commets &&

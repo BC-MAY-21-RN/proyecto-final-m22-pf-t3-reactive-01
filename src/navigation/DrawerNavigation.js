@@ -35,18 +35,23 @@ const MenuItems = ({navigation}) => {
   const user = useUser(state => state.user);
   const storeUser = useUser(state => state.storeUser);
   let {image, userName, userType, uid} = user;
-  let ImageUser = image
-    ? image
-    : 'https://www.freeiconspng.com/thumbs/retail-store-icon/retail-store-icon-6.png';
 
   useEffect(() => {
     const subscriber = subscriberUserId(uid, storeUser);
+
     return () => subscriber();
   }, [uid, storeUser]);
   return (
     <DrawerContentScrollView style={MenuStyles.container}>
       <View style={MenuStyles.header}>
-        <Image style={MenuStyles.Image} source={{uri: ImageUser}} />
+        <Image
+          style={MenuStyles.Image}
+          source={{
+            uri: image
+              ? image
+              : 'https://cdn-icons-png.flaticon.com/512/3237/3237472.png',
+          }}
+        />
         <View style={MenuStyles.columna}>
           <Text style={MenuStyles.title}>Bright Shop</Text>
           <Text style={MenuStyles.subtitle}>
